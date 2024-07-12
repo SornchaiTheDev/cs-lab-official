@@ -41,12 +41,14 @@ function QuotesSection() {
   }, []);
 
   return (
-    <div className="flex-1 relative">
+    <div className="flex-1 max-h-[300px] md:max-h-[450px] lg:max-h-full relative">
       <div className="absolute top-0 bottom-0 left-0 right-0 backdrop-blur-sm bg-black/40 z-10">
         {!isLoading && (
           <div className="flex flex-col justify-center items-center h-full gap-4">
             <div className="px-10">
-              <h1 className="text-5xl text-white tracking-wide leading-tight">&ldquo; {quote} &rdquo;</h1>
+              <h1 className="text-2xl lg:text-5xl text-white tracking-wide leading-tight">
+                &ldquo; {quote} &rdquo;
+              </h1>
               <p className="mt-4 text-lg text-white self-start">- {author}</p>
             </div>
           </div>
