@@ -24,7 +24,7 @@ function QuotesSection() {
   const [isLoading, setIsLoading] = useState(true);
 
   const isStateEmpty = quote === "" || author === "";
-  const isNoQuote = isLoading && isStateEmpty;
+  const isNoQuote = isLoading || isStateEmpty;
 
   useEffect(() => {
     const getQuote = async () => {
