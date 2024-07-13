@@ -20,7 +20,7 @@ function LoginPage() {
 
           <UsernameAndPassword />
 
-          <div className="lg:absolute lg:bottom-4 mt-4 lg:mt-0 flex flex-col items-center gap-2 text-sm">
+          <div className="lg:absolute lg:bottom-4 mt-8 lg:mt-0 flex flex-col items-center gap-2 text-sm">
             <ul className="flex gap-4 text-sm text-grass-10">
               <Link href="https://google.co.th" className="hover:text-grass-8">
                 Term of use
