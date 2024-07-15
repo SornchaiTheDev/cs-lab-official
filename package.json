@@ -10,8 +10,13 @@
   },
   "dependencies": {
     "@mantine/hooks": "^7.11.2",
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.5",
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/mdx": "^2.0.13",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -22,6 +27,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-lottie": "^1.2.4",
+    "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "windy-radix-palette": "2.0.0-beta.7"

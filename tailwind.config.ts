@@ -40,7 +40,11 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), colors.plugin],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    colors.plugin,
+  ],
 } satisfies Config;
 
 export default config;

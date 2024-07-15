@@ -12,6 +12,51 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAtom, useSetAtom } from "jotai";
 import { sidebarAtom, toggleSidebarAtom } from "~/store/sidebar";
 import { cn } from "~/lib/utils";
+import Link from "next/link";
+
+const homePage = (
+  <>
+    <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
+      My Courses
+    </h6>
+    <div className="flex flex-col gap-4 mt-2 pr-2">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="flex gap-2 items-center">
+          <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
+            🖥️
+          </div>
+          <h3 className="truncate flex-1 text-sm">
+            Fundamental Computing Concept
+          </h3>
+        </div>
+      ))}
+    </div>
+  </>
+);
+
+const coursePage = (
+  <>
+    <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
+      My Courses
+    </h6>
+    <div className="flex flex-col gap-4 mt-2 pr-2">
+      <div className="flex gap-2 items-center">
+        <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
+          🖥️
+        </div>
+        <h3 className="truncate flex-1 text-sm">
+          Fundamental Computing Concept
+        </h3>
+      </div>
+      <h6 className="text-sm text-gray-11 font-light">Lessons</h6>
+      {Array.from({ length: 8 }).map((_, i) => (
+        <Link key={i} href="/course/1/lesson/1" className="text-gray-12 text-sm hover:text-gray-11">
+          Lesson 1.{i + 1} For Loops
+        </Link>
+      ))}
+    </div>
+  </>
+);
 
 function Sidebar() {
   const [{ isCollapse, width, isFirstMount }] = useAtom(sidebarAtom);
@@ -49,21 +94,7 @@ function Sidebar() {
             transition={{ delay: 0.25 }}
             className="ml-4 mr-2 flex-1 overflow-y-auto"
           >
-            <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
-              My Courses
-            </h6>
-            <div className="flex flex-col gap-4 mt-2 pr-2">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="flex gap-2 items-center">
-                  <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
-                    🖥️
-                  </div>
-                  <h3 className="truncate flex-1 text-sm">
-                    Fundamental Computing Concept
-                  </h3>
-                </div>
-              ))}
-            </div>
+            {coursePage}
           </motion.section>
         )}
         <section
