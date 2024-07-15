@@ -30,3 +30,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: theme(colors.gray.7);
 }
+
+
+.noise {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)) , url(../assets/noise.svg);
+}
