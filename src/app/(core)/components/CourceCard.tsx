@@ -3,7 +3,7 @@ import Link from "next/link";
 const CourseCard = () => {
   return (
     <Link
-      href="/"
+      href="/course/1"
       className="rounded-xl bg-white drop-shadow-md bg-gradient-to-br from-grass-6 to-grass-10 h-[200px] col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 flex flex-col justify-end group"
     >
       <div className="flex items-center bg-white rounded-b-xl p-4 gap-4 group-hover:bg-grass-2">
