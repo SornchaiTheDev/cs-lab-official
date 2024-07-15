@@ -12,15 +12,16 @@ function LoginPage() {
           <h3 className="text-2xl lg:text-3xl font-semibold">Sign In</h3>
           <GoogleSignIn />
 
-          <div className="flex gap-2 w-2/3 items-center mt-4">
-            <div className="flex-1 border-t-2 border-gray-4"></div>
+          <div className="flex gap-2 w-1/2 items-center mt-4">
+            <div className="flex-1 border-t border-gray-6"></div>
             <p>or</p>
-            <div className="flex-1 border-t-2 border-gray-4"></div>
+            <div className="flex-1 border-t border-gray-6"></div>
           </div>
 
           <UsernameAndPassword />
 
           <div className="lg:absolute lg:bottom-4 mt-8 lg:mt-0 flex flex-col items-center gap-2 text-sm">
+            {/*
             <ul className="flex gap-4 text-sm text-grass-10">
               <Link href="https://google.co.th" className="hover:text-grass-8">
                 Term of use
@@ -29,6 +30,7 @@ function LoginPage() {
                 Privacy Policy
               </Link>
             </ul>
+            */}
             <p className="text-xs lg:text-sm">
               Made with ☕ for Kasetsart University{" "}
               <a

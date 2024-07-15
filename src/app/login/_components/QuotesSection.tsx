@@ -1,7 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import BG1 from "~/assets/bg-1.jpg";
+import BG1 from "~/assets/bg1.jpeg";
+import BG2 from "~/assets/bg2.jpeg";
+import BG3 from "~/assets/bg3.jpeg";
+import BG4 from "~/assets/bg4.jpeg";
+import BG5 from "~/assets/bg5.jpeg";
+import BG6 from "~/assets/bg6.jpeg";
+import BG7 from "~/assets/bg7.jpeg";
+import BG8 from "~/assets/bg8.jpeg";
 import axios from "axios";
 
 interface QuoteResponse {
@@ -22,6 +29,8 @@ function QuotesSection() {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [imageIdx, setImageIdx] = useState<number | null>(null);
+  const [images, _] = useState([BG1, BG2, BG3, BG4, BG5, BG6, BG7, BG8]);
 
   const isStateEmpty = quote === "" || author === "";
   const isNoQuote = isLoading || isStateEmpty;
@@ -43,13 +52,18 @@ function QuotesSection() {
     getQuote();
   }, []);
 
+  useEffect(() => {
+    const randIdx = Math.max(Math.floor(Math.random() * images.length) - 1, 0);
+    setImageIdx(randIdx);
+  }, [images]);
+
   return (
     <div className="flex-1 max-h-[300px] md:max-h-[450px] lg:max-h-full relative">
       <div className="absolute top-0 bottom-0 left-0 right-0 backdrop-blur-sm bg-black/40 z-10">
         {!isNoQuote && (
           <div className="flex flex-col justify-center items-center h-full gap-4">
             <div className="px-10">
-              <h1 className="text-2xl lg:text-5xl text-white tracking-wide leading-tight">
+              <h1 className="text-2xl lg:text-4xl font-medium text-white lg:leading-[3rem]">
                 &ldquo; {quote} &rdquo;
               </h1>
               <p className="mt-4 text-lg text-white self-start">- {author}</p>
@@ -57,12 +71,14 @@ function QuotesSection() {
           </div>
         )}
       </div>
-      <Image
-        className="object-right object-cover"
-        src={BG1}
-        fill
-        alt="Background Image 1"
-      />
+      {imageIdx !== null && (
+        <Image
+          className="object-right object-cover"
+          src={images[imageIdx]}
+          fill
+          alt="Background Image 1"
+        />
+      )}
     </div>
   );
 }

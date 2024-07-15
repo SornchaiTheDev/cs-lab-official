@@ -7,14 +7,12 @@ import { Input } from "~/components/ui/input";
 function UsernameAndPassword() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [step, setStep] = useState<"INIT" | "ENTERED_USERNAME">("INIT");
+
   const [isLoading, setIsLoading] = useState(false);
 
+  const isEmpty = username === "" || password === "";
+
   const handleSignIn = async () => {
-    if (step === "INIT") {
-      setStep("ENTERED_USERNAME");
-      return;
-    }
     const payload = {
       username,
       password,
@@ -37,19 +35,17 @@ function UsernameAndPassword() {
         placeholder="Username"
         className="h-12"
       />
-      {step === "ENTERED_USERNAME" && (
-        <Input
-          name="password"
-          placeholder="Password"
-          className="h-12"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      )}
+      <Input
+        name="password"
+        placeholder="Password"
+        className="h-12"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <Button
-        disabled={isLoading}
+        disabled={isLoading || isEmpty}
         onClick={handleSignIn}
-        className="bg-grass-10"
+        className="bg-grass-10 hover:bg-grass-11"
       >
         {isLoading ? "Signing In..." : "Sign In"}
       </Button>
