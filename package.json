@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/hooks": "^7.11.2",
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-slot": "^1.1.0",
     "axios": "^1.7.2",
@@ -20,6 +21,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-lottie": "^1.2.4",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "windy-radix-palette": "2.0.0-beta.7"
@@ -28,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-lottie": "^1.2.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",

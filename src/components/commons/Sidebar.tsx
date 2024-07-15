@@ -22,7 +22,7 @@ function Sidebar() {
       <motion.nav
         initial={{ width }}
         animate={{ width }}
-        className="bg-gray-2 flex flex-col justify-between fixed top-0 bottom-0"
+        className="bg-gray-2 flex flex-col justify-between fixed top-0 bottom-0 z-50"
       >
         <div
           className={cn(
