@@ -50,7 +50,11 @@ const coursePage = (
       </div>
       <h6 className="text-sm text-gray-11 font-light">Lessons</h6>
       {Array.from({ length: 8 }).map((_, i) => (
-        <Link key={i} href="/course/1/lesson/1" className="text-gray-12 text-sm hover:text-gray-11">
+        <Link
+          key={i}
+          href="/course/1/lesson/1"
+          className="text-gray-12 text-sm hover:text-gray-11"
+        >
           Lesson 1.{i + 1} For Loops
         </Link>
       ))}
@@ -69,9 +73,10 @@ function Sidebar() {
         animate={{ width }}
         className="bg-gray-2 flex flex-col justify-between fixed top-0 bottom-0 z-50"
       >
-        <div
+        <Link
+          href="/"
           className={cn(
-            "px-4 mt-2 py-2 flex gap-2 items-center",
+            "px-4 mt-2 py-2 flex gap-2 items-center w-fit",
             isCollapse && "justify-center",
           )}
         >
@@ -87,7 +92,7 @@ function Sidebar() {
               CS Lab
             </motion.h4>
           )}
-        </div>
+        </Link>
         {!isCollapse && (
           <motion.section
             initial={{ opacity: isFirstMount ? 1 : 0 }}
