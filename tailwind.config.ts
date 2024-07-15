@@ -21,6 +21,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        anuphan: ["var(--font-anuphan)"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
