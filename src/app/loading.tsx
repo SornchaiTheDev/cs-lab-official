@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "react-lottie";
-import loadingAniamtionData from "~/assets/lottie/loading.json";
+import loadingAniamtionData from "~/assets/lotties/loading.json";
 
 function LoadingComponent() {
   const options = {

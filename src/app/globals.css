@@ -33,5 +33,5 @@
 
 
 .noise {
-  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)) , url(../assets/noise.svg);
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)) , url(../assets/images/noise.svg);
 }

@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import BG1 from "~/assets/bg1.jpeg";
-import BG2 from "~/assets/bg2.jpeg";
-import BG3 from "~/assets/bg3.jpeg";
-import BG4 from "~/assets/bg4.jpeg";
-import BG5 from "~/assets/bg5.jpeg";
-import BG6 from "~/assets/bg6.jpeg";
-import BG7 from "~/assets/bg7.jpeg";
-import BG8 from "~/assets/bg8.jpeg";
+import BG1 from "~/assets/quotes_bg/bg1.jpeg";
+import BG2 from "~/assets/quotes_bg/bg2.jpeg";
+import BG3 from "~/assets/quotes_bg/bg3.jpeg";
+import BG4 from "~/assets/quotes_bg/bg4.jpeg";
+import BG5 from "~/assets/quotes_bg/bg5.jpeg";
+import BG6 from "~/assets/quotes_bg/bg6.jpeg";
+import BG7 from "~/assets/quotes_bg/bg7.jpeg";
+import BG8 from "~/assets/quotes_bg/bg8.jpeg";
 import axios from "axios";
 
 interface QuoteResponse {
@@ -39,7 +39,7 @@ function QuotesSection() {
     const getQuote = async () => {
       try {
         const res = await axios.get<QuoteResponse>(
-          "https://api.quotable.io/random?tags=technology&maxLength=200",
+          "https://api.quotable.io/random?tags=technology&maxLength=120",
         );
         setQuote(res.data.content);
         setAuthor(res.data.author);

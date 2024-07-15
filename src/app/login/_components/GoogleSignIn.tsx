@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import GoogleIcon from "~/assets/google-logo.png";
+import GoogleIcon from "~/assets/images/google-logo.png";
 
 function GoogleSignIn() {
   return (
