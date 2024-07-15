@@ -71,20 +71,21 @@ function Sidebar() {
       >
         <div
           className={cn(
-            "px-4 mt-4 py-2 flex gap-2 items-center",
+            "px-4 mt-2 py-2 flex gap-2 items-center",
             isCollapse && "justify-center",
           )}
         >
-          <Atom />
+          <Atom size="2rem" />
 
           {!isCollapse && (
-            <motion.h6
+            <motion.h4
+              className="text-xl"
               initial={{ opacity: isFirstMount ? 1 : 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25 }}
             >
               CS Lab
-            </motion.h6>
+            </motion.h4>
           )}
         </div>
         {!isCollapse && (
