@@ -10,13 +10,13 @@ interface Props {
 }
 function LearnStatusCard({ subTitle, title, status }: Props) {
   const successCard = `border-grass-11 hover:border-grass-9 shadow-grass-11 hover:bg-grass-2 hover:shadow-grass-9`;
-  const inProgressCard = `border-amber-11 hover:border-amber-9 shadow-amber-11 hover:bg-amber-2 hover:shadow-amber-9`;
+  const inProgressCard = `border-amber-11 hover:border-amber-11/50 shadow-amber-11 hover:bg-amber-2 hover:shadow-amber-11`;
   const failedCard = `border-tomato-11 hover:border-tomato-9 shadow-tomato-11 hover:bg-tomato-2 hover:shadow-tomato-9`;
   const noneCard = `border-gray-11 hover:border-gray-9 shadow-gray-11 hover:bg-gray-2 hover:shadow-gray-9`;
 
   const successText = "text-grass-11 group-hover:text-grass-9";
   const failedText = "text-tomato-11 group-hover:text-tomato-9";
-  const inProgressText = "text-amber-11 group-hover:text-amber-9";
+  const inProgressText = "text-amber-11 group-hover:text-amber-11/50";
   const noneText = "text-gray-11 group-hover:text-gray-9";
   return (
     <Link

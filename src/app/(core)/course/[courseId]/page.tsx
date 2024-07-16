@@ -6,7 +6,10 @@ import { MoveLeft } from "lucide-react";
 function MainCoursePage() {
   return (
     <div className="px-4 lg:px-12 py-4">
-      <Link href="../../" className="flex items-center gap-2 text-gray-12 hover:text-gray-11 my-4 group">
+      <Link
+        href="../../"
+        className="flex items-center gap-2 text-gray-12 hover:text-gray-11 my-4 group"
+      >
         <MoveLeft className="group-hover:-translate-x-2 transition-all" />
         <h5 className="text-sm">My Courses</h5>
       </Link>
@@ -29,7 +32,11 @@ function MainCoursePage() {
             <LearnStatusCard
               title="For Loops"
               subTitle={`Lesson 1.${i + 1}`}
-              status="SUCCESS"
+              status={
+                ["NONE", "SUCCESS", "FAILED", "IN_PROGRESS"][
+                  Math.floor(Math.random() * 4)
+                ]
+              }
               key={i}
             />
           ))}
@@ -40,7 +47,7 @@ function MainCoursePage() {
             <LearnStatusCard
               title="For Loops"
               subTitle={`Lab 1.${i + 1}`}
-              status="SUCCESS"
+              status="NONE"
               key={i}
             />
           ))}

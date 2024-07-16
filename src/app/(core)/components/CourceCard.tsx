@@ -6,8 +6,8 @@ const CourseCard = () => {
       href="/course/1"
       className="rounded-xl bg-white drop-shadow-md h-[200px] col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 flex flex-col justify-end group bg-gradient-to-br from-grass-6 to-grass-10 noise"
     >
-      <div className="flex items-center bg-white rounded-b-xl p-4 gap-4 group-hover:bg-grass-2">
-        <div className="w-14 h-14 bg-sand-3 rounded-lg content-center text-center text-2xl group-hover:bg-grass-3">
+      <div className="flex items-center bg-white rounded-b-xl p-4 gap-4">
+        <div className="w-14 h-14 bg-sand-3 rounded-lg content-center text-center text-2xl">
           🖥️
         </div>
         <div className="space-y-0.5 flex-1 overflow-hidden flex flex-col">
