@@ -71,7 +71,7 @@ function Sidebar() {
       <motion.nav
         initial={{ width }}
         animate={{ width }}
-        className="bg-gray-2 flex flex-col justify-between fixed top-0 bottom-0 z-50"
+        className="bg-gray-2 border-r border-gray-6 flex flex-col justify-between fixed top-0 bottom-0 z-50"
       >
         <Link
           href="/"
