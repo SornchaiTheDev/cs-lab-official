@@ -39,7 +39,7 @@ function CoreLayout({ children }: Props) {
     <MantineProvider>
       <div className="h-screen relative">
         {!isMobile && <Sidebar />}
-        <div style={{ marginLeft: width }} className="transition-all">
+        <div style={{ marginLeft: width }} className="transition-all h-full">
           {children}
         </div>
       </div>
