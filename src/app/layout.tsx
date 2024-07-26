@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Anuphan } from "next/font/google";
 import "./globals.css";
+import { ColorSchemeScript } from "@mantine/core";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={`${poppins.className} ${anuphan.variable}`}>
         {children}
       </body>

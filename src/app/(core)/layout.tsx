@@ -6,6 +6,8 @@ import Sidebar from "~/components/commons/Sidebar";
 import { appAtom } from "~/store/app";
 import { sidebarAtom } from "~/store/sidebar";
 import Loading from "../loading";
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
 
 interface Props {
   children: ReactNode;
@@ -34,12 +36,14 @@ function CoreLayout({ children }: Props) {
   if (app.isLoading) return <Loading />;
 
   return (
-    <div className="h-screen relative">
-      {!isMobile && <Sidebar />}
-      <div style={{ marginLeft: width }} className="transition-all">
-        {children}
+    <MantineProvider>
+      <div className="h-screen relative">
+        {!isMobile && <Sidebar />}
+        <div style={{ marginLeft: width }} className="transition-all">
+          {children}
+        </div>
       </div>
-    </div>
+    </MantineProvider>
   );
 }
 
