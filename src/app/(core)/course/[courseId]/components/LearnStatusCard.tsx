@@ -3,10 +3,12 @@ import Link from "next/link";
 import React from "react";
 import { cn } from "~/lib/utils";
 
+export type LearnStatus = "SUCCESS" | "FAILED" | "IN_PROGRESS" | "NONE";
+
 interface Props {
   subTitle: string;
   title: string;
-  status: "SUCCESS" | "FAILED" | "IN_PROGRESS" | "NONE";
+  status: LearnStatus;
 }
 function LearnStatusCard({ subTitle, title, status }: Props) {
   const successCard = `border-grass-11 hover:border-grass-9 shadow-grass-11 hover:bg-grass-2 hover:shadow-grass-9`;

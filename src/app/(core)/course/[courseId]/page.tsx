@@ -1,5 +1,5 @@
 import React from "react";
-import LearnStatusCard from "./components/LearnStatusCard";
+import LearnStatusCard, { LearnStatus } from "./components/LearnStatusCard";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 
@@ -35,7 +35,7 @@ function MainCoursePage() {
               status={
                 ["NONE", "SUCCESS", "FAILED", "IN_PROGRESS"][
                   Math.floor(Math.random() * 4)
-                ]
+                ] as LearnStatus
               }
               key={i}
             />
