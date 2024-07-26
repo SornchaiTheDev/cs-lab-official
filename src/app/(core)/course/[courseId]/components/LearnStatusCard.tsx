@@ -14,13 +14,13 @@ function LearnStatusCard({ subTitle, title, status }: Props) {
   const failedCard = `border-tomato-11 hover:border-tomato-9 shadow-tomato-11 hover:bg-tomato-2 hover:shadow-tomato-9`;
   const noneCard = `border-gray-11 hover:border-gray-9 shadow-gray-11 hover:bg-gray-2 hover:shadow-gray-9`;
 
-  const successText = "text-grass-11 group-hover:text-grass-9";
-  const failedText = "text-tomato-11 group-hover:text-tomato-9";
+  const successText = "text-grass-11 group-hover:text-grass-11/50";
+  const failedText = "text-tomato-11 group-hover:text-tomato-11/50";
   const inProgressText = "text-amber-11 group-hover:text-amber-11/50";
-  const noneText = "text-gray-11 group-hover:text-gray-9";
+  const noneText = "text-gray-11 group-hover:text-gray-11/50";
   return (
     <Link
-      href="/"
+      href="/course/1/lesson/1"
       className={cn(
         "col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 border-2 p-4 rounded-lg h-[160px] flex flex-col justify-end shadow-[0_8px_0_0]  group hover:shadow-[0_4px_0_0]  transition-all",
         status === "SUCCESS" && successCard,
