@@ -11,6 +11,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 /* Track */
@@ -34,4 +35,8 @@
 
 .noise {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)) , url(../assets/images/noise.svg);
+}
+
+.cm-theme-light {
+    height : 100%;
 }

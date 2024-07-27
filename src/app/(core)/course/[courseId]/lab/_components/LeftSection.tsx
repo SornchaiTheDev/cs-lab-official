@@ -35,7 +35,10 @@ function LeftSection({ description }: Props) {
               </TabsTrigger>
             </TabsList>
           </div>
-          <TabsContent value="desc" className="px-4 py-2 overflow-y-auto">
+          <TabsContent
+            value="desc"
+            className="px-4 py-2 overflow-y-auto w-full"
+          >
             <h3 className="text-xl font-semibold">
               Find a, b in which a*b=n and (a+b) is the lowest
             </h3>
@@ -68,25 +71,3 @@ function LeftSection({ description }: Props) {
 }
 
 export default LeftSection;
-
-/*
-      <Tabs
-        variant="default"
-        defaultValue="description"
-        className="bg-grass-10 h-full"
-      >
-          <Tabs.Panel value="description" className="p-4">
-            <h3 className="text-xl font-semibold">
-              Find a, b in which a*b=n and (a+b) is the lowest
-            </h3>
-            <div className="flex items-center gap-2 text-grass-9 w-fit rounded-full mt-4">
-              <CircleCheck size="1.5rem" />
-              <h5 className="text-sm font-semibold">Passed</h5>
-            </div>
-
-            <div className="prose prose-code:before:content-none prose-code:after:content-none font-anuphan">
-              <MDXRemote {...description} />
-            </div>
-          </Tabs.Panel>
-	  </Tabs>
-	    */

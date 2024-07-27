@@ -1,25 +1,13 @@
 "use client";
 
-import {
-  ALargeSmall,
-  CirclePlay,
-  CloudUpload,
-  Copy,
-  RotateCcw,
-  SaveIcon,
-} from "lucide-react";
-import React from "react";
+import { CirclePlay } from "lucide-react";
 import { Button } from "~/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
+import CodeMirror from "@uiw/react-codemirror";
+import { python } from "@codemirror/lang-python";
+import CodeHeader from "./CodeHeader";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
 function RightSection() {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
@@ -27,47 +15,15 @@ function RightSection() {
   });
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col min-w-[300px]">
       <div
         ref={containerRef}
-        className="bg-white border rounded-lg overflow-hidden"
         style={{ minHeight: 200, height: size }}
+        className="bg-white border rounded-lg overflow-hidden flex flex-col"
       >
-        <div className="p-4 bg-white border-b border-gray-6 flex justify-between items-center">
-          <div className="flex gap-4 items-center">
-            <Select>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Python3" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="python3">Python3</SelectItem>
-                <SelectItem value="go">Go</SelectItem>
-                <SelectItem value="c">C</SelectItem>
-                <SelectItem value="c++">C++</SelectItem>
-              </SelectContent>
-            </Select>
-            <div className="flex items-center text-gray-9 space-x-2">
-              <SaveIcon size="1rem" />
-              <h6 className="text-xs">Saved to local</h6>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div>
-              <Button variant="ghost" size="icon">
-                <Copy size="1rem" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <ALargeSmall size="1rem" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <RotateCcw size="1rem" />
-              </Button>
-            </div>
-            <Button className="space-x-2">
-              <CloudUpload size="1rem" />
-              <h6>Submit</h6>
-            </Button>
-          </div>
+        <CodeHeader />
+        <div className="h-full overflow-auto">
+          <CodeMirror height="100%" extensions={[python()]} />
         </div>
       </div>
       <button
@@ -82,30 +38,26 @@ function RightSection() {
           )}
         ></div>
       </button>
-      <div className="flex-1 bg-white p-4 border rounded-lg">
-        <div className="flex items-center gap-2">
-          <h4 className="text-xl font-medium">Playground</h4>
+      <div className="bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden">
+        <div className="flex items-center gap-2 p-2">
+          <h4 className="font-medium">Playground</h4>
           <Button className="space-x-2">
             <CirclePlay size="1rem" />
             <h6>Run</h6>
           </Button>
         </div>
 
-        <Tabs
-          defaultValue="input"
-          className="mt-2 flex flex-col justify-start items-start"
-        >
-          <TabsList>
-            <TabsTrigger value="input" className="flex gap-2 items-center">
-              Input
-            </TabsTrigger>
+        <Tabs defaultValue="input" className="min-h-0 flex-1 flex flex-col">
+          <TabsList className="self-start">
+            <TabsTrigger value="input">Input</TabsTrigger>
             <TabsTrigger value="output">Output</TabsTrigger>
           </TabsList>
-          <TabsContent
-            value="desc"
-            className="px-4 py-2 overflow-y-auto"
-          ></TabsContent>
-          <TabsContent value="subm">Change your password here.</TabsContent>
+          <TabsContent value="input" className="flex-1 overflow-auto">
+            <CodeMirror height="100%" />
+          </TabsContent>
+          <TabsContent value="output" className="flex-1 overflow-auto">
+            <CodeMirror height="100%" />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
@@ -113,3 +65,22 @@ function RightSection() {
 }
 
 export default RightSection;
+
+/**
+ *
+        <Tabs defaultValue="input" className="flex-1 flex flex-col min-h-0">
+          <TabsList className="self-start w-full bg-white">
+            <TabsTrigger
+              value="input"
+              className="data-[state=active]:bg-black data-[state=active]:text-gray-950"
+            >
+              Input
+            </TabsTrigger>
+            <TabsTrigger value="output">Output</TabsTrigger>
+          </TabsList>
+          <TabsContent value="output">Change your password here.</TabsContent>
+          <TabsContent value="input" className="flex-1 overflow-y-auto">
+            <CodeMirror height="100%" />
+          </TabsContent>
+        </Tabs>
+ */
