@@ -19,7 +19,7 @@ async function LabPage() {
       <div className="fixed inset-0 h-screen flex flex-col justify-center items-center gap-12">
         <LottieComp animationData={floating} width={300} height={300} />
         <h2 className="text-center text-sm">
-          Sorry but this page doesn't support on mobile devices.
+          Sorry but this page doesn&apos;t support on mobile devices.
         </h2>
       </div>
     );
