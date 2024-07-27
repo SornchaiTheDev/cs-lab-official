@@ -8,9 +8,6 @@ import LottieComp from "~/components/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
 
 async function LabPage() {
-  const lab1 = await fs.readFile(`${process.cwd()}/__mocks__/lab1.mdx`, "utf8");
-
-  const mdxSource = await serialize(lab1);
 
   const userAgent = headers().get("User-Agent");
 
@@ -24,6 +21,11 @@ async function LabPage() {
       </div>
     );
   }
+
+  const lab1 = await fs.readFile(`${process.cwd()}/__mocks__/lab1.mdx`, "utf8");
+
+  const mdxSource = await serialize(lab1);
+
 
   return (
     <div className="p-4 h-full flex bg-gray-2">
