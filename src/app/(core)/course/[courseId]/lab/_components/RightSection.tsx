@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ALargeSmall,
   CirclePlay,
@@ -16,11 +18,21 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import useDrag from "../hooks/useDrag";
+import { cn } from "~/lib/utils";
 
 function RightSection() {
+  const { isDrag, size, containerRef, buttonRef, events } = useDrag({
+    direction: "vertical",
+  });
+
   return (
     <div className="flex-1 flex flex-col">
-      <div className="h-[500px] bg-white border rounded-lg overflow-hidden">
+      <div
+        ref={containerRef}
+        className="bg-white border rounded-lg overflow-hidden"
+        style={{ minHeight: 200, height: size }}
+      >
         <div className="p-4 bg-white border-b border-gray-6 flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <Select>
@@ -58,9 +70,18 @@ function RightSection() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center my-2">
-        <button className="w-12 h-2 bg-gray-6 rounded-full hover:w-14 transition-all cursor-ns-resize"></button>
-      </div>
+      <button
+        ref={buttonRef}
+        className="flex justify-center my-2 w-full cursor-ns-resize"
+        {...events}
+      >
+        <div
+          className={cn(
+            "w-12 h-2 bg-gray-6 rounded-full hover:w-14 transition-all",
+            isDrag && "w-16",
+          )}
+        ></div>
+      </button>
       <div className="flex-1 bg-white p-4 border rounded-lg">
         <div className="flex items-center gap-2">
           <h4 className="text-xl font-medium">Playground</h4>

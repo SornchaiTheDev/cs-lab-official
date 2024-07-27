@@ -28,9 +28,6 @@ async function LabPage() {
   return (
     <div className="p-4 h-full flex bg-gray-2">
       <LeftSection description={mdxSource} />
-      <div className="flex items-center h-full mx-2">
-        <button className="w-2 h-12 bg-gray-6 rounded-full hover:h-14 transition-all cursor-ew-resize"></button>
-      </div>
       <RightSection />
     </div>
   );
