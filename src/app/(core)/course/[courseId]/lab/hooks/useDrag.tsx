@@ -64,7 +64,7 @@ function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isDrag]);
+  }, [isDrag, direction]);
 
   const onDoubleClick = () => setSize(initialSize);
   const onMouseDown = () => setIsDrag(true);
