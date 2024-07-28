@@ -9,7 +9,7 @@ interface Props {
 function LessonLayout({ children }: Props) {
   return (
     <div className="relative">
-      <div className="sticky z-50 p-4 top-0 border-b bg-white flex gap-4 items-center shadow-sm">
+      <div className="sticky z-30 p-4 top-0 border-b bg-white flex gap-4 items-center shadow-sm">
         <CircleCheck size="2rem" className="text-grass-11" />
         <div className="space-y-1">
           <h5 className="text-gray-11 text-sm">Lesson 1.1</h5>

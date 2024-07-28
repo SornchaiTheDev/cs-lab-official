@@ -7,6 +7,7 @@ import Sidebar from "~/components/commons/Sidebar";
 import { appAtom } from "~/store/app";
 import { sidebarAtom } from "~/store/sidebar";
 import Loading from "../loading";
+import MobileNav from "~/components/commons/MobileNav";
 
 interface Props {
   children: ReactNode;
@@ -35,12 +36,13 @@ function CoreLayout({ children }: Props) {
   if (app.isLoading) return <Loading />;
 
   return (
-      <div className="h-screen relative">
-        {!isMobile && <Sidebar />}
-        <div style={{ marginLeft: width }} className="transition-all h-full">
-          {children}
-        </div>
+    <div className="h-screen relative">
+      {isMobile && <MobileNav />}
+      {!isMobile && <Sidebar />}
+      <div style={{ marginLeft: width }} className="transition-all h-full">
+        {children}
       </div>
+    </div>
   );
 }
 
