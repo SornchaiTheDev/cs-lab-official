@@ -1,18 +1,18 @@
 import { RefreshCcw } from "lucide-react";
 import React from "react";
+import type { IBaseCard } from "./types";
+import { Card, CardContent, CardFooter, Order, Status } from "./BaseCard";
 
-interface Props {
-  order: number;
-}
-
-export function QueueCard({ order }: Props) {
+export function QueueCard({ order, onClick }: IBaseCard) {
   return (
-    <div className="border flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-2 border-gray-6">
-      <RefreshCcw />
-      <div className="flex flex-col">
-        <h5 className="font-medium text-gray-12">Submission #{order}</h5>
-        <h6 className="text-xs text-gray-11">In Queue</h6>
-      </div>
-    </div>
+    <Card onClick={onClick}>
+      <RefreshCcw className="text-gray-11" />
+      <CardContent>
+        <Order>{order}</Order>
+        <CardFooter>
+          <Status>In Queue</Status>
+        </CardFooter>
+      </CardContent>
+    </Card>
   );
 }
