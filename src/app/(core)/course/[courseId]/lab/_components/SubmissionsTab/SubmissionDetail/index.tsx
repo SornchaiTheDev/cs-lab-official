@@ -1,12 +1,37 @@
-import React from "react";
 import TestcaseTable from "./TestcaseTable";
+import { PassedCard } from "../SubmissionList/SubmissionCard";
+import BackButton from "./BackButton";
+import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
 function Submission() {
+  const [isFetching, setIsFetching] = useState(false);
+  useEffect(() => {
+    const controller = new AbortController();
+    const getData = async () => {
+      setIsFetching(true);
+      await fetch("http://localhost:3000/api/timeout-request", {
+        method: "POST",
+        body: JSON.stringify({
+          timeout: 1000,
+        }),
+        signal: controller.signal,
+      });
+      setIsFetching(false);
+    };
+
+    getData();
+
+    return () => controller.abort("Changed Submission");
+  }, []);
+
+  if (isFetching) return <Loading />;
+
   return (
     <>
-      <h5 className="text-gray-12">Submission #3</h5>
-      <h6 className="text-xs text-gray-11">28 July 2024 05:14:11</h6>
-      <TestcaseTable />
+      <BackButton />
+      <PassedCard order={1} totalCase={20} />
+      <TestcaseTable isLoading={false} />
     </>
   );
 }

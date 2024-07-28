@@ -1,3 +1,4 @@
+import { Skeleton } from "~/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -7,27 +8,45 @@ import {
   TableRow,
 } from "~/components/ui/table";
 
-function TestcaseTable() {
+interface Props {
+  isLoading: boolean;
+}
+
+const LoadingData = () => {
   return (
-    <Table className="mt-2">
+    <>
+      {Array.from({ length: 12 }).map((_, i) => (
+        <TableRow key={i}>
+          <TableCell>
+            <Skeleton className="w-6 h-6" />
+          </TableCell>
+          <TableCell>
+            <Skeleton className="w-24 h-24" />
+          </TableCell>
+          <TableCell>
+            <Skeleton className="w-24 h-24" />
+          </TableCell>
+          <TableCell>
+            <Skeleton className="w-24 h-8" />
+          </TableCell>
+        </TableRow>
+      ))}
+    </>
+  );
+};
+
+function TestcaseTable({ isLoading }: Props) {
+  return (
+    <Table noScroll className="mt-2 overflow-visible">
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Testcase</TableHead>
           <TableHead>Input</TableHead>
           <TableHead>Output</TableHead>
-          <TableHead className="text-right">Status</TableHead>
+          <TableHead className="w-[100px]">Status</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
-        {Array.from({ length: 20 }).map((_, i) => (
-          <TableRow key={i}>
-            <TableCell className="font-medium">{i + 1}</TableCell>
-            <TableCell>-</TableCell>
-            <TableCell>-</TableCell>
-            <TableCell className="text-right">Correct</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
+      <TableBody>{isLoading && <LoadingData />}</TableBody>
     </Table>
   );
 }

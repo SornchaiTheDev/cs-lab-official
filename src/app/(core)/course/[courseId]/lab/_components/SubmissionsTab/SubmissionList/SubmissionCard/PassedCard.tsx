@@ -4,7 +4,8 @@ import type { IPassedCard } from "./types";
 import {
   Card,
   CardContent,
-  CardFooter,
+  CardStatusLine,
+  SubmissionDate,
   Order,
   Status,
   Testcase,
@@ -13,14 +14,15 @@ import {
 export function PassedCard({ order, totalCase, onClick }: IPassedCard) {
   return (
     <Card onClick={onClick} className="border-grass-6">
-      <CircleCheck className="text-grass-9" />
       <CardContent>
         <Order>{order}</Order>
-        <CardFooter>
+        <CardStatusLine>
           <Status className="text-grass-11">Passed</Status>
           <Testcase correctCase={totalCase} {...{ totalCase }} />
-        </CardFooter>
+        </CardStatusLine>
+        <SubmissionDate date={new Date()} />
       </CardContent>
+      <CircleCheck className="text-grass-9" />
     </Card>
   );
 }

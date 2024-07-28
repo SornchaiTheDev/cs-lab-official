@@ -4,9 +4,10 @@ import { IFailedCard } from "./types";
 import {
   Card,
   CardContent,
-  CardFooter,
+  CardStatusLine,
   Order,
   Status,
+  SubmissionDate,
   Testcase,
 } from "./BaseCard";
 
@@ -18,14 +19,15 @@ export function FailedCard({
 }: IFailedCard) {
   return (
     <Card onClick={onClick} className="border-tomato-6">
-      <CircleX className="text-tomato-9" />
       <CardContent>
         <Order>{order}</Order>
-        <CardFooter>
-          <Status className="text-tomato-11">Passed</Status>
+        <CardStatusLine>
+          <Status className="text-tomato-11">Failed</Status>
           <Testcase {...{ correctCase, totalCase }} />
-        </CardFooter>
+        </CardStatusLine>
+        <SubmissionDate date={new Date()} />
       </CardContent>
+      <CircleX className="text-tomato-9" />
     </Card>
   );
 }

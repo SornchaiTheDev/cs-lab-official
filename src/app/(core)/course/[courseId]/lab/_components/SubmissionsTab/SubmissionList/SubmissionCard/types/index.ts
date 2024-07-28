@@ -1,6 +1,6 @@
 export interface IBaseCard {
   order: number;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export interface IPassedCard extends IBaseCard {
