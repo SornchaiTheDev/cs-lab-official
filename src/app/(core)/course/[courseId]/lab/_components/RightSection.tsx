@@ -8,6 +8,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { RefObject } from "react";
 
 function RightSection() {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
@@ -26,18 +27,7 @@ function RightSection() {
           <CodeMirror height="100%" extensions={[python()]} />
         </div>
       </div>
-      <button
-        ref={buttonRef}
-        className="flex justify-center my-2 w-full cursor-ns-resize"
-        {...events}
-      >
-        <div
-          className={cn(
-            "w-12 h-2 bg-gray-6 rounded-full hover:w-14 transition-all",
-            isDrag && "w-16",
-          )}
-        ></div>
-      </button>
+      <VerticalSectionControl {...{ buttonRef, events, isDrag }} />
       <div className="bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden">
         <div className="flex items-center gap-2 p-2">
           <h4 className="font-medium">Playground</h4>
@@ -66,21 +56,30 @@ function RightSection() {
 
 export default RightSection;
 
-/**
- *
-        <Tabs defaultValue="input" className="flex-1 flex flex-col min-h-0">
-          <TabsList className="self-start w-full bg-white">
-            <TabsTrigger
-              value="input"
-              className="data-[state=active]:bg-black data-[state=active]:text-gray-950"
-            >
-              Input
-            </TabsTrigger>
-            <TabsTrigger value="output">Output</TabsTrigger>
-          </TabsList>
-          <TabsContent value="output">Change your password here.</TabsContent>
-          <TabsContent value="input" className="flex-1 overflow-y-auto">
-            <CodeMirror height="100%" />
-          </TabsContent>
-        </Tabs>
- */
+const VerticalSectionControl = ({
+  buttonRef,
+  events,
+  isDrag,
+}: {
+  buttonRef: RefObject<HTMLButtonElement>;
+  events: {
+    onMouseDown: () => void;
+    onDoubleClick: () => void;
+  };
+  isDrag: boolean;
+}) => {
+  return (
+    <button
+      ref={buttonRef}
+      className="flex justify-center my-2 w-full cursor-ns-resize"
+      {...events}
+    >
+      <div
+        className={cn(
+          "w-12 h-2 bg-gray-6 rounded-full hover:w-14 transition-all",
+          isDrag && "w-16",
+        )}
+      ></div>
+    </button>
+  );
+};

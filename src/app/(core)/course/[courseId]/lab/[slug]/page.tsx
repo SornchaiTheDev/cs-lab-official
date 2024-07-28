@@ -1,14 +1,12 @@
 import LeftSection from "../_components/LeftSection";
-import { serialize } from "next-mdx-remote/serialize";
-import fs from "fs/promises";
 import RightSection from "../_components/RightSection";
 import { headers } from "next/headers";
 import { isFromMobile } from "~/lib/isFromMobile";
 import LottieComp from "~/components/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
+import DescriptionTab from "../_components/DescriptionTab";
 
 async function LabPage() {
-
   const userAgent = headers().get("User-Agent");
 
   if (userAgent !== null && isFromMobile(userAgent)) {
@@ -22,14 +20,9 @@ async function LabPage() {
     );
   }
 
-  const lab1 = await fs.readFile(`${process.cwd()}/__mocks__/lab1.mdx`, "utf8");
-
-  const mdxSource = await serialize(lab1);
-
-
   return (
     <div className="p-4 h-full flex bg-gray-2">
-      <LeftSection description={mdxSource} />
+      <LeftSection descriptionTab={<DescriptionTab />} />
       <RightSection />
     </div>
   );

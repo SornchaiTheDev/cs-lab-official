@@ -1,15 +1,18 @@
 "use client";
 
-import { NotebookText, History, CircleCheck } from "lucide-react";
-import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
+import { NotebookText, History } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
 
+import SubmissionsTab from "./SubmissionsTab";
+import { ReactNode, RefObject } from "react";
+
 interface Props {
-  description: MDXRemoteSerializeResult;
+  descriptionTab: ReactNode;
 }
-function LeftSection({ description }: Props) {
+
+function LeftSection({ descriptionTab }: Props) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({});
 
   return (
@@ -20,54 +23,69 @@ function LeftSection({ description }: Props) {
         ref={containerRef}
       >
         <Tabs
-          defaultValue="desc"
+          defaultValue="description"
           className="h-full flex flex-col justify-start items-start"
         >
           <div className="p-4">
             <TabsList>
-              <TabsTrigger value="desc" className="flex gap-2 items-center">
+              <TabsTrigger
+                value="description"
+                className="flex gap-2 items-center"
+              >
                 <NotebookText size="1.25rem" />
                 Description
               </TabsTrigger>
-              <TabsTrigger value="subm">
+              <TabsTrigger value="submissions">
                 <History size="1.25rem" />
                 Submissions
               </TabsTrigger>
             </TabsList>
           </div>
           <TabsContent
-            value="desc"
+            value="description"
             className="px-4 py-2 overflow-y-auto w-full"
           >
-            <h3 className="text-xl font-semibold">
-              Find a, b in which a*b=n and (a+b) is the lowest
-            </h3>
-            <div className="flex items-center gap-2 text-grass-9 w-fit rounded-full my-4">
-              <CircleCheck size="1.5rem" />
-              <h5 className="text-sm font-semibold">Passed</h5>
-            </div>
-
-            <div className="prose prose-code:before:content-none prose-code:after:content-none font-anuphan">
-              <MDXRemote {...description} />
-            </div>
+            {descriptionTab}
           </TabsContent>
-          <TabsContent value="subm">Change your password here.</TabsContent>
+          <TabsContent
+            value="submissions"
+            className="w-full p-4 overflow-y-auto"
+          >
+            <SubmissionsTab />
+          </TabsContent>
         </Tabs>
       </div>
-      <button
-        className="flex items-center h-full mx-2 cursor-ew-resize"
-        ref={buttonRef}
-        {...events}
-      >
-        <div
-          className={cn(
-            "w-2 h-12 bg-gray-6 rounded-full hover:h-14 transition-all",
-            isDrag && "h-16",
-          )}
-        ></div>
-      </button>
+      <HorizontalSectionControl {...{ buttonRef, events, isDrag }} />
     </>
   );
 }
 
 export default LeftSection;
+
+const HorizontalSectionControl = ({
+  buttonRef,
+  events,
+  isDrag,
+}: {
+  buttonRef: RefObject<HTMLButtonElement>;
+  events: {
+    onMouseDown: () => void;
+    onDoubleClick: () => void;
+  };
+  isDrag: boolean;
+}) => {
+  return (
+    <button
+      className="flex items-center h-full mx-2 cursor-ew-resize"
+      ref={buttonRef}
+      {...events}
+    >
+      <div
+        className={cn(
+          "w-2 h-12 bg-gray-6 rounded-full hover:h-14 transition-all",
+          isDrag && "h-16",
+        )}
+      ></div>
+    </button>
+  );
+};
