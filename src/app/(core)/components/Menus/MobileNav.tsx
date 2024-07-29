@@ -1,9 +1,10 @@
+"use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Atom, Menu, Settings, X } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { cn } from "~/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "~/components/ui/button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -69,7 +70,7 @@ function MobileNav() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 bg-gray-4 p-3 rounded-lg active:bg-gray-5 z-50"
+        className="fixed bottom-4 right-4 bg-gray-4 p-3 rounded-lg active:bg-gray-5 z-30"
       >
         <Menu className="text-gray-9" />
       </button>

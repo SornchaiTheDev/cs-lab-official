@@ -9,7 +9,7 @@ import DescriptionTab from "../_components/DescriptionTab";
 async function LabPage() {
   const userAgent = headers().get("User-Agent");
 
-  if (userAgent !== null && isFromMobile(userAgent)) {
+  if (isFromMobile(userAgent)) {
     return (
       <div className="fixed inset-0 h-screen flex flex-col justify-center items-center gap-12">
         <LottieComp animationData={floating} width={300} height={300} />

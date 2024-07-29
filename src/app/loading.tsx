@@ -5,7 +5,7 @@ import LottieComp from "~/components/commons/Lottie";
 
 function LoadingComponent() {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="fixed inset-0 flex justify-center items-center h-screen z-50 bg-white">
       <LottieComp
         animationData={loadingAniamtionData}
         width={100}
