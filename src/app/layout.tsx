@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins, Anuphan } from "next/font/google";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import NavigationEvents from "~/components/commons/NavigationEvents";
+import { Suspense } from "react";
 
 import "./globals.css";
 import "@mantine/core/styles.css";
+import "@mantine/nprogress/styles.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,7 +35,12 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body className={`${poppins.className} ${anuphan.variable}`}>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <Suspense fallback={null}>
+            <NavigationEvents />
+          </Suspense>
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

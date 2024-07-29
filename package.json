@@ -13,6 +13,7 @@
     "@codemirror/language": "^6.10.2",
     "@mantine/core": "^7.11.2",
     "@mantine/hooks": "^7.11.2",
+    "@mantine/nprogress": "^7.11.2",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.2.5",
