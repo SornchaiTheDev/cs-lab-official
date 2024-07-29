@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/nprogress/styles.css";
+import { env } from "~/lib/env";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +23,20 @@ const anuphan = Anuphan({
 export const metadata: Metadata = {
   title: "CS Lab",
   description:
-    "Computer Lab Web application @Computer Science Kasetsart University",
+    "Programming Lab Web application @Computer Science Kasetsart University",
+  keywords: ["CS Lab", "computer science", "CS Grader"],
+  authors: [{ name: "SornchaiTheDev" }],
+  creator: "SornchaiTheDev",
+  openGraph: {
+    title: "CS Lab",
+    description:
+      "Programming Lab Web application @Computer Science Kasetsart University",
+    url: env.PUBLIC_URL,
+    siteName: "CS Lab",
+    locale: "en_US",
+    type: "website",
+  },
+  manifest: `${env.PUBLIC_URL}/manifest.json`,
 };
 
 export default function RootLayout({

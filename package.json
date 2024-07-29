@@ -22,6 +22,7 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
+    "@t3-oss/env-core": "^0.11.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/mdx": "^2.0.13",
     "@uiw/react-codemirror": "^4.23.0",
@@ -30,6 +31,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.12",
     "framer-motion": "^11.3.2",
+    "jiti": "^1.21.6",
     "jotai": "^2.9.0",
     "lucide-react": "^0.408.0",
     "next": "14.2.5",
@@ -40,7 +42,8 @@
     "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "windy-radix-palette": "2.0.0-beta.7"
+    "windy-radix-palette": "2.0.0-beta.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
