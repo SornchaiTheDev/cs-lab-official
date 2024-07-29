@@ -20,6 +20,8 @@ export const env = createEnv({
    */
   runtimeEnv: process.env,
 
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+
   /**
    * By default, this library will feed the environment variables directly to
    * the Zod validator.
