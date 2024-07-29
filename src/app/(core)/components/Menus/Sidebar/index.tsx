@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarWrapper from "./Wrapper";
-import Link from "next/link";
+import Link from "~/components/commons/Link";
 import { cn } from "~/lib/utils";
 
 const _homePage = (

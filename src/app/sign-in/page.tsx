@@ -1,7 +1,7 @@
 import UsernameAndPassword from "./_components/UsernameAndPassword";
 import GoogleSignIn from "./_components/GoogleSignIn";
 import QuotesSection from "./_components/QuotesSection";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 export const metadata : Metadata = {
   title : "Sign In | CS Lab"

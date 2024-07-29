@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import CourseCard from "./components/CourceCard";
 
 export const metadata : Metadata = {

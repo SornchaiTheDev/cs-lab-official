@@ -2,9 +2,9 @@ import React from "react";
 import LearnStatusCard, {
   type LearnStatus,
 } from "./components/LearnStatusCard";
-import Link from "next/link";
+import Link from "~/components/commons/Link";
 import { MoveLeft } from "lucide-react";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { timeout } from "~/lib/timeout";
 
 export const generateMetadata = async ({

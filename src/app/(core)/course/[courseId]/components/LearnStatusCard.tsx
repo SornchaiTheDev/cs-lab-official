@@ -1,5 +1,5 @@
 import { CircleCheck, CircleX, PlayCircle } from "lucide-react";
-import Link from "next/link";
+import Link from "~/components/commons/Link";
 import React from "react";
 import { cn } from "~/lib/utils";
 

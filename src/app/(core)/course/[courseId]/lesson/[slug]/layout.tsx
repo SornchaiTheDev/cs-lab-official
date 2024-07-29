@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import PageControl from "../_components/PageControl";
 import { CircleCheck } from "lucide-react";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 interface Props {
   children: ReactNode;
@@ -12,7 +12,7 @@ export const generateMetadata = async ({
 }: {
   params: { courseId: string; slug: string };
 }): Promise<Metadata> => {
-  const { courseId, slug } = params;
+  const { _courseId, _slug } = params;
   const lessonName = "Lesson 1.1 Repetition: while";
   const isNotFit = lessonName.length > 32;
   let title = lessonName.slice(0, 32);

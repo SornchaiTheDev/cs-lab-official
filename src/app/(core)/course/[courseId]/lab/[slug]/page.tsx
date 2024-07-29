@@ -5,14 +5,14 @@ import { isFromMobile } from "~/lib/isFromMobile";
 import LottieComp from "~/components/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
 import DescriptionTab from "../_components/DescriptionTab";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 export const generateMetadata = async ({
   params,
 }: {
   params: { courseId: string; slug: string };
 }): Promise<Metadata> => {
-  const { courseId, slug } = params;
+  const { _courseId, _slug } = params;
 
   const labName = "Lab 1.1 Find a, b in which a*b=n and (a+b) is the lowest";
   const isNotFit = labName.length > 32;

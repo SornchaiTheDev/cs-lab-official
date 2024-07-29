@@ -8,7 +8,7 @@ import {
   Atom,
   Settings,
 } from "lucide-react";
-import Link from "next/link";
+import Link from "~/components/commons/Link";
 import { cn } from "~/lib/utils";
 import { sidebarAtom, toggleSidebarAtom } from "~/store/sidebar";
 import Image from "next/image";

@@ -8,8 +8,7 @@ function NavigationEvents() {
   const pathname = usePathname();
 
   useEffect(() => {
-    setTimeout(() => nprogress.complete(), 500);
-    return () => nprogress.start();
+    setTimeout(nprogress.complete, 500);
   }, [pathname]);
 
   return <NavigationProgress />;
