@@ -37,17 +37,22 @@ const LoadingData = () => {
 
 function TestcaseTable({ isLoading }: Props) {
   return (
-    <Table noScroll className="mt-2 overflow-visible">
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Testcase</TableHead>
-          <TableHead>Input</TableHead>
-          <TableHead>Output</TableHead>
-          <TableHead className="w-[100px]">Status</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>{isLoading && <LoadingData />}</TableBody>
-    </Table>
+    <>
+      {!isLoading && (
+        <h6 className="text-sm font-semibold text-gray-11 mt-4">Testcases</h6>
+      )}
+      <Table noScroll className="mt-2 overflow-visible">
+        <TableHeader>
+          <TableRow>
+            <TableHead>#</TableHead>
+            <TableHead>Input</TableHead>
+            <TableHead>Output</TableHead>
+            <TableHead className="w-[100px]">Status</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>{isLoading && <LoadingData />}</TableBody>
+      </Table>
+    </>
   );
 }
 

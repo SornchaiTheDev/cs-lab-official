@@ -6,6 +6,8 @@ import LottieComp from "~/components/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
 import DescriptionTab from "../_components/DescriptionTab";
 import { type Metadata } from "next";
+import { Button } from "~/components/ui/button";
+import { CirclePlay, CloudUpload } from "lucide-react";
 
 export const generateMetadata = async ({
   params,
@@ -40,9 +42,11 @@ async function LabPage() {
   }
 
   return (
-    <div className="p-4 h-full flex bg-gray-2">
-      <LeftSection descriptionTab={<DescriptionTab />} />
-      <RightSection />
+    <div className="h-full flex flex-col bg-gray-2 p-2 gap-2">
+      <div className="flex-1 flex min-h-0">
+        <LeftSection descriptionTab={<DescriptionTab />} />
+        <RightSection />
+      </div>
     </div>
   );
 }

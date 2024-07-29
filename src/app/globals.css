@@ -37,6 +37,6 @@
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)) , url(../assets/images/noise.svg);
 }
 
-.cm-theme-light {
+.cm-theme {
     height : 100%;
 }

@@ -1,18 +1,25 @@
 "use client";
 
-import { CirclePlay } from "lucide-react";
-import { Button } from "~/components/ui/button";
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
-import CodeMirror from "@uiw/react-codemirror";
-import { python } from "@codemirror/lang-python";
 import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { type RefObject } from "react";
+import { useState, type RefObject } from "react";
+import CodeMirror from "./CodeMirror";
+
+interface EditorState {
+  code: string;
+  fontSize: number;
+}
 
 function RightSection() {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
     direction: "vertical",
+  });
+
+  const [editorState, setEditorState] = useState<EditorState>({
+    code: "",
+    fontSize: 32,
   });
 
   return (
@@ -24,17 +31,18 @@ function RightSection() {
       >
         <CodeHeader />
         <div className="h-full overflow-auto">
-          <CodeMirror height="100%" extensions={[python()]} />
+          <CodeMirror
+            height="100%"
+            style={{ fontSize: editorState.fontSize }}
+            value={editorState.code}
+            onChange={(code) => setEditorState((prev) => ({ ...prev, code }))}
+          />
         </div>
       </div>
       <VerticalSectionControl {...{ buttonRef, events, isDrag }} />
       <div className="bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden">
         <div className="flex items-center gap-2 p-2">
-          <h4 className="font-medium">Playground</h4>
-          <Button className="space-x-2">
-            <CirclePlay size="1rem" />
-            <h6>Run</h6>
-          </Button>
+          <h4 className="font-medium text-gray-12 text-sm">Playground</h4>
         </div>
 
         <Tabs defaultValue="input" className="min-h-0 flex-1 flex flex-col">
