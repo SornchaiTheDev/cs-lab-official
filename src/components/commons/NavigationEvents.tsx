@@ -11,7 +11,7 @@ function NavigationEvents() {
     setTimeout(nprogress.complete, 500);
   }, [pathname]);
 
-  return <NavigationProgress />;
+  return <NavigationProgress color="green" size={3} />;
 }
 
 export default NavigationEvents;
