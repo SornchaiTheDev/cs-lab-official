@@ -12,7 +12,7 @@ export const generateMetadata = async ({
 }: {
   params: { courseId: string; slug: string };
 }): Promise<Metadata> => {
-  const { _courseId, _slug } = params;
+  // const { courseId, slug } = params;
   const lessonName = "Lesson 1.1 Repetition: while";
   const isNotFit = lessonName.length > 32;
   let title = lessonName.slice(0, 32);

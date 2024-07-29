@@ -12,7 +12,7 @@ export const generateMetadata = async ({
 }: {
   params: { courseId: string; slug: string };
 }): Promise<Metadata> => {
-  const { _courseId, _slug } = params;
+  // const { courseId, slug } = params;
 
   const labName = "Lab 1.1 Find a, b in which a*b=n and (a+b) is the lowest";
   const isNotFit = labName.length > 32;
