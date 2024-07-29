@@ -8,7 +8,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { RefObject } from "react";
+import { type RefObject } from "react";
 
 function RightSection() {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({

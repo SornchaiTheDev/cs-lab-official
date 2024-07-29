@@ -1,4 +1,4 @@
-import React, { Children, ReactNode } from "react";
+import React, { type Children, type ReactNode } from "react";
 import { cn } from "~/lib/utils";
 import dayjs from "dayjs";
 

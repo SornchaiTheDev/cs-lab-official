@@ -1,5 +1,5 @@
 import React from "react";
-import LearnStatusCard, { LearnStatus } from "./components/LearnStatusCard";
+import LearnStatusCard, { type LearnStatus } from "./components/LearnStatusCard";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 

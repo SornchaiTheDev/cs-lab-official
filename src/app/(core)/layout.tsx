@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import CoreLayout from "./components/Menus/CoreLayout";
 import MobileNav from "./components/Menus/MobileNav";
 import Sidebar from "./components/Menus/Sidebar";

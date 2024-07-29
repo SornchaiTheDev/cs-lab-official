@@ -6,7 +6,7 @@ import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
 
 import SubmissionsTab from "./SubmissionsTab";
-import { ReactNode, RefObject } from "react";
+import { type ReactNode, type RefObject } from "react";
 
 interface Props {
   descriptionTab: ReactNode;

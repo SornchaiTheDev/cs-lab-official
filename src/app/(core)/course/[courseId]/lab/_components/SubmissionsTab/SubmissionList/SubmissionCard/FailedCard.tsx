@@ -1,6 +1,6 @@
 import { CircleX } from "lucide-react";
 import React from "react";
-import { IFailedCard } from "./types";
+import { type IFailedCard } from "./types";
 import {
   Card,
   CardContent,

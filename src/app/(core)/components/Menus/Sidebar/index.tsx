@@ -3,7 +3,7 @@ import SidebarWrapper from "./Wrapper";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
 
-const homePage = (
+const _homePage = (
   <>
     <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
       My Courses
@@ -23,7 +23,7 @@ const homePage = (
   </>
 );
 
-const coursePage = (
+const _coursePage = (
   <>
     <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
       My Courses

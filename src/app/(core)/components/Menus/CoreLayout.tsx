@@ -32,7 +32,7 @@ function CoreLayout({ children, Sidebar, MobileNav }: Props) {
       });
     };
     setup();
-  }, [isMobile, setSidebar]);
+  }, [isMobile, setSidebar, setApp]);
 
   return (
     <>
