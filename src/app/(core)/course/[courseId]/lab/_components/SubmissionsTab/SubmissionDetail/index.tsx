@@ -10,7 +10,7 @@ function Submission() {
     const controller = new AbortController();
     const getData = async () => {
       setIsFetching(true);
-      await fetch("http://localhost:3000/api/timeout-request", {
+      await fetch(`${process.env.PUBLIC_URL}/api/timeout-request`, {
         method: "POST",
         body: JSON.stringify({
           timeout: 1000,
