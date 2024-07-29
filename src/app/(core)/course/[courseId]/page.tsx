@@ -1,7 +1,29 @@
 import React from "react";
-import LearnStatusCard, { type LearnStatus } from "./components/LearnStatusCard";
+import LearnStatusCard, {
+  type LearnStatus,
+} from "./components/LearnStatusCard";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
+import { Metadata } from "next";
+import { timeout } from "~/lib/timeout";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { courseId: string };
+}): Promise<Metadata> => {
+  const courses = [
+    { name: "Fundamental Computing Concepts", id: "1" },
+    { name: "Fundamental Programming", id: "2" },
+  ];
+
+  const course = courses.find((course) => course.id === params.courseId);
+  await timeout(1000);
+
+  return {
+    title: `${course?.name} | CS Lab`,
+  };
+};
 
 function MainCoursePage() {
   return (

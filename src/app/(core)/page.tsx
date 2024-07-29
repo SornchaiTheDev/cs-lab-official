@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import CourseCard from "./components/CourceCard";
+
+export const metadata : Metadata = {
+  title : "My Courses | CS Lab"
+}
 
 export default function Home() {
   return (

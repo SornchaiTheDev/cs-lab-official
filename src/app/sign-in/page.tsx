@@ -1,8 +1,13 @@
 import UsernameAndPassword from "./_components/UsernameAndPassword";
 import GoogleSignIn from "./_components/GoogleSignIn";
 import QuotesSection from "./_components/QuotesSection";
+import { Metadata } from "next";
 
-function LoginPage() {
+export const metadata : Metadata = {
+  title : "Sign In | CS Lab"
+}
+
+function SignInPage() {
   return (
     <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
       <QuotesSection />
@@ -47,4 +52,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignInPage;
