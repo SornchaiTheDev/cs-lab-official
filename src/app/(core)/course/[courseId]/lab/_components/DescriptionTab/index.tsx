@@ -1,13 +1,17 @@
 import { CircleCheck } from "lucide-react";
-import React from "react";
-import fs from "fs/promises";
 import { serialize } from "next-mdx-remote/serialize";
 import MDXClient from "./MDXClient";
 
-async function DescriptionTab() {
-  const lab1 = await fs.readFile(`${process.cwd()}/__mocks__/lab1.mdx`, "utf8");
+import remarkGfm from "remark-gfm";
+import lab1 from '~/__mocks__/lab1'
 
-  const mdxSource = await serialize(lab1);
+async function DescriptionTab() {
+  const mdxSource = await serialize(lab1, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [],
+    },
+  });
 
   return (
     <>
