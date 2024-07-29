@@ -6,6 +6,8 @@ import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { useState, type RefObject } from "react";
 import CodeMirror from "./CodeMirror";
+import { useAtom } from "jotai";
+import { labEditorAtom } from "~/store/labEditor";
 
 interface EditorState {
   code: string;
@@ -17,10 +19,7 @@ function RightSection() {
     direction: "vertical",
   });
 
-  const [editorState, setEditorState] = useState<EditorState>({
-    code: "",
-    fontSize: 32,
-  });
+  const [{ code, fontSize }, setLabEditor] = useAtom(labEditorAtom);
 
   return (
     <div className="flex-1 flex flex-col min-w-[300px]">
@@ -33,9 +32,9 @@ function RightSection() {
         <div className="h-full overflow-auto">
           <CodeMirror
             height="100%"
-            style={{ fontSize: editorState.fontSize }}
-            value={editorState.code}
-            onChange={(code) => setEditorState((prev) => ({ ...prev, code }))}
+            style={{ fontSize }}
+            value={code}
+            onChange={(code) => setLabEditor((prev) => ({ ...prev, code }))}
           />
         </div>
       </div>
