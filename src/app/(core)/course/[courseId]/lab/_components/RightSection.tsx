@@ -7,14 +7,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { type RefObject } from "react";
 import CodeMirror from "./CodeMirror";
 import { useAtom } from "jotai";
-import { labEditorAtom } from "../store/editor";
+import { editorAtom } from "../store/editor";
 
 function RightSection() {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
     direction: "vertical",
   });
 
-  const [{ code, fontSize }, setLabEditor] = useAtom(labEditorAtom);
+  const [{ code, fontSize }, setLabEditor] = useAtom(editorAtom);
 
   return (
     <div className="flex-1 flex flex-col min-w-[300px]">

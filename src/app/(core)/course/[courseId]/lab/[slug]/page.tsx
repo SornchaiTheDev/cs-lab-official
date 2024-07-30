@@ -6,8 +6,6 @@ import LottieComp from "~/components/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
 import DescriptionTab from "../_components/DescriptionTab";
 import { type Metadata } from "next";
-import { Button } from "~/components/ui/button";
-import { CirclePlay, CloudUpload } from "lucide-react";
 
 export const generateMetadata = async ({
   params,

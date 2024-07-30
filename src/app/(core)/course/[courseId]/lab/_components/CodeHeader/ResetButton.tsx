@@ -1,6 +1,5 @@
-import { useAtom, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { RotateCcw } from "lucide-react";
-import { init } from "next/dist/compiled/webpack/webpack";
 import React, { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
@@ -12,11 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { labEditorAtom } from "~/store/labEditor";
+import { editorAtom } from "../../store/editor";
 
 function ResetButton() {
   const [isTapped, setIsTapped] = useState(false);
-  const setLabEditor = useSetAtom(labEditorAtom);
+  const setLabEditor = useSetAtom(editorAtom);
 
   const handleOnReset = () => {
     setIsTapped(false);

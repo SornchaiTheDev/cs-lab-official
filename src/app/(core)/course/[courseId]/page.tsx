@@ -1,7 +1,7 @@
 import React from "react";
 import LearnStatusCard, {
   type LearnStatus,
-} from "./components/LearnStatusCard";
+} from "./_components/LearnStatusCard";
 import Link from "~/components/commons/Link";
 import { MoveLeft } from "lucide-react";
 import { type Metadata } from "next";
