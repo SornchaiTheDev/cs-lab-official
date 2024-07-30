@@ -25,7 +25,9 @@ export const generateMetadata = async ({
   };
 };
 
-async function LabPage() {
+
+
+async function LabPage({params} : {params : {slug : string}}) {
   const userAgent = headers().get("User-Agent");
 
   if (isFromMobile(userAgent)) {
@@ -43,7 +45,11 @@ async function LabPage() {
     <div className="h-full flex flex-col bg-gray-2 p-2 gap-2">
       <div className="flex-1 flex min-h-0">
         <LeftSection descriptionTab={<DescriptionTab />} />
-        <RightSection />
+        <RightSection
+          labSlug={params.slug}
+          initialCode='print("Hello World")'
+          allowLanguages={["Python3", "Go", "C", "C++", "Rust"]}
+        />
       </div>
     </div>
   );

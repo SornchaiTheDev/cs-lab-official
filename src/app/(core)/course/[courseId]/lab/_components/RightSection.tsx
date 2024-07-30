@@ -4,17 +4,20 @@ import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
 import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { type RefObject } from "react";
+import { useEffect, type RefObject } from "react";
 import CodeMirror from "./CodeMirror";
-import { useAtom } from "jotai";
-import { editorAtom } from "../store/editor";
+import useEditor, { SetupEditor } from "../hooks/useEditor";
 
-function RightSection() {
+function RightSection(props: SetupEditor) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
     direction: "vertical",
   });
 
-  const [{ code, fontSize }, setLabEditor] = useAtom(editorAtom);
+  const { setup, fontSize, code, setCode } = useEditor();
+
+  useEffect(() => {
+    setup(props);
+  }, [props]);
 
   return (
     <div className="flex-1 flex flex-col min-w-[300px]">
@@ -29,7 +32,7 @@ function RightSection() {
             height="100%"
             style={{ fontSize }}
             value={code}
-            onChange={(code) => setLabEditor((prev) => ({ ...prev, code }))}
+            onChange={setCode}
           />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { useSetAtom } from "jotai";
 import { RotateCcw } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -11,15 +10,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { editorAtom } from "../../store/editor";
+import useEditor from "../../hooks/useEditor";
 
 function ResetButton() {
   const [isTapped, setIsTapped] = useState(false);
-  const setLabEditor = useSetAtom(editorAtom);
+  const { resetEditor } = useEditor();
 
   const handleOnReset = () => {
+    resetEditor();
     setIsTapped(false);
-    setLabEditor((prev) => ({ ...prev, code: prev.initialCode }));
   };
   return (
     <>

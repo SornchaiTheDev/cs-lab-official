@@ -1,13 +1,19 @@
-import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 interface EditorAtom {
   initialCode: string;
   code: string;
   fontSize: number;
+  selectedLanguage: string;
+  allowLanguages: string[];
 }
 
-export const editorAtom = atom<EditorAtom>({
-  initialCode: "print('Hello World')",
-  code: "print('Hello World')",
+export const editorAtom = atomWithStorage<EditorAtom>("editor-store", {
+  initialCode: "",
+  code: "",
   fontSize: 16,
+  selectedLanguage: "",
+  allowLanguages: [],
 });
+
+export const labSlugAtom = atomWithStorage<string>("lab-slug", "");
