@@ -4,15 +4,10 @@ import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
 import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { useState, type RefObject } from "react";
+import { type RefObject } from "react";
 import CodeMirror from "./CodeMirror";
 import { useAtom } from "jotai";
-import { labEditorAtom } from "~/store/labEditor";
-
-interface EditorState {
-  code: string;
-  fontSize: number;
-}
+import { labEditorAtom } from "../store/editor";
 
 function RightSection() {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
