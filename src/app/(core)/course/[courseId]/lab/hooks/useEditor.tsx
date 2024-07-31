@@ -14,7 +14,7 @@ function useEditor() {
 
   const resetEditor = () => {
     if (problem === null) return;
-    setProblem((prev) => ({ ...prev, initialCode: problem.initialCode }));
+    setProblem((prev) => ({ ...prev, code: problem.initialCode }));
   };
 
   const changeFontSize = (fontSize: number) => {
