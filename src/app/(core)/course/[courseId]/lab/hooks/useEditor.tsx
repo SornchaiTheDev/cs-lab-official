@@ -1,56 +1,78 @@
 import { useAtom } from "jotai";
-import { editorAtom } from "../store/editor";
+import { editorAtom, ProblemAtom, problemAtom } from "../store/editor";
 
 export interface SetupEditor {
-  labSlug: string;
+  problemId: string;
   initialCode: string;
   allowLanguages: string[];
 }
 
 function useEditor() {
-  const [
-    { code, initialCode, fontSize, selectedLanguage, allowLanguages },
-    setEditor,
-  ] = useAtom(editorAtom);
+  const [editor, setEditor] = useAtom(editorAtom);
+
+  const [problem, setProblem] = useAtom(problemAtom);
 
   const resetEditor = () => {
-    setEditor((prev) => ({ ...prev, code: initialCode }));
+    if (problem === null) return;
+    setProblem((prev) => ({ ...prev, initialCode: problem.initialCode }));
   };
 
   const changeFontSize = (fontSize: number) => {
-    setEditor((prev) => ({ ...prev, fontSize }));
+    setEditor({ fontSize });
   };
 
   const setSelectedLanguage = (language: string) => {
-    setEditor((prev) => ({ ...prev, selectedLanguage: language }));
+    setProblem((prev) => ({ ...prev, selectedLanguage: language }));
   };
 
-  const setup = ({
-    initialCode,
-    allowLanguages,
-    labSlug: _labSlug,
-  }: SetupEditor) => {
-    setEditor((prev) => ({
-      ...prev,
-      initialCode,
-      labSlug: _labSlug,
-      allowLanguages,
-      selectedLanguage: allowLanguages[0],
-    }));
+  const setup = ({ initialCode, allowLanguages, problemId }: SetupEditor) => {
+    const problemValues = localStorage.getItem("problem");
+    const editorValues = localStorage.getItem("editor");
+    if (editorValues === null) {
+      setEditor((prev) => ({ ...prev, fontSize: 16 }));
+    }
+
+    if (problemValues === null) {
+      setProblem({
+        initialCode,
+        allowLanguages,
+        code: initialCode,
+        selectedLanguage: allowLanguages[0],
+        problemId,
+      });
+    }
+
+    if (editorValues !== null && problemValues !== null) {
+      setEditor(JSON.parse(editorValues));
+
+      const problemData: ProblemAtom = JSON.parse(problemValues);
+      if (problemData.problemId === problemId) {
+        setProblem(problemData);
+        return;
+      }
+
+      setProblem({
+        initialCode,
+        allowLanguages,
+        code: initialCode,
+        selectedLanguage: allowLanguages[0],
+        problemId,
+      });
+    }
   };
 
-  const setCode = (code: string) => setEditor((prev) => ({ ...prev, code }));
+  const setCode = (code: string) => {
+    setProblem((prev) => ({ ...prev, code }));
+  };
 
   return {
-    code,
     setCode,
     resetEditor,
     changeFontSize,
-    fontSize,
     setSelectedLanguage,
-    selectedLanguage,
-    allowLanguages,
     setup,
+    ...problem,
+    ...editor,
   };
 }
 

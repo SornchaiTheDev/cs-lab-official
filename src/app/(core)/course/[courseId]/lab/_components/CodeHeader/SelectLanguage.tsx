@@ -8,7 +8,7 @@ import {
 import useEditor from "../../hooks/useEditor";
 
 function SelectLanguage() {
-  const { selectedLanguage, allowLanguages, setSelectedLanguage } = useEditor();
+  const { allowLanguages, selectedLanguage, setSelectedLanguage } = useEditor();
 
   return (
     <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>

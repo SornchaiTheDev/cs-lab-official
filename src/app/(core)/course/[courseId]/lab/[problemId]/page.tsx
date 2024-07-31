@@ -10,9 +10,9 @@ import { type Metadata } from "next";
 export const generateMetadata = async ({
   params,
 }: {
-  params: { courseId: string; slug: string };
+  params: { courseId: string; problemId: string };
 }): Promise<Metadata> => {
-  // const { courseId, slug } = params;
+  // const { courseId, problemId } = params;
 
   const labName = "Lab 1.1 Find a, b in which a*b=n and (a+b) is the lowest";
   const isNotFit = labName.length > 32;
@@ -25,9 +25,7 @@ export const generateMetadata = async ({
   };
 };
 
-
-
-async function LabPage({params} : {params : {slug : string}}) {
+async function LabPage({ params }: { params: { problemId: string } }) {
   const userAgent = headers().get("User-Agent");
 
   if (isFromMobile(userAgent)) {
@@ -46,7 +44,7 @@ async function LabPage({params} : {params : {slug : string}}) {
       <div className="flex-1 flex min-h-0">
         <LeftSection descriptionTab={<DescriptionTab />} />
         <RightSection
-          labSlug={params.slug}
+          problemId={params.problemId}
           initialCode='print("Hello World")'
           allowLanguages={["Python3", "Go", "C", "C++", "Rust"]}
         />
