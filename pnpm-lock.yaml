@@ -113,6 +113,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      codemirror-readonly-ranges:
+        specifier: 0.1.0-alpha.2
+        version: 0.1.0-alpha.2(@codemirror/state@6.4.1)(@codemirror/view@6.29.1)
       dayjs:
         specifier: ^1.11.12
         version: 1.11.12
@@ -1370,6 +1373,12 @@ packages:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
 
+  codemirror-readonly-ranges@0.1.0-alpha.2:
+    resolution: {integrity: sha512-PjT/gDAn9cm7wN/YigxgBMsxYbO52bvPQLbN8dXG9seHNANNE9KELteFaS00/+1UR4fAnCq7Ueh+KmRTlPgFTw==}
+    peerDependencies:
+      '@codemirror/state': '>= 0.19.9'
+      '@codemirror/view': '>= 0.19.48'
+
   codemirror@6.0.1:
     resolution: {integrity: sha512-J8j+nZ+CdWmIeFIGXEFbFPtpiYacFMDR8GlHK3IyHQJMCaVRfGx9NT+Hxivv1ckLWPvNdZqndbr/7lVhrf/Svg==}
 
@@ -2619,6 +2628,9 @@ packages:
 
   randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
+
+  range-analyzer@0.1.1-alpha.2:
+    resolution: {integrity: sha512-Ad9J4t3zljH/DHNSDthAFyQdd5DniHTaqES/oTwAFB7prV7E4u01et6WYCpqbJSmUDC05XlMMR2ycO84Hi1IvA==}
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -4582,6 +4594,12 @@ snapshots:
 
   clsx@2.1.1: {}
 
+  codemirror-readonly-ranges@0.1.0-alpha.2(@codemirror/state@6.4.1)(@codemirror/view@6.29.1):
+    dependencies:
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.29.1
+      range-analyzer: 0.1.1-alpha.2
+
   codemirror@6.0.1(@lezer/common@1.2.1):
     dependencies:
       '@codemirror/autocomplete': 6.17.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.29.1)(@lezer/common@1.2.1)
@@ -6294,6 +6312,8 @@ snapshots:
   randombytes@2.1.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  range-analyzer@0.1.1-alpha.2: {}
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:

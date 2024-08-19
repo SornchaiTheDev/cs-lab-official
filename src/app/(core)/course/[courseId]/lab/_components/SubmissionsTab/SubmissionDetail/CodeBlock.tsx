@@ -54,12 +54,7 @@ function CodeBlock() {
         </Button>
       </div>
       <div className="border rounded-lg h-64 overflow-y-auto">
-        <CodeMirror
-          readOnly
-          lang="python3"
-          value={hardCode}
-          height="100%"
-        />
+        <CodeMirror readOnly lang="python3" value={hardCode} height="100%" />
       </div>
     </div>
   );

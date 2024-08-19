@@ -44,6 +44,7 @@
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "codemirror-readonly-ranges": "0.1.0-alpha.2",
     "dayjs": "^1.11.12",
     "framer-motion": "^11.3.2",
     "jiti": "^1.21.6",
