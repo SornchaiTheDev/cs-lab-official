@@ -11,6 +11,12 @@ import {
   DialogTitle,
 } from "~/components/ui/dialog";
 import useEditor from "../../hooks/useEditor";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 function ResetButton() {
   const [isTapped, setIsTapped] = useState(false);
@@ -36,20 +42,30 @@ function ResetButton() {
                 Cancel
               </Button>
             </DialogClose>
+
             <Button onClick={handleOnReset} variant="destructive">
               Reset
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <Button
-        onClick={() => setIsTapped(true)}
-        variant="ghost"
-        size="icon"
-        className="flex-1"
-      >
-        <RotateCcw size="1rem" />
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              onClick={() => setIsTapped(true)}
+              variant="ghost"
+              size="icon"
+              className="flex-1"
+            >
+              <RotateCcw size="1rem" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="text-xs">Reset</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </>
   );
 }

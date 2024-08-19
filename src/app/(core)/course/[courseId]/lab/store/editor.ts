@@ -3,6 +3,7 @@ import { atomWithStorage } from "jotai/utils";
 
 interface EditorAtom {
   fontSize: number;
+  vimMode: boolean;
 }
 
 export interface LanguageMap {
@@ -11,6 +12,7 @@ export interface LanguageMap {
 
 export const editorAtom = atomWithStorage<EditorAtom>("editor", {
   fontSize: 16,
+  vimMode: false,
 });
 
 export interface ProblemAtom {

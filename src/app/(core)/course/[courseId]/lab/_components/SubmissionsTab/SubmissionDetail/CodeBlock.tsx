@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CodeMirror from "../../CodeMirror";
-import { python } from "@codemirror/lang-python";
 import { Button } from "~/components/ui/button";
 import { Check, Copy } from "lucide-react";
 import { copyToClipboard } from "~/lib/copyToClipboard";
@@ -57,7 +56,6 @@ function CodeBlock() {
       <div className="border rounded-lg h-64 overflow-y-auto">
         <CodeMirror
           readOnly
-          extensions={[python()]}
           lang="python3"
           value={hardCode}
           height="100%"

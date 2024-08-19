@@ -2,8 +2,8 @@ import { CloudUpload, SaveIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import CopyButton from "./CopyButton";
 import ResetButton from "./ResetButton";
-import TextSizeButton from "./TextSizeButton";
 import SelectLanguage from "./SelectLanguage";
+import SettingButton from "./SettingButton";
 
 function CodeHeader() {
   return (
@@ -18,8 +18,8 @@ function CodeHeader() {
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex flex-1">
           <CopyButton />
-          <TextSizeButton />
           <ResetButton />
+          <SettingButton />
         </div>
         <div className="space-x-2 flex flex-1">
           <Button

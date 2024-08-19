@@ -25,7 +25,11 @@ function useEditor() {
   };
 
   const changeFontSize = (fontSize: number) => {
-    setEditor({ fontSize });
+    setEditor((prev) => ({ ...prev, fontSize }));
+  };
+
+  const setVimMode = (vimMode: boolean) => {
+    setEditor((prev) => ({ ...prev, vimMode }));
   };
 
   const setSelectedLanguage = (selectedLang: string) => {
@@ -84,6 +88,7 @@ function useEditor() {
     changeFontSize,
     setSelectedLanguage,
     setup,
+    setVimMode,
     ...problem,
     ...editor,
   };
