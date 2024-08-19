@@ -9,18 +9,9 @@ import { githubLight } from "@uiw/codemirror-theme-github";
 import { useEffect, useState } from "react";
 import { getLang } from "./utils/getLang";
 import { vim } from "@replit/codemirror-vim";
-import readOnlyRange from "codemirror-readonly-ranges";
+import readOnlyRangeExtension from "codemirror-readonly-ranges";
 
-const getReadOnlyRange = (
-  state: EditorState,
-): { from: number | undefined; to: number | undefined }[] => {
-  return [
-    {
-      from: undefined,
-      to: state.doc.line(3).to,
-    },
-  ];
-};
+type ReadOnlyRange = { from: number | undefined; to: number | undefined };
 
 interface ExtensionMap {
   [key: string]: Extension | null;
@@ -30,12 +21,12 @@ function CodeMirror(
   props: Omit<ReactCodeMirrorProps, "extensions"> & {
     lang?: string;
     vimMode?: boolean;
+    readOnlyRange?: (state: EditorState) => ReadOnlyRange[];
   },
 ) {
-  const { lang, vimMode } = props;
+  const { lang, vimMode, readOnlyRange } = props;
   const [extensions, setExtensions] = useState<ExtensionMap>({
     indent: indentWithTab,
-    readOnly: readOnlyRange(getReadOnlyRange),
   });
 
   useEffect(() => {
@@ -46,19 +37,14 @@ function CodeMirror(
         return {
           ...prev,
           lang: langHighlight,
+          vimMode: vimMode ? vim() : null,
+          readOnlyRange: !!readOnlyRange
+            ? readOnlyRangeExtension(readOnlyRange)
+            : null,
         };
       });
     }
-  }, [lang]);
-
-  useEffect(() => {
-    setExtensions((prev) => {
-      return {
-        ...prev,
-        vimMode: vimMode ? vim() : null,
-      };
-    });
-  }, [vimMode]);
+  }, [lang, vimMode, readOnlyRange]);
 
   const finalExtensions = Object.values(extensions).filter(
     (ext) => ext !== null,
@@ -66,7 +52,7 @@ function CodeMirror(
 
   const codeMirrorProps = Object.entries(props).reduce(
     (acc: ReactCodeMirrorProps, [key, value]) => {
-      if (key !== "lang" && key !== "vimMode") {
+      if (!["lang", "vimMode", "readOnlyRange"].includes(key)) {
         acc[key as keyof ReactCodeMirrorProps] = value;
       }
       return acc;
