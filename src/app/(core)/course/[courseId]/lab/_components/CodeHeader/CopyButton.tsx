@@ -24,7 +24,7 @@ function CopyButton() {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
             onClick={handleOnCopy}
             variant="ghost"

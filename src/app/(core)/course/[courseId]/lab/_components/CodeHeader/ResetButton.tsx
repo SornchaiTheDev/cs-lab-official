@@ -51,7 +51,7 @@ function ResetButton() {
       </Dialog>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Button
               onClick={() => setIsTapped(true)}
               variant="ghost"

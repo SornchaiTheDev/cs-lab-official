@@ -25,18 +25,12 @@ const fontSizes: string[] = Array.from({ length: 10 }).map((_, i) =>
 );
 
 function SettingButton() {
-  const [isTapped, setIsTapped] = useState(false);
   const { fontSize, changeFontSize, vimMode, setVimMode } = useEditor();
 
   return (
-    <Dialog open={isTapped} onOpenChange={setIsTapped}>
-      <DialogTrigger>
-        <Button
-          onClick={() => setIsTapped(true)}
-          variant="ghost"
-          size="icon"
-          className="flex-1"
-        >
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="ghost" size="icon" className="flex-1">
           <Settings size="1rem" />
         </Button>
       </DialogTrigger>
