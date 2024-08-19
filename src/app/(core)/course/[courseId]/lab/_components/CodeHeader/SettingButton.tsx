@@ -37,38 +37,36 @@ function SettingButton() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Editor Settings</DialogTitle>
-          <DialogDescription className="space-y-4">
-            <div className="space-y-2 mt-4">
-              <Label htmlFor="vim-mode">Font Size</Label>
-
-              <Select
-                value={fontSize.toString()}
-                onValueChange={(value) => changeFontSize(parseInt(value))}
-              >
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="Select Font size" />
-                </SelectTrigger>
-                <SelectContent>
-                  {fontSizes.map((size) => (
-                    <SelectItem key={size} value={size}>
-                      {size}px
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="vim-mode" className="block">
-                Vim mode
-              </Label>
-              <Switch
-                id="vim-mode"
-                checked={vimMode}
-                onCheckedChange={setVimMode}
-              />
-            </div>
-          </DialogDescription>
         </DialogHeader>
+        <div className="space-y-2">
+          <Label htmlFor="vim-mode">Font Size</Label>
+
+          <Select
+            value={fontSize.toString()}
+            onValueChange={(value) => changeFontSize(parseInt(value))}
+          >
+            <SelectTrigger className="w-32">
+              <SelectValue placeholder="Select Font size" />
+            </SelectTrigger>
+            <SelectContent>
+              {fontSizes.map((size) => (
+                <SelectItem key={size} value={size}>
+                  {size}px
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="vim-mode" className="block">
+            Vim mode
+          </Label>
+          <Switch
+            id="vim-mode"
+            checked={vimMode}
+            onCheckedChange={setVimMode}
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );
