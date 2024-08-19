@@ -83,12 +83,12 @@ const VerticalSectionControl = ({
   return (
     <button
       ref={buttonRef}
-      className="flex justify-center my-2 w-full cursor-ns-resize"
+      className="flex justify-center my-1 w-full cursor-ns-resize"
       {...events}
     >
       <div
         className={cn(
-          "w-12 h-2 bg-gray-6 rounded-full hover:w-14 transition-all",
+          "w-12 h-1 bg-gray-6 rounded-full hover:w-14 transition-all",
           isDrag && "w-16",
         )}
       ></div>
