@@ -1,7 +1,12 @@
+import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 interface EditorAtom {
   fontSize: number;
+}
+
+export interface LanguageMap {
+  [key: string]: string;
 }
 
 export const editorAtom = atomWithStorage<EditorAtom>("editor", {
@@ -11,15 +16,15 @@ export const editorAtom = atomWithStorage<EditorAtom>("editor", {
 export interface ProblemAtom {
   problemId: string;
   code: string;
-  initialCode: string;
+  initialCodes: LanguageMap;
   selectedLanguage: string;
-  allowLanguages: string[];
+  allowLanguages: LanguageMap;
 }
 
-export const problemAtom = atomWithStorage<ProblemAtom>("problem", {
+export const problemAtom = atom<ProblemAtom>({
   problemId: "",
   code: "",
-  initialCode: "",
+  initialCodes: {},
   selectedLanguage: "",
-  allowLanguages: [],
+  allowLanguages: {},
 });

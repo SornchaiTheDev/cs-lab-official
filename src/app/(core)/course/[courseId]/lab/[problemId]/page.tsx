@@ -6,6 +6,8 @@ import LottieComp from "~/components/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
 import DescriptionTab from "../_components/DescriptionTab";
 import { type Metadata } from "next";
+import { languages } from "../__mocks__/languages";
+import { initialsCodes } from "../__mocks__/initialCodes";
 
 export const generateMetadata = async ({
   params,
@@ -45,8 +47,8 @@ async function LabPage({ params }: { params: { problemId: string } }) {
         <LeftSection descriptionTab={<DescriptionTab />} />
         <RightSection
           problemId={params.problemId}
-          initialCode='print("Hello World")'
-          allowLanguages={["Python3", "Go", "C", "C++", "Rust"]}
+          initialCodes={initialsCodes}
+          allowLanguages={languages}
         />
       </div>
     </div>

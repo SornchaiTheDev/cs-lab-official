@@ -6,18 +6,20 @@ import CodeHeader from "./CodeHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { useEffect, type RefObject } from "react";
 import CodeMirror from "./CodeMirror";
-import useEditor, { SetupEditor } from "../hooks/useEditor";
+import useEditor, { type SetupEditor } from "../hooks/useEditor";
+import { Button } from "~/components/ui/button";
+import { CirclePlay } from "lucide-react";
 
 function RightSection(props: SetupEditor) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
     direction: "vertical",
   });
 
-  const { setup, fontSize, code, setCode } = useEditor();
+  const { setup, fontSize, code, setCode, selectedLanguage } = useEditor();
 
   useEffect(() => {
     setup(props);
-  }, [props]);
+  }, [props, setup]);
 
   return (
     <div className="flex-1 flex flex-col min-w-[300px]">
@@ -31,6 +33,7 @@ function RightSection(props: SetupEditor) {
           <CodeMirror
             height="100%"
             style={{ fontSize }}
+            lang={selectedLanguage}
             value={code}
             onChange={setCode}
           />
@@ -38,8 +41,12 @@ function RightSection(props: SetupEditor) {
       </div>
       <VerticalSectionControl {...{ buttonRef, events, isDrag }} />
       <div className="bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden">
-        <div className="flex items-center gap-2 p-2">
+        <div className="flex justify-between items-center gap-2 p-2">
           <h4 className="font-medium text-gray-12 text-sm">Playground</h4>
+          <Button className="space-x-2 w-fit" variant="outline" size="sm">
+            <CirclePlay size="1rem" />
+            <h6>Run</h6>
+          </Button>
         </div>
 
         <Tabs defaultValue="input" className="min-h-0 flex-1 flex flex-col">

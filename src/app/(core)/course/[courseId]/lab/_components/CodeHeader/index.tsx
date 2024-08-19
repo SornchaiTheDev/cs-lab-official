@@ -1,8 +1,4 @@
-import {
-  CirclePlay,
-  CloudUpload,
-  SaveIcon,
-} from "lucide-react";
+import { CloudUpload, SaveIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import CopyButton from "./CopyButton";
 import ResetButton from "./ResetButton";
@@ -26,10 +22,6 @@ function CodeHeader() {
           <ResetButton />
         </div>
         <div className="space-x-2 flex flex-1">
-          <Button className="space-x-2 flex-1" variant="outline" size="sm">
-            <CirclePlay size="1rem" />
-            <h6>Run</h6>
-          </Button>
           <Button
             className="space-x-2 bg-grass-9 hover:bg-grass-10 flex-1"
             variant="default"
