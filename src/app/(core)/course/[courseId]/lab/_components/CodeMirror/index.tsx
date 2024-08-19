@@ -4,32 +4,19 @@ import ReactCodeMirror, {
 } from "@uiw/react-codemirror";
 import { indentWithTab } from "./extensions/indentWithTab";
 import { githubLight } from "@uiw/codemirror-theme-github";
+import { useEffect, useState } from "react";
+import { getLang } from "./utils/getLang";
 
-import { python } from "@codemirror/lang-python";
-import { go } from "@codemirror/lang-go";
-import { cpp } from "@codemirror/lang-cpp";
-import { java } from "@codemirror/lang-java";
-import { javascript } from "@codemirror/lang-javascript";
+function CodeMirror(props: ReactCodeMirrorProps & { lang?: string }) {
+  const [extensions, setExtensions] = useState<Extension[]>([indentWithTab]);
 
-export const getLanguage = (lang: string) => {
-  switch (lang) {
-    case "python":
-      return python();
-    case "go":
-      return go();
-    case "cpp":
-      return cpp();
-    case "java":
-      return java();
-    case "javascript":
-      return javascript();
-    default:
-      return python();
-  }
-};
+  useEffect(() => {
+    if (props.lang !== undefined) {
+      const langHighlight = getLang(props.lang);
 
-function CodeMirror(props: ReactCodeMirrorProps & { lang: string }) {
-  const extensions: Extension[] = [getLanguage(props.lang), indentWithTab];
+      setExtensions((prev) => [...prev, langHighlight]);
+    }
+  }, [props.lang]);
 
   return <ReactCodeMirror theme={githubLight} {...{ ...props, extensions }} />;
 }

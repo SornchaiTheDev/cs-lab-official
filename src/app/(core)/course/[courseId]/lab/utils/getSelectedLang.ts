@@ -1,6 +1,9 @@
-import type { Language } from "../store/editor";
+import type { LanguageMap } from "../store/editor";
 
-export function getSelectedLang(problemId: string, allowLanguages: Language) {
+export function getSelectedLang(
+  problemId: string,
+  allowLanguages: LanguageMap,
+) {
   const storedSelectedLang = localStorage.getItem(
     `${problemId}-selectedLanguage`,
   );
