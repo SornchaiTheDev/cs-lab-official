@@ -3,12 +3,10 @@
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
 import CodeHeader from "./CodeHeader";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { useEffect, type RefObject } from "react";
 import CodeMirror from "./CodeMirror";
 import useEditor, { type SetupEditor } from "../hooks/useEditor";
-import { Button } from "~/components/ui/button";
-import { CirclePlay } from "lucide-react";
+import Playground from "./Playground";
 
 function RightSection(props: SetupEditor) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
@@ -40,28 +38,7 @@ function RightSection(props: SetupEditor) {
         </div>
       </div>
       <VerticalSectionControl {...{ buttonRef, events, isDrag }} />
-      <div className="bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden">
-        <div className="flex justify-between items-center gap-2 p-2">
-          <h4 className="font-medium text-gray-12 text-sm">Playground</h4>
-          <Button className="space-x-2 w-fit" variant="outline" size="sm">
-            <CirclePlay size="1rem" />
-            <h6>Run</h6>
-          </Button>
-        </div>
-
-        <Tabs defaultValue="input" className="min-h-0 flex-1 flex flex-col">
-          <TabsList className="self-start">
-            <TabsTrigger value="input">Input</TabsTrigger>
-            <TabsTrigger value="output">Output</TabsTrigger>
-          </TabsList>
-          <TabsContent value="input" className="flex-1 overflow-auto">
-            <CodeMirror height="100%" />
-          </TabsContent>
-          <TabsContent value="output" className="flex-1 overflow-auto">
-            <CodeMirror height="100%" />
-          </TabsContent>
-        </Tabs>
-      </div>
+      <Playground />
     </div>
   );
 }
