@@ -10,6 +10,13 @@ export interface SetupEditor {
   allowLanguages: LanguageMap;
 }
 
+const cleanDecorators = (code: string) => {
+  return code.replaceAll(
+    /@@readonly@@\n?|@@editable@@|@@exclude@@|@@hidden@@[\s\S]*?@@hidden@@\n?/g,
+    "",
+  );
+};
+
 function useEditor() {
   const [editor, setEditor] = useAtom(editorAtom);
   const [problem, setProblem] = useAtom(problemAtom);
@@ -17,11 +24,7 @@ function useEditor() {
   const resetEditor = () => {
     const { problemId, selectedLanguage, initialCodes } = problem;
 
-    const initialCode = initialCodes[selectedLanguage].replaceAll(
-      /@@readonly@@\n?|@@editable@@|@@exclude@@|@@hidden@@[\s\S]*?@@hidden@@\n?/g,
-      "",
-    );
-
+    const initialCode = cleanDecorators(initialCodes[selectedLanguage]);
     setStoredCode(problemId, selectedLanguage, initialCode);
 
     setProblem((prev) => ({ ...prev, code: initialCode }));
@@ -41,7 +44,8 @@ function useEditor() {
     localStorage.setItem(`${problem.problemId}-selectedLanguage`, selectedLang);
 
     const code =
-      getStoredCode(problemId, selectedLang) ?? initialCodes[selectedLang];
+      getStoredCode(problemId, selectedLang) ??
+      cleanDecorators(initialCodes[selectedLang]);
 
     setProblem((prev) => ({
       ...prev,
@@ -63,7 +67,7 @@ function useEditor() {
 
       // Setup Problem
       const selectedLanguage = getSelectedLang(problemId, allowLanguages);
-      const initialCode = initialCodes[selectedLanguage];
+      const initialCode = cleanDecorators(initialCodes[selectedLanguage]);
       const code = getStoredCode(problemId, selectedLanguage) ?? initialCode;
 
       setProblem({

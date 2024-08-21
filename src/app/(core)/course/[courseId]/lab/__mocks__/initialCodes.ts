@@ -22,7 +22,7 @@ int main() {
   typescript: `console.log("Hello, World!");`,
   ruby: `puts "Hello, World!"`,
   swift: `print("Hello, World!")`,
-  go: `This text is ediable
+  go: `This text is editable
 
 @@exclude@@This not used in grading@@exclude@@
 @@hidden@@This not seen in frontend@@hidden@@
@@ -40,5 +40,5 @@ func add(@@editable@@/*Edit code here*/@@editable@@)int {
 }
 @@readonly@@
 
-This text is ediable`,
+This text is editable`,
 };
