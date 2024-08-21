@@ -18,7 +18,7 @@ function useEditor() {
     const { problemId, selectedLanguage, initialCodes } = problem;
 
     const initialCode = initialCodes[selectedLanguage].replaceAll(
-      /@@readonly@@\n?|@@editable@@/g,
+      /@@readonly@@\n?|@@editable@@|@@exclude@@|@@hidden@@[\s\S]*?@@hidden@@\n?/g,
       "",
     );
 

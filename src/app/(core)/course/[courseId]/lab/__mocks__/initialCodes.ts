@@ -24,6 +24,9 @@ int main() {
   swift: `print("Hello, World!")`,
   go: `This text is ediable
 
+@@exclude@@This not used in grading@@exclude@@
+@@hidden@@This not seen in frontend@@hidden@@
+
 @@readonly@@
 package main
 import "fmt"
