@@ -17,14 +17,25 @@ int main() {
 	System.out.println("Hello, World!");
     }
 }`,
-  python: `print("Hello, World!")`,
+  python: `@@readonly@@{@@readonly@@`,
   javascript: `console.log("Hello, World!");`,
   typescript: `console.log("Hello, World!");`,
   ruby: `puts "Hello, World!"`,
   swift: `print("Hello, World!")`,
-  go: `package main
+  go: `This text is ediable
+
+@@readonly@@
+package main
 import "fmt"
+
 func main() {
-    fmt.Println("Hello, World!")
-}`,
+    @@editable@@fmt.Println("Hello, World!")@@editable@@
+}
+
+func add(@@editable@@/*Edit code here*/@@editable@@)int {
+@@editable@@/*Edit code here*/@@editable@@
+}
+@@readonly@@
+
+This text is ediable`,
 };

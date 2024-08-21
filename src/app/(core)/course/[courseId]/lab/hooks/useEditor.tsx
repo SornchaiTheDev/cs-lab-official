@@ -17,7 +17,10 @@ function useEditor() {
   const resetEditor = () => {
     const { problemId, selectedLanguage, initialCodes } = problem;
 
-    const initialCode = initialCodes[selectedLanguage];
+    const initialCode = initialCodes[selectedLanguage].replaceAll(
+      /@@readonly@@\n?|@@editable@@/g,
+      "",
+    );
 
     setStoredCode(problemId, selectedLanguage, initialCode);
 

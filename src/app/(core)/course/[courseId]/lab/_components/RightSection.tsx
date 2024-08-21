@@ -13,8 +13,15 @@ function RightSection(props: SetupEditor) {
     direction: "vertical",
   });
 
-  const { setup, fontSize, code, setCode, selectedLanguage, vimMode } =
-    useEditor();
+  const {
+    setup,
+    fontSize,
+    code,
+    setCode,
+    selectedLanguage,
+    vimMode,
+    initialCodes,
+  } = useEditor();
 
   useEffect(() => {
     setup(props);
@@ -36,6 +43,7 @@ function RightSection(props: SetupEditor) {
             value={code}
             onChange={setCode}
             vimMode={vimMode}
+            initialCode={initialCodes[selectedLanguage]}
           />
         </div>
       </div>

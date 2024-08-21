@@ -1,7 +1,5 @@
 "use client";
 import ReactCodeMirror, {
-  type EditorState,
-  type Extension,
   type ReactCodeMirrorProps,
 } from "@uiw/react-codemirror";
 import { indentWithTab } from "./extensions/indentWithTab";
@@ -10,21 +8,17 @@ import { useEffect, useState } from "react";
 import { getLang } from "./utils/getLang";
 import { vim } from "@replit/codemirror-vim";
 import readOnlyRangeExtension from "codemirror-readonly-ranges";
-
-type ReadOnlyRange = { from: number | undefined; to: number | undefined };
-
-interface ExtensionMap {
-  [key: string]: Extension | null;
-}
+import { getReadOnlyRanges } from "./utils/getReadOnlyRanges";
+import type { ExtensionMap } from "./types";
 
 function CodeMirror(
   props: Omit<ReactCodeMirrorProps, "extensions"> & {
     lang?: string;
     vimMode?: boolean;
-    readOnlyRange?: (state: EditorState) => ReadOnlyRange[];
+    initialCode?: string;
   },
 ) {
-  const { lang, vimMode, readOnlyRange } = props;
+  const { lang, vimMode, initialCode = "" } = props;
   const [extensions, setExtensions] = useState<ExtensionMap>({
     indent: indentWithTab,
   });
@@ -38,13 +32,13 @@ function CodeMirror(
           ...prev,
           lang: langHighlight,
           vimMode: vimMode ? vim() : null,
-          readOnlyRange: !!readOnlyRange
-            ? readOnlyRangeExtension(readOnlyRange)
-            : null,
+          readOnlyRange: readOnlyRangeExtension((state) =>
+            getReadOnlyRanges(state, initialCode),
+          ),
         };
       });
     }
-  }, [lang, vimMode, readOnlyRange]);
+  }, [lang, vimMode, initialCode]);
 
   const finalExtensions = Object.values(extensions).filter(
     (ext) => ext !== null,
@@ -52,7 +46,7 @@ function CodeMirror(
 
   const codeMirrorProps = Object.entries(props).reduce(
     (acc: ReactCodeMirrorProps, [key, value]) => {
-      if (!["lang", "vimMode", "readOnlyRange"].includes(key)) {
+      if (!["lang", "vimMode", "initialCode"].includes(key)) {
         acc[key as keyof ReactCodeMirrorProps] = value;
       }
       return acc;
