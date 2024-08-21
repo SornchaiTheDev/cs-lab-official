@@ -17,28 +17,33 @@ int main() {
 	System.out.println("Hello, World!");
     }
 }`,
-  python: `@@readonly@@{@@readonly@@`,
+  python: `@@readonly@@
+@@exclude@@{@@exclude@@
+@@readonly@@`,
   javascript: `console.log("Hello, World!");`,
   typescript: `console.log("Hello, World!");`,
   ruby: `puts "Hello, World!"`,
   swift: `print("Hello, World!")`,
   go: `This text is editable
 
-@@exclude@@This not used in grading@@exclude@@
 @@hidden@@This not seen in frontend@@hidden@@
-
 @@readonly@@
 package main
 import "fmt"
 
+@@exclude@@This not include in grader@@exclude@@ @@exclude@@This not include in grader@@exclude@@
+
+
 func main() {
     @@editable@@fmt.Println("Hello, World!")@@editable@@
 }
-
-func add(@@editable@@/*Edit code here*/@@editable@@)int {
-@@editable@@/*Edit code here*/@@editable@@
+func add(@@editable@@\/*Edit code here*\/@@editable@@)@@editable@@\/*Edit code here*\/@@editable@@ {
+@@editable@@\/*Edit code here*\/@@editable@@
 }
 @@readonly@@
 
 This text is editable`,
 };
+
+/**
+ */

@@ -17,14 +17,14 @@ export const getReadOnlyRanges = (
     .flat()
     .filter(
       (line) =>
-        !line.match(/^[\s]*@@editable@@[\s\S]*?@@editable@@$/) && line !== "",
+        line !== "" && !line.match(/^[\s]*@@editable@@[\s\S]*?@@editable@@$/),
     );
 
   const ranges: ReadOnlyRange[] = [];
 
   let lineMatchCount = 0;
 
-  // Split current code into lines and compare with initial code to find readonly partsA
+  // Split current code into lines and compare with initial code to find readonly parts
   const currentCode = state.doc.toString();
   const currentCodeLines = currentCode.split("\n");
 
@@ -41,13 +41,16 @@ export const getReadOnlyRanges = (
         to,
       });
       lineMatchCount++;
-    } else if (
-      line !== "" &&
-      currentReadOnlyLineMatch?.includes("@@editable@@")
-    ) {
+      return;
+    }
+
+    if (currentReadOnlyLineMatch?.includes("@@editable@@")) {
       const editableParts = currentReadOnlyLineMatch
         .split("@@editable@@")
         .filter((_, i) => i % 2 === 0);
+
+      let editableRegex = new RegExp(`${editableParts.join("[\\s\\S]*")}`);
+      if (!editableRegex.test(line)) return;
 
       editableParts.forEach((part) => {
         ranges.push({
@@ -56,8 +59,29 @@ export const getReadOnlyRanges = (
         });
       });
       lineMatchCount++;
+      return;
+    }
+
+    if (currentReadOnlyLineMatch?.includes("@@exclude@@")) {
+      const editableParts = currentReadOnlyLineMatch
+        .split("@@exclude@@")
+        .filter((_, i) => i % 2 === 1);
+
+      let editableRegex = new RegExp(`${editableParts.join(" ")}`);
+      if (!editableRegex.test(line)) return;
+
+      let position = 0;
+      editableParts.forEach((part) => {
+        ranges.push({
+          from: from + line.indexOf(part, position),
+          to: from + part.length + 1,
+        });
+
+        position = part.length;
+      });
+      lineMatchCount++;
+      return;
     }
   });
-
   return ranges;
 };
