@@ -56,6 +56,7 @@ function CodeMirror(
 
   return (
     <ReactCodeMirror
+      key={initialCode}
       theme={githubLight}
       {...{
         ...codeMirrorProps,
