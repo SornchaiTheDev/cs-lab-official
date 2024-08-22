@@ -4,6 +4,7 @@ interface Props {
   initialSize?: number;
   direction?: "horizontal" | "vertical";
 }
+
 function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
   const [isDrag, setIsDrag] = useState(false);
   const [size, setSize] = useState(initialSize);
@@ -11,18 +12,25 @@ function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleMouseUp = () => {
+    const handleDragEnd = () => {
       setIsDrag(false);
     };
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => window.removeEventListener("mouseup", handleMouseUp);
+
+    window.addEventListener("mouseup", handleDragEnd);
+    window.addEventListener("touchend", handleDragEnd);
+
+    return () => {
+      window.removeEventListener("mouseup", handleDragEnd);
+      window.removeEventListener("touchend", handleDragEnd);
+    };
   }, []);
 
   useEffect(() => {
     if (!isDrag) return;
-    const handleMouseMove = (e: MouseEvent) => {
+
+    const dragHandler = (position: { x: number; y: number }) => {
       if (direction === "horizontal") {
-        const mousePosition = e.x;
+        const pointerPosition = position.x;
         const containerOffset =
           containerRef.current?.getBoundingClientRect().x ?? 0;
         const dragButtonWidth = buttonRef.current?.clientWidth ?? 0;
@@ -34,7 +42,7 @@ function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
           parseInt(buttonMargin.slice(0, buttonMargin.length - 2)) / 2;
 
         setSize(
-          mousePosition -
+          pointerPosition -
             containerOffset -
             dragButtonWidth -
             buttonMarginAmount,
@@ -42,7 +50,7 @@ function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
       }
 
       if (direction === "vertical") {
-        const mousePosition = e.y;
+        const pointerPosition = position.y;
         const containerOffset =
           containerRef.current?.getBoundingClientRect().y ?? 0;
         const dragButtonHeight = buttonRef.current?.clientHeight ?? 0;
@@ -54,7 +62,7 @@ function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
           parseInt(buttonMargin.slice(0, buttonMargin.length - 2)) / 2;
 
         setSize(
-          mousePosition -
+          pointerPosition -
             containerOffset -
             dragButtonHeight -
             buttonMarginAmount,
@@ -62,14 +70,27 @@ function useDrag({ initialSize = 500, direction = "horizontal" }: Props) {
       }
     };
 
+    const handleMouseMove = (e: MouseEvent) =>
+      dragHandler({ x: e.clientX, y: e.clientY });
+
+    const handleTouchMove = (e: TouchEvent) => {
+      dragHandler({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
   }, [isDrag, direction]);
 
   const onDoubleClick = () => setSize(initialSize);
   const onMouseDown = () => setIsDrag(true);
+  const onTouchStart = () => setIsDrag(true);
 
-  const events = { onMouseDown, onDoubleClick };
+  const events = { onMouseDown, onDoubleClick, onTouchStart };
 
   return { isDrag, size, containerRef, buttonRef, events };
 }
