@@ -52,6 +52,7 @@ function MainCoursePage() {
         <div className="mt-4 mb-10 grid gap-x-4 gap-y-8 grid-cols-12">
           {Array.from({ length: 8 }).map((_, i) => (
             <LearnStatusCard
+              href="/course/1/lesson/1"
               title="For Loops"
               subTitle={`Lesson 1.${i + 1}`}
               status={
@@ -67,9 +68,14 @@ function MainCoursePage() {
         <div className="mt-4 mb-10 grid gap-x-4 gap-y-8 grid-cols-12">
           {Array.from({ length: 8 }).map((_, i) => (
             <LearnStatusCard
+              href="/course/1/lab/1"
               title="For Loops"
               subTitle={`Lab 1.${i + 1}`}
-              status="NONE"
+              status={
+                ["NONE", "SUCCESS", "FAILED", "IN_PROGRESS"][
+                  Math.floor(Math.random() * 4)
+                ] as LearnStatus
+              }
               key={i}
             />
           ))}
