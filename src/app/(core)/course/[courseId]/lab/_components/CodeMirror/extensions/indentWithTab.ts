@@ -1,4 +1,4 @@
-import { EditorView, keymap } from "@uiw/react-codemirror";
+import { type EditorView, keymap } from "@uiw/react-codemirror";
 
 export const indentWithTab = keymap.of([
   {

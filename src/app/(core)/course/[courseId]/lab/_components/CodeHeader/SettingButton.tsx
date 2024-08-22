@@ -1,10 +1,8 @@
 import { Dialog } from "@radix-ui/react-dialog";
 import { Settings } from "lucide-react";
-import React, { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
