@@ -10,6 +10,7 @@ import { vim } from "@replit/codemirror-vim";
 import readOnlyRangeExtension from "codemirror-readonly-ranges";
 import { getReadOnlyRanges } from "./utils/getReadOnlyRanges";
 import type { ExtensionMap } from "./types";
+import { highlightExtension } from "./extensions/highlightRanges";
 
 function CodeMirror(
   props: Omit<ReactCodeMirrorProps, "extensions"> & {
@@ -33,6 +34,9 @@ function CodeMirror(
           lang: langHighlight,
           vimMode: vimMode ? vim() : null,
           readOnlyRange: readOnlyRangeExtension((state) =>
+            getReadOnlyRanges(state, initialCode),
+          ),
+          highlightRanges: highlightExtension((state) =>
             getReadOnlyRanges(state, initialCode),
           ),
         };

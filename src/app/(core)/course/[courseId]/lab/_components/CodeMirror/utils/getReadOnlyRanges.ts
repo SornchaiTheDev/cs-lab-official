@@ -53,9 +53,11 @@ export const getReadOnlyRanges = (
       if (!editableRegex.test(line)) return;
 
       editableParts.forEach((part) => {
+        const _from = from + line.indexOf(part);
+
         ranges.push({
-          from: from + line.indexOf(part),
-          to: from + part.length,
+          from: _from,
+          to: _from + part.length,
         });
       });
       lineMatchCount++;
@@ -72,9 +74,10 @@ export const getReadOnlyRanges = (
 
       let position = 0;
       editableParts.forEach((part) => {
+        const _from = from + line.indexOf(part, position);
         ranges.push({
-          from: from + line.indexOf(part, position),
-          to: from + part.length + 1,
+          from: _from,
+          to: _from + part.length,
         });
 
         position = part.length;

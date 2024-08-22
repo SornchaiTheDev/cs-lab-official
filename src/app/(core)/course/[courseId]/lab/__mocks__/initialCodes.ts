@@ -37,7 +37,8 @@ import "fmt"
 func main() {
     @@editable@@fmt.Println("Hello, World!")@@editable@@
 }
-func add(@@editable@@\/*Edit code here*\/@@editable@@)@@editable@@\/*Edit code here*\/@@editable@@ {
+
+func add(@@editable@@\/*Edit code here*\/@@editable@@)@@editable@@\/*Edit code here*\/@@editable@@{
 @@editable@@\/*Edit code here*\/@@editable@@
 }
 @@readonly@@
