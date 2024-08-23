@@ -45,6 +45,3 @@ func add(@@editable@@\/*Edit code here*\/@@editable@@)@@editable@@\/*Edit code h
 
 This text is editable`,
 };
-
-/**
- */

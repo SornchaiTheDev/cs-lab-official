@@ -1,33 +1,30 @@
-import React from "react";
+"use client";
+import { usePathname } from "next/navigation";
 import SidebarWrapper from "./Wrapper";
 import Link from "~/components/commons/Link";
 import { cn } from "~/lib/utils";
 
-const _homePage = (
-  <>
-    <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
-      My Courses
-    </h6>
-    <div className="flex flex-col gap-4 mt-2 pr-2">
-      {Array.from({ length: 3 }).map((_, i) => (
-        <div key={i} className="flex gap-2 items-center">
-          <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
-            🖥️
-          </div>
-          <h3 className="truncate flex-1 text-sm">
-            Fundamental Computing Concept
-          </h3>
-        </div>
-      ))}
-    </div>
-  </>
-);
+const Course = ({
+  icon,
+  name,
+  href,
+}: {
+  icon: string;
+  name: string;
+  href: string;
+}) => {
+  return (
+    <Link href={href} className="flex gap-2 items-center">
+      <div className="w-7 h-7 bg-gray-4 rounded-lg content-center text-center text-xs">
+        {icon}
+      </div>
+      <h3 className="truncate flex-1 text-xs">{name}</h3>
+    </Link>
+  );
+};
 
 const _coursePage = (
   <>
-    <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
-      My Courses
-    </h6>
     <div className="flex flex-col gap-4 mt-2 pr-2">
       <div className="flex gap-2 items-center">
         <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
@@ -51,7 +48,7 @@ const _coursePage = (
   </>
 );
 
-const inCoursePage = (
+const _inCoursePage = (
   <>
     <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
       My Courses
@@ -101,8 +98,36 @@ const inCoursePage = (
   </>
 );
 
+const MyCourse = () => {
+  return (
+    <>
+      <h6 className="text-gray-11 text-sm font-light sticky top-0 py-2">
+        My Courses
+      </h6>
+      <div className="flex flex-col gap-4 mt-2 pr-2">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <Course
+            key={i}
+            name="Fundamental Computing Concept"
+            // icon="🖥️"
+            icon="F"
+            href={`/course/${i + 1}`}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
 function Sidebar() {
-  return <SidebarWrapper>{inCoursePage}</SidebarWrapper>;
+  const pathname = usePathname();
+
+  const inCoursePage = pathname.match(/\/course\//);
+  return (
+    <SidebarWrapper>
+      <MyCourse />
+    </SidebarWrapper>
+  );
 }
 
 export default Sidebar;

@@ -7,9 +7,9 @@ import { shouldTriggerStartEvent } from "~/lib/shouldTriggerStartEvent";
 function Link(props: LinkProps & { children?: ReactNode; className?: string }) {
   return (
     <NextLink
-      onClick={(e) =>
-        shouldTriggerStartEvent(props.href.toString(), e) && nprogress.start()
-      }
+      onClick={(e) => {
+        shouldTriggerStartEvent(props.href.toString(), e) && nprogress.start();
+      }}
       {...props}
     />
   );

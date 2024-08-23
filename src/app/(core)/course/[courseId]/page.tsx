@@ -2,8 +2,6 @@ import React from "react";
 import LearnStatusCard, {
   type LearnStatus,
 } from "./_components/LearnStatusCard";
-import Link from "~/components/commons/Link";
-import { MoveLeft } from "lucide-react";
 import { type Metadata } from "next";
 import { timeout } from "~/lib/timeout";
 
@@ -28,13 +26,6 @@ export const generateMetadata = async ({
 function MainCoursePage() {
   return (
     <div className="px-4 lg:px-12 py-4">
-      <Link
-        href="../../"
-        className="flex items-center gap-2 text-gray-12 hover:text-gray-11 my-4 group"
-      >
-        <MoveLeft className="group-hover:-translate-x-2 transition-all" />
-        <h5 className="text-sm">My Courses</h5>
-      </Link>
       <div className="flex items-center bg-white rounded-b-xl gap-4 mt-4">
         <div className="w-14 h-14 bg-sand-3 rounded-lg content-center text-center text-2xl">
           🖥️

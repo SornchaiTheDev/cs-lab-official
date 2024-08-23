@@ -9,11 +9,9 @@ interface Props {
 
 async function Layout({ children }: Props) {
   return (
-    <div className="h-screen relative">
-      <CoreLayout Sidebar={<Sidebar />} MobileNav={<MobileNav />}>
-        {children}
-      </CoreLayout>
-    </div>
+    <CoreLayout Sidebar={<Sidebar />} MobileNav={<MobileNav />}>
+      {children}
+    </CoreLayout>
   );
 }
 
