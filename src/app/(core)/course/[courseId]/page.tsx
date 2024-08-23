@@ -2,9 +2,7 @@ import React from "react";
 import LearnStatusCard from "./_components/LearnStatusCard";
 import { type Metadata } from "next";
 import { timeout } from "~/lib/timeout";
-import type { LearnStatus } from "../../types";
 import { myCourses } from "~/__mocks__/myCourses";
-import { useParams } from "next/navigation";
 
 export const generateMetadata = async ({
   params,

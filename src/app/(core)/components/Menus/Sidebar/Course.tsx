@@ -2,8 +2,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import CourseItem from "./CourseItem";
 import type { SidebarCourse } from "~/app/(core)/types";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { nprogress } from "@mantine/nprogress";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "~/components/commons/Link";
 
 const Course = ({ name, icon, lessons, labs, courseId }: SidebarCourse) => {
@@ -12,7 +11,6 @@ const Course = ({ name, icon, lessons, labs, courseId }: SidebarCourse) => {
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
     const courseRegex = new RegExp(`/course/${courseId}(/lesson|lab/[\\w])*`);
