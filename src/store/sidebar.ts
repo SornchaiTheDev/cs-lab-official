@@ -3,7 +3,7 @@ import { sidebarWidth } from "~/app/(core)/components/Menus/constants";
 
 interface SidebarStore {
   isCollapse: boolean;
-  width: number;
+  width: number | string;
 }
 
 export const sidebarAtom = atom<SidebarStore>({

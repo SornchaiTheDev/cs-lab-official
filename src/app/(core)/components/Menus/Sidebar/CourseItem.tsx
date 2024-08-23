@@ -41,7 +41,10 @@ const CourseItem = ({
             <li key={_slug} className="text-sm overflow-hidden">
               <Link
                 href={`/course/${courseId}/${type}/${_slug}`}
-                className="grid grid-cols-12 items-center p-2 rounded-md hover:bg-gray-3"
+                className={cn(
+                  "grid grid-cols-12 items-center p-2 rounded-md hover:bg-gray-3",
+                  _slug === slug && "bg-gray-4",
+                )}
               >
                 <div className="text-gray-12 flex justify-center items-center">
                   <StatusIcon {...{ status }} size="1rem" />
@@ -49,7 +52,6 @@ const CourseItem = ({
                 <p
                   className={cn(
                     "col-span-11 ml-2 truncate text-gray-12",
-                    _slug === slug && "font-semibold text-grass-10",
                   )}
                 >
                   {name}

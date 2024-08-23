@@ -77,7 +77,7 @@ export const myCourses: SidebarCourse[] = [
         subItems: [
           {
             name: "Lab 1.1",
-            status: "NONE",
+            status: "FAILED",
             slug: "lab-1.1",
           },
           {

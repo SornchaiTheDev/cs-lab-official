@@ -1,34 +1,32 @@
 "use client";
 
 import { useMediaQuery } from "@mantine/hooks";
-import { useAtom, useSetAtom } from "jotai";
-import React, { type ReactNode, useEffect } from "react";
-import LoadingComponent from "~/app/loading";
-import { appAtom } from "~/store/app";
-import { sidebarAtom, toggleSidebarAtom } from "~/store/sidebar";
+import { useAtom } from "jotai";
+import React, { useEffect, type ReactNode } from "react";
+import { sidebarAtom } from "~/store/sidebar";
 import { sidebarWidth } from "./constants";
 import Image from "next/image";
 import { ArrowLeft, House, PanelLeft, Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
+import { appAtom } from "~/store/app";
+import LoadingComponent from "~/app/loading";
 
 interface Props {
   children: ReactNode;
   Sidebar: ReactNode;
-  MobileNav: ReactNode;
 }
 
-function CoreLayout({ children, Sidebar, MobileNav }: Props) {
-  const setSidebar = useSetAtom(sidebarAtom);
+function CoreLayout({ children, Sidebar }: Props) {
+  const [{ isCollapse }, setSidebar] = useAtom(sidebarAtom);
   const [{ isLoading }, setApp] = useAtom(appAtom);
-  const toggleSidebar = useSetAtom(toggleSidebarAtom);
 
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   useEffect(() => {
     const setup = async () => {
       if (isMobile) {
-        setSidebar((prev) => ({ ...prev, width: 0 }));
+        setSidebar((prev) => ({ ...prev, width: 0, isCollapse: true }));
       } else {
         setSidebar((prev) => ({
           ...prev,
@@ -41,6 +39,21 @@ function CoreLayout({ children, Sidebar, MobileNav }: Props) {
     };
     setup();
   }, [isMobile, setSidebar, setApp]);
+
+  const toggleSidebar = () => {
+    let width: string | number = sidebarWidth;
+    if (isMobile) {
+      width = "100%";
+    } else {
+      width = sidebarWidth;
+    }
+
+    setSidebar((prev) => ({
+      ...prev,
+      isCollapse: !prev.isCollapse,
+      width: prev.isCollapse ? width : 0,
+    }));
+  };
 
   const router = useRouter();
   const pathname = usePathname();
@@ -86,10 +99,12 @@ function CoreLayout({ children, Sidebar, MobileNav }: Props) {
         </div>
       </div>
       <div className="flex-1 flex min-h-0">
-        {isLoading ? <LoadingComponent /> : isMobile ? MobileNav : Sidebar}
-        <div className="mb-2 mx-2 flex-1 transition-all rounded-lg bg-white shadow-lg overflow-auto">
-          {children}
-        </div>
+        {isLoading ? <LoadingComponent /> : Sidebar}
+        {isMobile && !isCollapse ? null : (
+          <div className="mb-2 mx-2 flex-1 transition-all rounded-lg bg-white shadow-lg overflow-auto">
+            {children}
+          </div>
+        )}
       </div>
     </div>
   );
