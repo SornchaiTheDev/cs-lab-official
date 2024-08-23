@@ -1,7 +1,8 @@
-export type LearnStatus = "SUCCESS" | "FAILED" | "IN_PROGRESS" | "NONE";
+export type LearnStatus = "PASSED" | "FAILED" | "IN_PROGRESS" | "NONE";
 
 export interface CourseItem {
   name: string;
+  status: LearnStatus;
   subItems: SubCourseItem[];
 }
 export interface SubCourseItem {

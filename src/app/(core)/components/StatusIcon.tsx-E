@@ -8,7 +8,7 @@ interface Props {
 }
 function StatusIcon({ status, size }: Props) {
   switch (status) {
-    case "PASSED":
+    case "SUCCESS":
       return (
         <CircleCheck
           {...{ size }}

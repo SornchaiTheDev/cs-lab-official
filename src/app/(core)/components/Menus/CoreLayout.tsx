@@ -8,10 +8,9 @@ import { appAtom } from "~/store/app";
 import { sidebarAtom, toggleSidebarAtom } from "~/store/sidebar";
 import { sidebarWidth } from "./constants";
 import Image from "next/image";
-import { ArrowLeft, Atom, PanelLeft, Settings } from "lucide-react";
+import { ArrowLeft, House, PanelLeft, Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import Link from "~/components/commons/Link";
 
 interface Props {
   children: ReactNode;
@@ -49,9 +48,17 @@ function CoreLayout({ children, Sidebar, MobileNav }: Props) {
   const canGoBack = pathname !== "/";
 
   return (
-    <div className="h-screen bg-olive-1 flex flex-col">
-      <div className="px-4 py-1 flex justify-between items-center">
+    <div className="h-screen bg-gray-2 flex flex-col">
+      <div className="px-2 py-1 flex justify-between items-center">
         <div className="flex items-center">
+          <Button
+            onClick={() => router.push("/")}
+            disabled={pathname === "/"}
+            variant="ghost"
+            className="w-10 h-10 p-0 text-gray-10"
+          >
+            <House />
+          </Button>
           <Button
             onClick={() => router.back()}
             disabled={!canGoBack}

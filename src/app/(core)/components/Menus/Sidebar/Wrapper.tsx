@@ -20,7 +20,7 @@ function SidebarWrapper({ children }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25 }}
-              className="pl-4 flex-1 overflow-y-auto pb-10"
+              className="px-4 flex-1 overflow-y-auto pb-10"
             >
               {children}
             </motion.section>

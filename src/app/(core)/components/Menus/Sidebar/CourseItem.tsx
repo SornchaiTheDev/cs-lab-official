@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StatusIcon from "../../StatusIcon";
 import type { CourseItem } from "~/app/(core)/types";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "~/components/commons/Link";
+import { useParams, usePathname } from "next/navigation";
+import { cn } from "~/lib/utils";
 
 const CourseItem = ({
   name,
@@ -12,6 +14,15 @@ const CourseItem = ({
 }: CourseItem & { type: "lesson" | "lab"; courseId: string }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const pathname = usePathname();
+
+  const { slug } = useParams();
+
+  useEffect(() => {
+    const isInCourseItem = subItems.some(({ slug }) => pathname.includes(slug));
+    setIsOpen(isInCourseItem);
+  }, [pathname, subItems]);
+
   return (
     <>
       <button
@@ -19,23 +30,30 @@ const CourseItem = ({
         className="text-sm text-gray-12 flex items-center justify-between w-full"
       >
         {name}
-        <div className="p-0 text-gray-10 w-4 h-4">
+        <div className="p-0 text-gray-10 w-6 h-6 rounded-md hover:bg-gray-3 hover:text-gray-10 flex justify-center items-center">
           {isOpen ? <ChevronUp size="1rem" /> : <ChevronDown size="1rem" />}
         </div>
       </button>
 
       {isOpen && (
-        <ul className="space-y-4 mt-2">
-          {subItems.map(({ name, slug, status }) => (
-            <li key={slug} className="text-sm overflow-hidden">
+        <ul className="space-y-2 mt-2">
+          {subItems.map(({ name, slug: _slug, status }) => (
+            <li key={_slug} className="text-sm overflow-hidden">
               <Link
-                href={`/course/${courseId}/${type}/${slug}`}
-                className="grid grid-cols-12 items-center"
+                href={`/course/${courseId}/${type}/${_slug}`}
+                className="grid grid-cols-12 items-center p-2 rounded-md hover:bg-gray-3"
               >
                 <div className="text-gray-12 flex justify-center items-center">
                   <StatusIcon {...{ status }} size="1rem" />
                 </div>
-                <p className="col-span-11 ml-2 truncate">{name}</p>
+                <p
+                  className={cn(
+                    "col-span-11 ml-2 truncate text-gray-12",
+                    _slug === slug && "font-semibold text-grass-10",
+                  )}
+                >
+                  {name}
+                </p>
               </Link>
             </li>
           ))}

@@ -8,46 +8,49 @@ export const myCourses: SidebarCourse[] = [
     lessons: [
       {
         name: "Lesson 1 Basics",
+        status: "PASSED",
         subItems: [
           {
             name: "Lesson 1.1 Repetition: while",
-            status: "NONE",
+            status: "PASSED",
             slug: "repetition-while",
           },
           {
             name: "Lesson 1.2 Repetition: for",
-            status: "NONE",
+            status: "PASSED",
             slug: "repetition-for",
           },
           {
             name: "Lesson 1.3 Repetition: do-while",
-            status: "NONE",
+            status: "PASSED",
             slug: "repetition-do-while",
           },
         ],
       },
       {
         name: "Lesson 2 Functions",
+        status: "FAILED",
         subItems: [
           {
             name: "Lesson 2.1 Function Basics",
-            status: "NONE",
+            status: "PASSED",
             slug: "function-basics",
           },
           {
             name: "Lesson 2.2 Function Parameters",
-            status: "NONE",
+            status: "PASSED",
             slug: "function-parameters",
           },
           {
             name: "Lesson 2.3 Function Return",
-            status: "NONE",
+            status: "FAILED",
             slug: "function-return",
           },
         ],
       },
       {
         name: "Lesson 3 Arrays",
+        status: "NONE",
         subItems: [
           {
             name: "Lesson 3.1 Array Basics",
@@ -70,6 +73,7 @@ export const myCourses: SidebarCourse[] = [
     labs: [
       {
         name: "Lab 1",
+        status: "NONE",
         subItems: [
           {
             name: "Lab 1.1",
@@ -89,5 +93,12 @@ export const myCourses: SidebarCourse[] = [
         ],
       },
     ],
+  },
+  {
+    courseId: "2",
+    icon: "📚",
+    name: "Test",
+    lessons: [],
+    labs: [],
   },
 ];

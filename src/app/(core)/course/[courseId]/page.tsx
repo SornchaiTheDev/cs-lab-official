@@ -3,6 +3,8 @@ import LearnStatusCard from "./_components/LearnStatusCard";
 import { type Metadata } from "next";
 import { timeout } from "~/lib/timeout";
 import type { LearnStatus } from "../../types";
+import { myCourses } from "~/__mocks__/myCourses";
+import { useParams } from "next/navigation";
 
 export const generateMetadata = async ({
   params,
@@ -22,7 +24,10 @@ export const generateMetadata = async ({
   };
 };
 
-function MainCoursePage() {
+function MainCoursePage({ params }: { params: { courseId: string } }) {
+  const { courseId } = params;
+  const currentCourse = myCourses[0];
+  const { lessons, labs } = currentCourse;
   return (
     <div className="px-4 lg:px-12 py-4">
       <div className="flex items-center bg-white rounded-b-xl gap-4 mt-4">
@@ -40,35 +45,31 @@ function MainCoursePage() {
       <div className="mt-10">
         <h5 className="text-xl font-medium">Lessons</h5>
         <div className="mt-4 mb-10 grid gap-x-4 gap-y-8 grid-cols-12">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <LearnStatusCard
-              href="/course/1/lesson/1"
-              title="For Loops"
-              subTitle={`Lesson 1.${i + 1}`}
-              status={
-                ["NONE", "SUCCESS", "FAILED", "IN_PROGRESS"][
-                  Math.floor(Math.random() * 4)
-                ] as LearnStatus
-              }
-              key={i}
-            />
-          ))}
+          {lessons.map(({ name, status, subItems }, i) => {
+            const firstLessonSlug = subItems[0].slug;
+            return (
+              <LearnStatusCard
+                href={`/course/${courseId}/lesson/${firstLessonSlug}`}
+                title={name}
+                status={status}
+                key={i}
+              />
+            );
+          })}
         </div>
         <h5 className="text-xl font-medium">Labs</h5>
         <div className="mt-4 mb-10 grid gap-x-4 gap-y-8 grid-cols-12">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <LearnStatusCard
-              href="/course/1/lab/1"
-              title="For Loops"
-              subTitle={`Lab 1.${i + 1}`}
-              status={
-                ["NONE", "SUCCESS", "FAILED", "IN_PROGRESS"][
-                  Math.floor(Math.random() * 4)
-                ] as LearnStatus
-              }
-              key={i}
-            />
-          ))}
+          {labs.map(({ name, status, subItems }, i) => {
+            const firstLessonSlug = subItems[0].slug;
+            return (
+              <LearnStatusCard
+                href={`/course/${courseId}/lab/${firstLessonSlug}`}
+                title={name}
+                status={status}
+                key={i}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
