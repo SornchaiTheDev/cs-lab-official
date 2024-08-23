@@ -8,8 +8,10 @@ import { appAtom } from "~/store/app";
 import { sidebarAtom, toggleSidebarAtom } from "~/store/sidebar";
 import { sidebarWidth } from "./constants";
 import Image from "next/image";
-import { PanelLeft, Settings } from "lucide-react";
+import { ArrowLeft, Atom, PanelLeft, Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "~/components/commons/Link";
 
 interface Props {
   children: ReactNode;
@@ -41,10 +43,23 @@ function CoreLayout({ children, Sidebar, MobileNav }: Props) {
     setup();
   }, [isMobile, setSidebar, setApp]);
 
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const canGoBack = pathname !== "/";
+
   return (
     <div className="h-screen bg-olive-1 flex flex-col">
-      <div className="px-2 py-1 flex justify-between items-center">
-        <div className="flex gap-2">
+      <div className="px-4 py-1 flex justify-between items-center">
+        <div className="flex items-center">
+          <Button
+            onClick={() => router.back()}
+            disabled={!canGoBack}
+            variant="ghost"
+            className="w-10 h-10 p-0 text-gray-10"
+          >
+            <ArrowLeft />
+          </Button>
           <Button
             variant="ghost"
             onClick={toggleSidebar}
@@ -62,8 +77,6 @@ function CoreLayout({ children, Sidebar, MobileNav }: Props) {
             <Settings size="1.25rem" />
           </Button>
         </div>
-
-        {/* <Atom size="2rem" /> */}
       </div>
       <div className="flex-1 flex min-h-0">
         {isLoading ? <LoadingComponent /> : isMobile ? MobileNav : Sidebar}

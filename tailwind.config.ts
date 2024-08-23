@@ -43,6 +43,7 @@ const config = {
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"),
+    require("@tailwindcss/container-queries"),
     colors.plugin,
   ],
 } satisfies Config;
