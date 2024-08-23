@@ -1,118 +1,63 @@
 "use client";
-import { usePathname } from "next/navigation";
 import SidebarWrapper from "./Wrapper";
-import Link from "~/components/commons/Link";
-import { cn } from "~/lib/utils";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
+import type { SidebarCourse } from "~/app/(core)/types";
+import CourseItem from "./CourseItem";
+import { myCourses } from "~/__mocks__/myCourses";
 
-const Course = ({
-  icon,
-  name,
-  href,
-}: {
-  icon: string;
-  name: string;
-  href: string;
-}) => {
+const Course = ({ name, icon, lessons, labs, courseId }: SidebarCourse) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const _icon = icon ? icon : name[0];
+
   return (
-    <Link href={href} className="flex gap-2 items-center">
-      <div className="w-7 h-7 bg-gray-4 rounded-lg content-center text-center text-xs">
-        {icon}
-      </div>
-      <h3 className="truncate flex-1 text-xs">{name}</h3>
-    </Link>
+    <>
+      <button onClick={() => setIsOpen(!isOpen)}>
+        <div className="flex gap-2 items-center">
+          <div className="w-7 h-7 bg-gray-4 rounded-lg content-center text-center text-xs">
+            {_icon}
+          </div>
+          <h3 className="truncate flex-1 text-xs">{name}</h3>
+          <div className="p-0 text-gray-10 w-4 h-4">
+            {isOpen ? <ChevronUp size="1rem" /> : <ChevronDown size="1rem" />}
+          </div>
+        </div>
+      </button>
+      {isOpen && (
+        <div className="pl-2 space-y-3">
+          <p className="text-xs text-gray-10">Lessons</p>
+          <div className="space-y-4">
+            {lessons.map(({ name, subItems }) => (
+              <CourseItem
+                key={name}
+                {...{ name, subItems, courseId }}
+                type="lesson"
+              />
+            ))}
+          </div>
+          <p className="text-xs text-gray-10">Labs</p>
+          <div className="space-y-4">
+            {labs.map(({ name, subItems }) => (
+              <CourseItem
+                key={name}
+                {...{ name, subItems, courseId }}
+                type="lab"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
-
-const _coursePage = (
-  <>
-    <div className="flex flex-col gap-4 mt-2 pr-2">
-      <div className="flex gap-2 items-center">
-        <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
-          🖥️
-        </div>
-        <h3 className="truncate flex-1 text-sm">
-          Fundamental Computing Concept
-        </h3>
-      </div>
-      <h6 className="text-sm text-gray-11 font-light">Lessons</h6>
-      {Array.from({ length: 8 }).map((_, i) => (
-        <Link
-          key={i}
-          href="/course/1/lesson/1"
-          className="text-gray-12 text-sm hover:text-gray-11"
-        >
-          Lesson 1.{i + 1} For Loops
-        </Link>
-      ))}
-    </div>
-  </>
-);
-
-const _inCoursePage = (
-  <>
-    <h6 className="text-gray-11 text-sm font-light sticky top-0 bg-gray-2 py-2">
-      My Courses
-    </h6>
-    <div className="flex flex-col gap-4 mt-2 pr-2">
-      <div className="flex gap-2 items-center">
-        <div className="w-10 h-10 bg-gray-4 rounded-lg content-center text-center text-xs">
-          🖥️
-        </div>
-        <h3 className="truncate flex-1 text-sm">
-          Fundamental Computing Concept
-        </h3>
-      </div>
-      <h6 className="text-sm text-gray-11 font-light">Lessons</h6>
-      <Link
-        href="/course/1/lesson/1"
-        className="text-gray-12 font-semibold text-sm hover:text-gray-11"
-      >
-        Lesson 1 For Loops
-      </Link>
-      <ul className="list-disc list-inside space-y-2 ml-2">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <li key={i}>
-            <Link
-              href="/course/1/lesson/1"
-              className={cn(
-                "text-gray-12 text-sm hover:text-gray-11",
-                i == 0 && "text-grass-10 font-semibold",
-              )}
-            >
-              Lesson 1.{i + 1} For loops
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Link
-          key={i}
-          href="/course/1/lesson/1"
-          className="text-gray-12 text-sm hover:text-gray-11"
-        >
-          Lesson {i + 2} For Loops
-        </Link>
-      ))}
-    </div>
-  </>
-);
 
 const MyCourse = () => {
   return (
     <>
-      <h6 className="text-gray-11 text-sm font-light sticky top-0 py-2">
-        My Courses
-      </h6>
+      <h6 className="text-gray-11 text-sm font-light py-2">My Courses</h6>
       <div className="flex flex-col gap-4 mt-2 pr-2">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <Course
-            key={i}
-            name="Fundamental Computing Concept"
-            // icon="🖥️"
-            icon="F"
-            href={`/course/${i + 1}`}
-          />
+        {myCourses.map((course) => (
+          <Course key={course.name} {...course} />
         ))}
       </div>
     </>
@@ -120,9 +65,6 @@ const MyCourse = () => {
 };
 
 function Sidebar() {
-  const pathname = usePathname();
-
-  const inCoursePage = pathname.match(/\/course\//);
   return (
     <SidebarWrapper>
       <MyCourse />

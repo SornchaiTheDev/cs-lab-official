@@ -1,8 +1,7 @@
-import { CircleCheck, CircleX, PlayCircle } from "lucide-react";
+import StatusIcon from "~/app/(core)/components/StatusIcon";
+import type { LearnStatus } from "~/app/(core)/types";
 import Link from "~/components/commons/Link";
 import { cn } from "~/lib/utils";
-
-export type LearnStatus = "SUCCESS" | "FAILED" | "IN_PROGRESS" | "NONE";
 
 interface Props {
   subTitle: string;
@@ -10,6 +9,7 @@ interface Props {
   status: LearnStatus;
   href: string;
 }
+
 function LearnStatusCard({ subTitle, title, status, href }: Props) {
   const successCard = `border-grass-11 hover:border-grass-9 shadow-grass-11 hover:bg-grass-2 hover:shadow-grass-9`;
   const inProgressCard = `border-amber-11 hover:border-amber-11/50 shadow-amber-11 hover:bg-amber-2 hover:shadow-amber-11`;
@@ -55,13 +55,7 @@ function LearnStatusCard({ subTitle, title, status, href }: Props) {
             {title}
           </h5>
         </div>
-        {status === "SUCCESS" && (
-          <CircleCheck size="2rem" className={successText} />
-        )}
-        {status === "FAILED" && <CircleX size="2rem" className={failedText} />}
-        {status === "IN_PROGRESS" && (
-          <PlayCircle size="2rem" className={inProgressText} />
-        )}
+        <StatusIcon {...{ status }} size="2rem" />
       </div>
     </Link>
   );
