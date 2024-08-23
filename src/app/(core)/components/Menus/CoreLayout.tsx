@@ -8,9 +8,8 @@ import { appAtom } from "~/store/app";
 import { sidebarAtom, toggleSidebarAtom } from "~/store/sidebar";
 import { sidebarWidth } from "./constants";
 import Image from "next/image";
-import { ChevronLeft, PanelLeft, Settings } from "lucide-react";
+import { PanelLeft, Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
-import { useRouter } from "next/navigation";
 
 interface Props {
   children: ReactNode;
