@@ -1,6 +1,5 @@
 "use client";
 
-import { useMediaQuery } from "@mantine/hooks";
 import { useAtom } from "jotai";
 import React, { useEffect, type ReactNode } from "react";
 import { sidebarAtom } from "~/store/sidebar";
@@ -21,7 +20,8 @@ function CoreLayout({ children, Sidebar }: Props) {
   const [{ isCollapse }, setSidebar] = useAtom(sidebarAtom);
   const [{ isLoading }, setApp] = useAtom(appAtom);
 
-  const isMobile = useMediaQuery("(max-width: 640px)");
+  // TODO: Implement mobile detection
+  const isMobile = false;
 
   useEffect(() => {
     const setup = async () => {
