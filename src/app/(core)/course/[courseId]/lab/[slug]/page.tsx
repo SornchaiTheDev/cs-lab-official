@@ -12,7 +12,7 @@ import { initialsCodes } from "../__mocks__/initialCodes";
 export const generateMetadata = async ({
   params,
 }: {
-  params: { courseId: string; problemId: string };
+  params: Promise<{ courseId: string; problemId: string }>;
 }): Promise<Metadata> => {
   // const { courseId, problemId } = params;
 

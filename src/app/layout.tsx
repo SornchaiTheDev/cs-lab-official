@@ -4,6 +4,7 @@ import { Poppins, Anuphan } from "next/font/google";
 import "./globals.css";
 import { env } from "~/lib/env";
 import Loading from "~/components/commons/Loading";
+import { Suspense } from "react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,7 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} ${anuphan.variable}`}>
-        <Loading />
+        <Suspense>
+          <Loading />
+        </Suspense>
         {children}
       </body>
     </html>

@@ -9,7 +9,7 @@ interface Props {
 export const generateMetadata = async ({
   params,
 }: {
-  params: { courseId: string; slug: string };
+  params: Promise<{ courseId: string; slug: string }>;
 }): Promise<Metadata> => {
   // const { courseId, slug } = params;
   const lessonName = "Lesson 1.1 Repetition: while";
