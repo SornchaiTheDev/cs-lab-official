@@ -27,8 +27,9 @@ export const generateMetadata = async ({
   };
 };
 
-async function LabPage({ params }: { params: { problemId: string } }) {
-  const userAgent = headers().get("User-Agent");
+async function LabPage(props: { params: Promise<{ problemId: string }> }) {
+  const params = await props.params;
+  const userAgent = (await headers()).get("User-Agent");
 
   if (isFromMobile(userAgent)) {
     return (

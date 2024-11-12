@@ -4,11 +4,12 @@ import { type Metadata } from "next";
 import { timeout } from "~/lib/timeout";
 import { myCourses } from "~/__mocks__/myCourses";
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { courseId: string };
-}): Promise<Metadata> => {
+export const generateMetadata = async (
+  props: {
+    params: Promise<{ courseId: string }>;
+  }
+): Promise<Metadata> => {
+  const params = await props.params;
   const courses = [
     { name: "Fundamental Computing Concepts", id: "1" },
     { name: "Fundamental Programming", id: "2" },
@@ -22,7 +23,8 @@ export const generateMetadata = async ({
   };
 };
 
-function MainCoursePage({ params }: { params: { courseId: string } }) {
+async function MainCoursePage(props: { params: Promise<{ courseId: string }> }) {
+  const params = await props.params;
   const { courseId } = params;
   const currentCourse = myCourses[0];
   const { lessons, labs } = currentCourse;

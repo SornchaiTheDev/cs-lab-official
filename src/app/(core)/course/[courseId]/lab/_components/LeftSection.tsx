@@ -67,7 +67,7 @@ const HorizontalSectionControl = ({
   events,
   isDrag,
 }: {
-  buttonRef: RefObject<HTMLButtonElement>;
+  buttonRef: RefObject<HTMLButtonElement | null>;
   events: {
     onMouseDown: () => void;
     onDoubleClick: () => void;
