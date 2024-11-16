@@ -1,13 +1,22 @@
 import { CirclePlay, LoaderCircle } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "~/globalComponents/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/globalComponents/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "~/globalComponents/ui/tabs";
 import CodeMirror from "~/globalComponents/Editor/CodeMirror";
 import { playgroundAtom } from "../store/playground";
 import { useAtom, useAtomValue } from "jotai";
 import { problemAtom } from "../store/editor";
+import { cn } from "~/lib/utils";
 
-function Playground() {
+interface Props {
+  className?: string;
+}
+function Playground({ className }: Props) {
   const { code, problemId, selectedLanguage } = useAtomValue(problemAtom);
   const [{ input, output }, setPlayground] = useAtom(playgroundAtom);
 
@@ -35,9 +44,14 @@ function Playground() {
   };
 
   return (
-    <div className="bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden">
-      <div className="flex justify-between items-center gap-2 p-2">
-        <h4 className="font-medium text-gray-12 text-sm">Playground</h4>
+    <div
+      className={cn(
+        "bg-white border rounded-lg flex flex-col flex-1 min-h-56 overflow-hidden",
+        className,
+      )}
+    >
+      <div className="flex items-center gap-2 p-2">
+        <h4 className="font-medium text-gray-12 text-sm leading-tight">Playground</h4>
         <Button
           onClick={handleOnRun}
           className="space-x-2 w-fit"
