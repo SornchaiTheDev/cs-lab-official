@@ -1,3 +1,5 @@
+"use client"
+
 import { RotateCcw } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "~/globalComponents/ui/button";

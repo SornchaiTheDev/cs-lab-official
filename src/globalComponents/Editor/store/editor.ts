@@ -18,7 +18,7 @@ export const editorAtom = atomWithStorage<EditorAtom>("editor", {
 export interface ProblemAtom {
   problemId: string;
   code: string;
-  initialCodes: LanguageMap;
+  initialCodes: LanguageMap | null;
   selectedLanguage: string;
   allowLanguages: LanguageMap;
 }
@@ -26,7 +26,7 @@ export interface ProblemAtom {
 export const problemAtom = atom<ProblemAtom>({
   problemId: "",
   code: "",
-  initialCodes: {},
+  initialCodes: null,
   selectedLanguage: "",
   allowLanguages: {},
 });

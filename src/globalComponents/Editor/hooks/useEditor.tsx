@@ -1,13 +1,13 @@
 import { useAtom } from "jotai";
 import { editorAtom, type LanguageMap, problemAtom } from "../store/editor";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { getStoredCode, setStoredCode } from "../utils/storeCode";
 import { getSelectedLang } from "../utils/getSelectedLang";
 
 export interface SetupEditor {
   problemId: string;
-  initialCodes: LanguageMap;
   allowLanguages: LanguageMap;
+  initialCodes?: LanguageMap | null;
 }
 
 const cleanDecorators = (code: string) => {
@@ -24,7 +24,11 @@ function useEditor() {
   const resetEditor = () => {
     const { problemId, selectedLanguage, initialCodes } = problem;
 
-    const initialCode = cleanDecorators(initialCodes[selectedLanguage]);
+    let initialCode = "";
+    if (initialCodes !== null) {
+      initialCode = cleanDecorators(initialCodes[selectedLanguage]);
+    }
+
     setStoredCode(problemId, selectedLanguage, initialCode);
 
     setProblem((prev) => ({ ...prev, code: initialCode }));
@@ -43,9 +47,13 @@ function useEditor() {
 
     localStorage.setItem(`${problem.problemId}-selectedLanguage`, selectedLang);
 
-    const code =
-      getStoredCode(problemId, selectedLang) ??
-      cleanDecorators(initialCodes[selectedLang]);
+    let initialCode = "";
+
+    if (initialCodes !== null) {
+      initialCode = cleanDecorators(initialCodes[selectedLang]);
+    }
+
+    const code = getStoredCode(problemId, selectedLang) ?? initialCode;
 
     setProblem((prev) => ({
       ...prev,
@@ -55,7 +63,7 @@ function useEditor() {
   };
 
   const setup = useCallback(
-    ({ initialCodes, allowLanguages, problemId }: SetupEditor) => {
+    ({ initialCodes = null, allowLanguages, problemId }: SetupEditor) => {
       const editorSettings = localStorage.getItem("editor");
 
       // Setup editor settings
@@ -67,7 +75,12 @@ function useEditor() {
 
       // Setup Problem
       const selectedLanguage = getSelectedLang(problemId, allowLanguages);
-      const initialCode = cleanDecorators(initialCodes[selectedLanguage]);
+      let initialCode = "";
+
+      if (initialCodes !== null) {
+        initialCode = cleanDecorators(initialCodes[selectedLanguage] ?? "");
+      }
+
       const code = getStoredCode(problemId, selectedLanguage) ?? initialCode;
 
       setProblem({
@@ -89,6 +102,16 @@ function useEditor() {
     setProblem((prev) => ({ ...prev, code }));
   };
 
+  const { initialCodes, selectedLanguage } = problem;
+
+  const initialCode = useMemo(() => {
+    const isNoInitialCode = initialCodes === null;
+
+    if (isNoInitialCode) return "";
+
+    return initialCodes[selectedLanguage];
+  }, [initialCodes, selectedLanguage]);
+
   return {
     setCode,
     resetEditor,
@@ -96,6 +119,7 @@ function useEditor() {
     setSelectedLanguage,
     setup,
     setVimMode,
+    initialCode,
     ...problem,
     ...editor,
   };

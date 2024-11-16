@@ -22,7 +22,7 @@ function RightSection(props: SetupEditor) {
     setCode,
     selectedLanguage,
     vimMode,
-    initialCodes,
+    initialCode,
   } = useEditor();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function RightSection(props: SetupEditor) {
             value={code}
             onChange={setCode}
             vimMode={vimMode}
-            initialCode={initialCodes[selectedLanguage]}
+            initialCode={initialCode}
           />
         </div>
       </div>

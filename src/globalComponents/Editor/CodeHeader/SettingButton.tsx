@@ -1,3 +1,5 @@
+"use client"
+
 import { Dialog } from "@radix-ui/react-dialog";
 import { Settings } from "lucide-react";
 import { Button } from "~/globalComponents/ui/button";
