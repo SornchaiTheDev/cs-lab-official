@@ -1,15 +1,15 @@
 import { Check, Copy } from "lucide-react";
 import React, { useState } from "react";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/globalComponents/ui/button";
 import { copyToClipboard } from "~/lib/copyToClipboard";
 import { cn } from "~/lib/utils";
-import useEditor from "../../hooks/useEditor";
+import useEditor from "~/globalComponents/Editor/hooks/useEditor";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "~/components/ui/tooltip";
+} from "~/globalComponents/ui/tooltip";
 
 function CopyButton() {
   const [isCopied, setIsCopied] = useState(false);

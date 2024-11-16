@@ -2,11 +2,13 @@
 
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
-import CodeHeader from "./CodeHeader";
 import { useEffect, type RefObject } from "react";
-import CodeMirror from "./CodeMirror";
-import useEditor, { type SetupEditor } from "../hooks/useEditor";
-import Playground from "./Playground";
+import CodeMirror from "~/globalComponents/Editor/CodeMirror";
+import useEditor, {
+  type SetupEditor,
+} from "~/globalComponents/Editor/hooks/useEditor";
+import Playground from "~/globalComponents/Editor/Playground";
+import CodeHeader from "~/globalComponents/Editor/CodeHeader";
 
 function RightSection(props: SetupEditor) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({

@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import CodeBlock from "./globalComponents/Editor/CodeBlock";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -7,6 +8,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </code>
     ),
+    CodeBlock,
     ...components,
   };
 }

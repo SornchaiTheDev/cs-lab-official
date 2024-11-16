@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import SubmissionList from "./SubmissionList";
-import { submissionAtom } from "~/store/submissions";
+import { submissionAtom } from "~/globalStore/submissions";
 import SubmissionDetail from "./SubmissionDetail";
 
 function SumissionsTab() {

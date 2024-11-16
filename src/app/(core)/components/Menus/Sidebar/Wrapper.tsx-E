@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
-import { sidebarAtom } from "~/globalStore/sidebar";
+import { sidebarAtom } from "~/store/sidebar";
 import type { ReactNode } from "react";
 
 interface Props {

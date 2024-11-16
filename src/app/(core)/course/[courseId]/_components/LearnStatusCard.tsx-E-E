@@ -1,6 +1,6 @@
 import StatusIcon from "~/app/(core)/components/StatusIcon";
 import type { LearnStatus } from "~/app/(core)/types";
-import Link from "~/globalComponents/commons/Link";
+import Link from "~/components/commons/Link";
 import { cn } from "~/lib/utils";
 
 interface Props {

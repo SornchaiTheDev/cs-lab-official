@@ -1,7 +1,7 @@
 "use client";
 
 import loadingAniamtionData from "~/assets/lotties/loading.json";
-import LottieComp from "~/components/commons/Lottie";
+import LottieComp from "~/globalComponents/commons/Lottie";
 
 function LoadingComponent() {
   return (

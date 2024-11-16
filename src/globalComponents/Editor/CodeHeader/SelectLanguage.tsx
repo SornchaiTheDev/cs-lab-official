@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select";
-import useEditor from "../../hooks/useEditor";
+} from "~/globalComponents/ui/select";
+import useEditor from "~/globalComponents/Editor/hooks/useEditor";
 
 function SelectLanguage() {
   const { allowLanguages, selectedLanguage, setSelectedLanguage } = useEditor();

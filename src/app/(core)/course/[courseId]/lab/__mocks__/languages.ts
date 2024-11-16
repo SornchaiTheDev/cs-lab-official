@@ -1,4 +1,4 @@
-import type { LanguageMap } from "../store/editor";
+import type { LanguageMap } from "../../../../../../globalComponents/Editor/store/editor";
 
 export const languages: LanguageMap = {
   c: "C",

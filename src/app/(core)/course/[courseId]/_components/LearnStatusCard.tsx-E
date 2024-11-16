@@ -1,6 +1,6 @@
 import StatusIcon from "~/app/(core)/components/StatusIcon";
 import type { LearnStatus } from "~/app/(core)/types";
-import Link from "~/components/commons/Link";
+import Link from "~/globalComponents/commons/Link";
 import { cn } from "~/lib/utils";
 
 interface Props {
@@ -35,7 +35,7 @@ function LearnStatusCard({ title, status, href }: Props) {
           <h5
             className={cn(
               "text-2xl font-medium",
-              status === "SUCCESS" && successText,
+              status === "PASSED" && successText,
               status === "FAILED" && failedText,
               status === "IN_PROGRESS" && inProgressText,
               status === "NONE" && noneText,

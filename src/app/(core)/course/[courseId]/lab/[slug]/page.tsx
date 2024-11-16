@@ -2,7 +2,7 @@ import LeftSection from "../_components/LeftSection";
 import RightSection from "../_components/RightSection";
 import { headers } from "next/headers";
 import { isFromMobile } from "~/lib/isFromMobile";
-import LottieComp from "~/components/commons/Lottie";
+import LottieComp from "~/globalComponents/commons/Lottie";
 import floating from "~/assets/lotties/foating.json";
 import DescriptionTab from "../_components/DescriptionTab";
 import { type Metadata } from "next";

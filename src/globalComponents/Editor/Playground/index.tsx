@@ -1,11 +1,11 @@
 import { CirclePlay, LoaderCircle } from "lucide-react";
 import React, { useState } from "react";
-import { Button } from "~/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import CodeMirror from "../CodeMirror";
-import { playgroundAtom } from "../../store/playground";
+import { Button } from "~/globalComponents/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/globalComponents/ui/tabs";
+import CodeMirror from "~/globalComponents/Editor/CodeMirror";
+import { playgroundAtom } from "../store/playground";
 import { useAtom, useAtomValue } from "jotai";
-import { problemAtom } from "../../store/editor";
+import { problemAtom } from "../store/editor";
 
 function Playground() {
   const { code, problemId, selectedLanguage } = useAtomValue(problemAtom);

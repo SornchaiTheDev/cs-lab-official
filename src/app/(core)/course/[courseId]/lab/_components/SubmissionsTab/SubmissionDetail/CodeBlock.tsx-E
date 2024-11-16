@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import CodeMirror from "~/globalComponents/Editor/CodeMirror";
-import { Button } from "~/globalComponents/ui/button";
+import CodeMirror from "~/globalComponents/CodeMirror";
+import { Button } from "~/components/ui/button";
 import { Check, Copy } from "lucide-react";
 import { copyToClipboard } from "~/lib/copyToClipboard";
 import { cn } from "~/lib/utils";

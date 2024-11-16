@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import NextLink, { type LinkProps } from "next/link";
 import { type ReactNode } from "react";
 import { shouldTriggerStartEvent } from "~/lib/shouldTriggerStartEvent";
-import { appAtom } from "~/store/app";
+import { appAtom } from "~/globalStore/app";
 
 function Link(props: LinkProps & { children?: ReactNode; className?: string }) {
   const setApp = useSetAtom(appAtom);

@@ -1,7 +1,7 @@
 import React from "react";
 import { FailedCard, PassedCard, QueueCard } from "./SubmissionCard";
 import { useAtom } from "jotai";
-import { submissionAtom } from "~/globalStore/submissions";
+import { submissionAtom } from "~/store/submissions";
 
 function SubmissionList() {
   const [_, setSubmissionAtom] = useAtom(submissionAtom);

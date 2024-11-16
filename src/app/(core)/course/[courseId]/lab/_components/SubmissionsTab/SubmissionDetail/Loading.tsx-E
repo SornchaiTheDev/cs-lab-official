@@ -1,4 +1,4 @@
-import { Skeleton } from "~/globalComponents/ui/skeleton";
+import { Skeleton } from "~/components/ui/skeleton";
 import React from "react";
 import BackButton from "./BackButton";
 import TestcaseTable from "./TestcaseTable";

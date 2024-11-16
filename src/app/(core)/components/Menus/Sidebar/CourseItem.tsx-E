@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StatusIcon from "../../StatusIcon";
 import type { CourseItem } from "~/app/(core)/types";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import Link from "~/globalComponents/commons/Link";
+import Link from "~/components/commons/Link";
 import { useParams, usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
 

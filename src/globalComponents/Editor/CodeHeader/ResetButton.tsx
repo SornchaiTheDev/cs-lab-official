@@ -1,6 +1,6 @@
 import { RotateCcw } from "lucide-react";
 import React, { useState } from "react";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/globalComponents/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -9,14 +9,14 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "~/components/ui/dialog";
-import useEditor from "../../hooks/useEditor";
+} from "~/globalComponents/ui/dialog";
+import useEditor from "~/globalComponents/Editor/hooks/useEditor";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "~/components/ui/tooltip";
+} from "~/globalComponents/ui/tooltip";
 
 function ResetButton() {
   const [isTapped, setIsTapped] = useState(false);

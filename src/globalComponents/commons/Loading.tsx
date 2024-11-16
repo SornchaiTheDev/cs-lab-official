@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { appAtom } from "~/store/app";
+import { appAtom } from "~/globalStore/app";
 
 function Loading() {
   const [{ isNavigating }, setApp] = useAtom(appAtom);

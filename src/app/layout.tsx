@@ -3,7 +3,7 @@ import { Poppins, Anuphan } from "next/font/google";
 
 import "./globals.css";
 import { env } from "~/lib/env";
-import Loading from "~/components/commons/Loading";
+import Loading from "~/globalComponents/commons/Loading";
 import { Suspense } from "react";
 
 const poppins = Poppins({
