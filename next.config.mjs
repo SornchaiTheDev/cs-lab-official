@@ -1,4 +1,3 @@
-import remarkGfm from "remark-gfm";
 import createMDX from "@next/mdx";
 import createJITI from "jiti";
 import { fileURLToPath } from "url";
@@ -18,7 +17,7 @@ const nextConfig = {
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [["remark-gfm"]],
     rehypePlugins: [],
   },
 });
