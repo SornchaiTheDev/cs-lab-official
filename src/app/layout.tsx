@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Poppins, Anuphan } from "next/font/google";
+import { Onest, Anuphan } from "next/font/google";
 
 import "./globals.css";
 import { env } from "~/lib/env";
 import Loading from "~/globalComponents/commons/Loading";
 import { Suspense } from "react";
 
-const poppins = Poppins({
+const onest = Onest({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} ${anuphan.variable}`}>
+      <body className={`${onest.className} ${anuphan.variable}`}>
         <Suspense>
           <Loading />
         </Suspense>

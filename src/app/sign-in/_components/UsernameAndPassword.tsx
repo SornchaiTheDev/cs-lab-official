@@ -1,8 +1,10 @@
 "use client";
 
+import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/globalComponents/ui/button";
 import { Input } from "~/globalComponents/ui/input";
+import { Label } from "~/globalComponents/ui/label";
 
 function UsernameAndPassword() {
   const [username, setUsername] = useState("");
@@ -27,27 +29,34 @@ function UsernameAndPassword() {
     }
   };
   return (
-    <div className="flex flex-col gap-4 w-full mt-4">
-      <Input
-        name="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-        className="h-12"
-      />
-      <Input
-        name="password"
-        placeholder="Password"
-        className="h-12"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <div className="flex flex-col gap-2 w-full mt-4">
+      <div>
+        <Label htmlFor="username">Username</Label>
+        <Input
+          id="username"
+          name="username"
+          value={username}
+          className="bg-gray-1 focus-visible:ring-0"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div>
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          value={password}
+          className="bg-gray-1 focus-visible:ring-0"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
       <Button
         disabled={isLoading || isEmpty}
         onClick={handleSignIn}
-        className="bg-grass-10 hover:bg-grass-11"
+        className="bg-grass-10 hover:bg-grass-11 mt-4"
       >
-        {isLoading ? "Signing In..." : "Sign In"}
+        {isLoading ? <LoaderCircle className="animate-spin" /> : "Sign In"}
       </Button>
     </div>
   );

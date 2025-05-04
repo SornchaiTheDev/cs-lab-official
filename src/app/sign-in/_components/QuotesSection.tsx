@@ -26,8 +26,10 @@ interface QuoteResponse {
 }
 
 function QuotesSection() {
-  const [quote, setQuote] = useState("");
-  const [author, setAuthor] = useState("");
+  const [quote, setQuote] = useState(
+    'Every developer starts their journey with "Hello World"',
+  );
+  const [author, setAuthor] = useState("SornchaiTheDev");
   const [isLoading, setIsLoading] = useState(true);
   const [imageIdx, setImageIdx] = useState<number | null>(null);
   const [images, _] = useState([BG1, BG2, BG3, BG4, BG5, BG6, BG7, BG8]);
@@ -58,13 +60,13 @@ function QuotesSection() {
   }, [images]);
 
   return (
-    <div className="flex-1 max-h-[300px] md:max-h-[450px] lg:max-h-full relative">
+    <div className="flex-1 max-h-[300px] md:max-h-[450px] lg:max-h-full relative rounded-3xl overflow-hidden">
       <div className="absolute top-0 bottom-0 left-0 right-0 backdrop-blur-sm bg-black/40 z-10">
         {!isNoQuote && (
-          <div className="flex flex-col justify-center items-center h-full gap-4">
+          <div className="flex flex-col justify-end pb-10 items-center h-full gap-4">
             <div className="px-10">
               <h1 className="text-2xl lg:text-4xl font-medium text-white lg:leading-[3rem]">
-                &ldquo; {quote} &rdquo;
+                {quote}
               </h1>
               <p className="mt-4 text-lg text-white self-start">- {author}</p>
             </div>
