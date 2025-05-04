@@ -53,6 +53,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-lottie": "^1.2.4",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "windy-radix-palette": "2.0.0-beta.7",
