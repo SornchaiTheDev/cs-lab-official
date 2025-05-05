@@ -15,6 +15,7 @@ function SidebarWrapper({ children }: Props) {
   return (
     <AnimatePresence>
       <motion.nav
+        initial={{ width }}
         animate={{ width }}
         className="flex flex-col justify-between border-r border-gray-4 bg-gray-2"
       >
@@ -24,7 +25,7 @@ function SidebarWrapper({ children }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25 }}
-              className="px-4 flex-1 overflow-y-auto pb-10"
+              className="px-4 flex-1 overflow-y-auto pt-6 pb-10"
             >
               {children}
             </motion.section>

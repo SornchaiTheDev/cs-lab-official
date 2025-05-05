@@ -9,7 +9,6 @@ import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { appAtom } from "~/globalStore/app";
 import LoadingComponent from "~/app/loading";
-import { useSession } from "~/providers/SessionProvider";
 
 interface Props {
   children: ReactNode;
@@ -60,39 +59,38 @@ function CoreLayout({ children, Sidebar }: Props) {
 
   const canGoBack = pathname !== "/";
 
-  const { user } = useSession();
-
   return (
     <div className="h-screen flex flex-col">
       <div className="px-2 py-1 flex justify-between items-center border-b border-gray-4">
         <div className="flex items-center">
           <Button
+            variant="ghost"
+            onClick={toggleSidebar}
+            className="w-10 h-8 p-0 text-gray-10"
+          >
+            <PanelLeft size="1.25rem" />
+          </Button>
+          <Button
             onClick={() => router.push("/")}
             disabled={pathname === "/"}
             variant="ghost"
-            className="w-10 h-10 p-0 text-gray-10"
+            className="w-10 h-8 p-0 text-gray-10"
           >
-            <House />
+            <House size="1.25rem" />
           </Button>
           <Button
             onClick={() => router.back()}
             disabled={!canGoBack}
             variant="ghost"
-            className="w-10 h-10 p-0 text-gray-10"
+            className="w-10 h-8 p-0 text-gray-10"
           >
-            <ArrowLeft />
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={toggleSidebar}
-            className="w-10 h-10 p-0 text-gray-10"
-          >
-            <PanelLeft />
+            <ArrowLeft size="1.25rem" />
           </Button>
         </div>
       </div>
       <div className="flex min-h-0 h-full">
-        {isLoading ? <LoadingComponent /> : Sidebar}
+        {Sidebar}
+        {/* {isLoading ? <LoadingComponent /> : Sidebar} */}
         {isMobile && !isCollapse ? null : (
           <div className="flex-1 transition-all overflow-auto">{children}</div>
         )}
