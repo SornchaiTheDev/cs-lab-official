@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { sidebarAtom } from "~/globalStore/sidebar";
 import type { ReactNode } from "react";
+import UserSection from "./UserSection";
 
 interface Props {
   children: ReactNode;
@@ -13,7 +14,10 @@ function SidebarWrapper({ children }: Props) {
 
   return (
     <AnimatePresence>
-      <motion.nav animate={{ width }} className="flex flex-col justify-between">
+      <motion.nav
+        animate={{ width }}
+        className="flex flex-col justify-between border-r border-gray-4 bg-gray-2"
+      >
         {!isCollapse && (
           <>
             <motion.section
@@ -24,6 +28,7 @@ function SidebarWrapper({ children }: Props) {
             >
               {children}
             </motion.section>
+            <UserSection />
           </>
         )}
       </motion.nav>

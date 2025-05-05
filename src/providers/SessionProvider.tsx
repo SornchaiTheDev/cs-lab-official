@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useContext } from "react";
 import type { ChildrenProps } from "~/types/children-props";
 import type { User } from "~/types/user";
 
 interface SessionContext {
   user: User;
+  signOut: () => void;
 }
 const sessionContext = createContext<SessionContext | null>(null);
 
@@ -23,8 +25,14 @@ interface Props extends ChildrenProps {
 }
 
 function SessionProvider({ user, children }: Props) {
+  const router = useRouter();
+
+  const signOut = () => {
+    router.push("/auth/sign-out");
+  };
+
   return (
-    <sessionContext.Provider value={{ user }}>
+    <sessionContext.Provider value={{ user, signOut }}>
       {children}
     </sessionContext.Provider>
   );

@@ -63,7 +63,7 @@ function CoreLayout({ children, Sidebar }: Props) {
   const { user } = useSession();
 
   return (
-    <div className="h-screen bg-gray-2 flex flex-col">
+    <div className="h-screen flex flex-col">
       <div className="px-2 py-1 flex justify-between items-center border-b border-gray-4">
         <div className="flex items-center">
           <Button
