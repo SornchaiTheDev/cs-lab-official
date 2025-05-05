@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { appAtom } from "~/globalStore/app";
+import { timeout } from "~/lib/timeout";
 
 function AppLoading() {
   const [{ isNavigating }, setApp] = useAtom(appAtom);
@@ -12,7 +13,9 @@ function AppLoading() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    setApp((prev) => ({ ...prev, isNavigating: false }));
+    timeout(1000).then(() =>
+      setApp((prev) => ({ ...prev, isNavigating: false })),
+    );
   }, [pathname, searchParams, setApp]);
 
   useEffect(() => {
