@@ -1,13 +1,13 @@
 import { CirclePlay, LoaderCircle } from "lucide-react";
 import React, { useState } from "react";
-import { Button } from "~/globalComponents/ui/button";
+import { Button } from "~/components/ui/button";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "~/globalComponents/ui/tabs";
-import CodeMirror from "~/globalComponents/Editor/CodeMirror";
+} from "~/components/ui/tabs";
+import CodeMirror from "~/components/Editor/CodeMirror";
 import { playgroundAtom } from "../store/playground";
 import { useAtom, useAtomValue } from "jotai";
 import { problemAtom } from "../store/editor";

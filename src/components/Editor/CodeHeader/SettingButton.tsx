@@ -2,23 +2,23 @@
 
 import { Dialog } from "@radix-ui/react-dialog";
 import { Settings } from "lucide-react";
-import { Button } from "~/globalComponents/ui/button";
+import { Button } from "~/components/ui/button";
 import {
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/globalComponents/ui/dialog";
-import { Label } from "~/globalComponents/ui/label";
+} from "~/components/ui/dialog";
+import { Label } from "~/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/globalComponents/ui/select";
-import { Switch } from "~/globalComponents/ui/switch";
-import useEditor from "~/globalComponents/Editor/hooks/useEditor";
+} from "~/components/ui/select";
+import { Switch } from "~/components/ui/switch";
+import useEditor from "~/components/Editor/hooks/useEditor";
 
 const fontSizes: string[] = Array.from({ length: 10 }).map((_, i) =>
   (i * 2 + 12).toString(),

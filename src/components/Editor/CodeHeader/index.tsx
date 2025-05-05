@@ -1,5 +1,5 @@
 import { CloudUpload, SaveIcon } from "lucide-react";
-import { Button } from "~/globalComponents/ui/button";
+import { Button } from "~/components/ui/button";
 import CopyButton from "./CopyButton";
 import ResetButton from "./ResetButton";
 import SelectLanguage from "./SelectLanguage";

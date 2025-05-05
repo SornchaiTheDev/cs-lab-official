@@ -1,6 +1,6 @@
 "use client";
 
-import CodeMirror from "~/globalComponents/Editor/CodeMirror";
+import CodeMirror from "~/components/Editor/CodeMirror";
 import CodeHeader from "../CodeHeader";
 import useEditor from "../hooks/useEditor";
 import { useEffect } from "react";
