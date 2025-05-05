@@ -4,12 +4,12 @@ import { useAtom } from "jotai";
 import React, { useEffect, type ReactNode } from "react";
 import { sidebarAtom } from "~/globalStore/sidebar";
 import { sidebarWidth } from "./constants";
-import Image from "next/image";
-import { ArrowLeft, House, PanelLeft, Settings } from "lucide-react";
+import { ArrowLeft, House, PanelLeft } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { appAtom } from "~/globalStore/app";
 import LoadingComponent from "~/app/loading";
+import { useSession } from "~/providers/SessionProvider";
 
 interface Props {
   children: ReactNode;
@@ -60,9 +60,11 @@ function CoreLayout({ children, Sidebar }: Props) {
 
   const canGoBack = pathname !== "/";
 
+  const { user } = useSession();
+
   return (
     <div className="h-screen bg-gray-2 flex flex-col">
-      <div className="px-2 py-1 flex justify-between items-center">
+      <div className="px-2 py-1 flex justify-between items-center border-b border-gray-4">
         <div className="flex items-center">
           <Button
             onClick={() => router.push("/")}
@@ -88,22 +90,11 @@ function CoreLayout({ children, Sidebar }: Props) {
             <PanelLeft />
           </Button>
         </div>
-
-        <div className="flex gap-2 items-center">
-          <div className="relative w-8 h-8 rounded-md overflow-hidden">
-            <Image src="/profile.png" fill alt="user profile image" />
-          </div>
-          <Button variant="ghost" className="p-2 text-gray-10">
-            <Settings size="1.25rem" />
-          </Button>
-        </div>
       </div>
-      <div className="flex-1 flex min-h-0">
+      <div className="flex min-h-0 h-full">
         {isLoading ? <LoadingComponent /> : Sidebar}
         {isMobile && !isCollapse ? null : (
-          <div className="mb-2 mx-2 flex-1 transition-all rounded-lg bg-white shadow-lg overflow-auto">
-            {children}
-          </div>
+          <div className="flex-1 transition-all overflow-auto">{children}</div>
         )}
       </div>
     </div>

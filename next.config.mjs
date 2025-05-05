@@ -5,6 +5,13 @@ const nextConfig = {
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   transpilePackages: ["next-mdx-remote"],
+  images: {
+    remotePatterns: [
+      {
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
   // Optionally, add any other Next.js config below
 };
 
