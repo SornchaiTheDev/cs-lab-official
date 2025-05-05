@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { DoorOpen, EllipsisVertical } from "lucide-react";
 import Image from "next/image";
 import {
@@ -12,7 +13,12 @@ function UserSection() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="m-4 p-2 flex items-center gap-3 hover:bg-gray-4 rounded-lg">
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.25 }}
+          className="m-4 p-2 flex items-center gap-3 hover:bg-gray-4 rounded-lg"
+        >
           <Image
             src={user.profileImage}
             alt={`${user.username}'s Profile`}
@@ -29,7 +35,7 @@ function UserSection() {
             </h6>
           </div>
           <EllipsisVertical size="1rem" className="shrink-0 text-gray-11" />
-        </button>
+        </motion.button>
       </PopoverTrigger>
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
         <div className="px-2 py-4 flex gap-3 rounded-lg">
