@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { appAtom } from "~/globalStore/app";
 
-function Loading() {
+function AppLoading() {
   const [{ isNavigating }, setApp] = useAtom(appAtom);
 
   const pathname = usePathname();
@@ -36,4 +36,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default AppLoading;

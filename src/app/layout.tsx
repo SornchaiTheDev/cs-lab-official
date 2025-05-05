@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Onest, Anuphan } from "next/font/google";
 
 import "./globals.css";
-import { env } from "~/lib/env";
-import Loading from "~/globalComponents/commons/Loading";
+import AppLoading from "~/components/commons/AppLoading";
 import { Suspense } from "react";
+import { ClientEnv } from "~/lib/client-env";
 
 const onest = Onest({
   subsets: ["latin"],
@@ -28,12 +28,12 @@ export const metadata: Metadata = {
     title: "CS Lab",
     description:
       "Programming Lab Web application @Computer Science Kasetsart University",
-    url: env.PUBLIC_URL,
+    url: process.env.WEB_URL,
     siteName: "CS Lab",
     locale: "en_US",
     type: "website",
   },
-  manifest: `${env.PUBLIC_URL}/manifest.json`,
+  manifest: `${process.env.WEB_URL}/manifest.json`,
 };
 
 export default function RootLayout({
@@ -43,9 +43,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <ClientEnv />
+      </head>
       <body className={`${onest.className} ${anuphan.variable}`}>
         <Suspense>
-          <Loading />
+          <AppLoading />
         </Suspense>
         {children}
       </body>

@@ -3,12 +3,12 @@
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
 import { useEffect, type RefObject } from "react";
-import CodeMirror from "~/globalComponents/Editor/CodeMirror";
+import CodeMirror from "~/components/Editor/CodeMirror";
 import useEditor, {
   type SetupEditor,
-} from "~/globalComponents/Editor/hooks/useEditor";
-import Playground from "~/globalComponents/Editor/Playground";
-import CodeHeader from "~/globalComponents/Editor/CodeHeader";
+} from "~/components/Editor/hooks/useEditor";
+import Playground from "~/components/Editor/Playground";
+import CodeHeader from "~/components/Editor/CodeHeader";
 
 function RightSection(props: SetupEditor) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({

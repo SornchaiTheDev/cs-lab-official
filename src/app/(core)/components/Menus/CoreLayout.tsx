@@ -6,7 +6,7 @@ import { sidebarAtom } from "~/globalStore/sidebar";
 import { sidebarWidth } from "./constants";
 import Image from "next/image";
 import { ArrowLeft, House, PanelLeft, Settings } from "lucide-react";
-import { Button } from "~/globalComponents/ui/button";
+import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { appAtom } from "~/globalStore/app";
 import LoadingComponent from "~/app/loading";

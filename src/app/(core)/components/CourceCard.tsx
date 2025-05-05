@@ -1,4 +1,4 @@
-import Link from "~/globalComponents/commons/Link";
+import Link from "~/components/commons/Link";
 
 const CourseCard = () => {
   return (

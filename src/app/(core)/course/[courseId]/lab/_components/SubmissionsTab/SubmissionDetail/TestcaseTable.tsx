@@ -1,4 +1,4 @@
-import { Skeleton } from "~/globalComponents/ui/skeleton";
+import { Skeleton } from "~/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "~/globalComponents/ui/table";
+} from "~/components/ui/table";
 
 interface Props {
   isLoading: boolean;

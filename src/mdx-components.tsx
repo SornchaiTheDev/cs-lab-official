@@ -1,5 +1,5 @@
 import type { MDXComponents } from "mdx/types";
-import CodeBlock from "./globalComponents/Editor/CodeBlock";
+import CodeBlock from "./components/Editor/CodeBlock";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

@@ -2,9 +2,9 @@
 
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
-import { Button } from "~/globalComponents/ui/button";
-import { Input } from "~/globalComponents/ui/input";
-import { Label } from "~/globalComponents/ui/label";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 
 function UsernameAndPassword() {
   const [username, setUsername] = useState("");

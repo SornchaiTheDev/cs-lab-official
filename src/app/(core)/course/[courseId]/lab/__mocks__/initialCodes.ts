@@ -1,4 +1,4 @@
-import type { LanguageMap } from "../../../../../../globalComponents/Editor/store/editor";
+import type { LanguageMap } from "../../../../../../components/Editor/store/editor";
 
 export const initialsCodes: LanguageMap = {
   c: `#include <stdio.h>
