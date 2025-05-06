@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { sidebarWidth } from "~/app/(core)/components/Menus/constants";
+import { SIDEBAR_WIDTH } from "~/constants";
 
 interface SidebarStore {
   isCollapse: boolean;
@@ -8,13 +8,13 @@ interface SidebarStore {
 
 export const sidebarAtom = atom<SidebarStore>({
   isCollapse: false,
-  width: sidebarWidth,
+  width: SIDEBAR_WIDTH,
 });
 
 export const toggleSidebarAtom = atom(null, (get, set, _) => {
   const isCollapse = get(sidebarAtom).isCollapse;
   set(sidebarAtom, {
     isCollapse: !isCollapse,
-    width: isCollapse ? sidebarWidth : 0,
+    width: isCollapse ? SIDEBAR_WIDTH : 0,
   });
 });

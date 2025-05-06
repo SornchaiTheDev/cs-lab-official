@@ -1,4 +1,4 @@
-import type { SidebarCourse } from "~/app/(core)/types";
+import type { SidebarCourse } from "~/app/(authed)/(core)/types";
 
 export const myCourses: SidebarCourse[] = [
   {

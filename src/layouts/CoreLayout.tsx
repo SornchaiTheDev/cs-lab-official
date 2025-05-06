@@ -1,26 +1,28 @@
 "use client";
 
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import React, { type ReactNode } from "react";
 import { sidebarAtom } from "~/globalStore/sidebar";
-import { sidebarWidth } from "./constants";
 import { ArrowLeft, House, PanelLeft } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import Sidebar from "./Sidebar";
+import { SIDEBAR_WIDTH } from "~/constants";
+import SidebarWrapper from "~/components/Menus/SidebarWrapper";
 
 interface Props {
   children: ReactNode;
+  Sidebar?: ReactNode;
+  homePath?: string;
 }
 
-function CoreLayout({ children }: Props) {
-  const [{ isCollapse }, setSidebar] = useAtom(sidebarAtom);
+function CoreLayout({ children, Sidebar, homePath = "/" }: Props) {
+  const setSidebar = useSetAtom(sidebarAtom);
 
   const toggleSidebar = () => {
     setSidebar((prev) => ({
       ...prev,
       isCollapse: !prev.isCollapse,
-      width: prev.isCollapse ? sidebarWidth : 0,
+      width: prev.isCollapse ? SIDEBAR_WIDTH : 0,
     }));
   };
 
@@ -41,8 +43,8 @@ function CoreLayout({ children }: Props) {
             <PanelLeft size="1.25rem" />
           </Button>
           <Button
-            onClick={() => router.push("/")}
-            disabled={pathname === "/"}
+            onClick={() => router.push(homePath)}
+            disabled={pathname === homePath}
             variant="ghost"
             className="w-10 h-8 p-0 text-gray-10"
           >
@@ -59,7 +61,7 @@ function CoreLayout({ children }: Props) {
         </div>
       </div>
       <div className="flex min-h-0 h-full">
-        <Sidebar />
+        <SidebarWrapper>{Sidebar}</SidebarWrapper>
         <div className="flex-1 transition-all overflow-auto">{children}</div>
       </div>
     </div>
