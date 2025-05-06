@@ -5,5 +5,6 @@ export interface AccessTokenPayload extends JwtPayload {
   displayName: string;
   profileImage: string;
   roles: string[];
+  exp: number;
   sub: string;
 }

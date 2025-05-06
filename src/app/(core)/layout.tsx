@@ -1,6 +1,5 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 import CoreLayout from "./components/Menus/CoreLayout";
-import Sidebar from "./components/Menus/Sidebar";
 import { Provider as JotaiProvider } from "jotai";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -21,20 +20,30 @@ async function Layout({ children }: Props) {
     return redirect("/auth/sign-in");
   }
 
-  const decodedJWT = jwtDecode<AccessTokenPayload>(accessToken.value);
+  let user: User;
 
-  const user: User = {
-    id: decodedJWT.sub,
-    username: decodedJWT.username,
-    displayName: decodedJWT.displayName,
-    profileImage: decodedJWT.profileImage,
-    roles: decodedJWT.roles,
-  };
+  try {
+    const decodedJWT = jwtDecode<AccessTokenPayload>(accessToken.value);
+
+    if (decodedJWT.exp * 1000 < Date.now()) {
+      throw new Error("TOKEN_EXPIRED");
+    }
+
+    user = {
+      id: decodedJWT.sub,
+      username: decodedJWT.username,
+      displayName: decodedJWT.displayName,
+      profileImage: decodedJWT.profileImage,
+      roles: decodedJWT.roles,
+    };
+  } catch (err) {
+    return redirect("/auth/sign-out");
+  }
 
   return (
     <JotaiProvider>
       <SessionProvider {...{ user }}>
-        <CoreLayout Sidebar={<Sidebar />}>{children}</CoreLayout>
+        <CoreLayout>{children}</CoreLayout>
       </SessionProvider>
     </JotaiProvider>
   );
