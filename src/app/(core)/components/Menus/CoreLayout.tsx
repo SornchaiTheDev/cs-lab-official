@@ -1,56 +1,26 @@
 "use client";
 
 import { useAtom } from "jotai";
-import React, { useEffect, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { sidebarAtom } from "~/globalStore/sidebar";
 import { sidebarWidth } from "./constants";
 import { ArrowLeft, House, PanelLeft } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import { appAtom } from "~/globalStore/app";
-import LoadingComponent from "~/app/loading";
+import Sidebar from "./Sidebar";
 
 interface Props {
   children: ReactNode;
-  Sidebar: ReactNode;
 }
 
-function CoreLayout({ children, Sidebar }: Props) {
+function CoreLayout({ children }: Props) {
   const [{ isCollapse }, setSidebar] = useAtom(sidebarAtom);
-  const [{ isLoading }, setApp] = useAtom(appAtom);
-
-  // TODO: Implement mobile detection
-  const isMobile = false;
-
-  useEffect(() => {
-    const setup = async () => {
-      if (isMobile) {
-        setSidebar((prev) => ({ ...prev, width: 0, isCollapse: true }));
-      } else {
-        setSidebar((prev) => ({
-          ...prev,
-          width: sidebarWidth,
-          isCollapse: false,
-        }));
-      }
-      await new Promise((res) => setTimeout(() => res("finish loading"), 500));
-      setApp((prev) => ({ ...prev, isLoading: false }));
-    };
-    setup();
-  }, [isMobile, setSidebar, setApp]);
 
   const toggleSidebar = () => {
-    let width: string | number = sidebarWidth;
-    if (isMobile) {
-      width = "100%";
-    } else {
-      width = sidebarWidth;
-    }
-
     setSidebar((prev) => ({
       ...prev,
       isCollapse: !prev.isCollapse,
-      width: prev.isCollapse ? width : 0,
+      width: prev.isCollapse ? sidebarWidth : 0,
     }));
   };
 
@@ -89,11 +59,8 @@ function CoreLayout({ children, Sidebar }: Props) {
         </div>
       </div>
       <div className="flex min-h-0 h-full">
-        {Sidebar}
-        {/* {isLoading ? <LoadingComponent /> : Sidebar} */}
-        {isMobile && !isCollapse ? null : (
-          <div className="flex-1 transition-all overflow-auto">{children}</div>
-        )}
+        <Sidebar />
+        <div className="flex-1 transition-all overflow-auto">{children}</div>
       </div>
     </div>
   );
