@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useCallback, useContext, useEffect } from "react";
 import { api } from "~/lib/api";
 import type { ChildrenProps } from "~/types/children-props";
 import type { User } from "~/types/user";
@@ -35,13 +35,28 @@ function SessionProvider({ user, children }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+  const refreshToken = useCallback(async () => {
     try {
-      api.post("/auth/refresh-token");
-    } catch {
+      await api.post("/auth/refresh-token");
+    } catch (err) {
       router.push("/auth/sign-out");
     }
-  }, [pathname, searchParams, router]);
+  }, [router]);
+
+  useEffect(() => {
+    setInterval(
+      () => {
+        refreshToken();
+      },
+      3 * 60 * 1000,
+    );
+  }, [refreshToken]);
+
+  useEffect(() => {
+    return () => {
+      refreshToken();
+    };
+  }, [pathname, searchParams, refreshToken]);
 
   return (
     <sessionContext.Provider value={{ user, signOut }}>
