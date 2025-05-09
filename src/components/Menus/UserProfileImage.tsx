@@ -20,7 +20,7 @@ function UserProfileImage({ src, username }: Props) {
     <Image
       {...{ src }}
       alt={`${username}'s profile image`}
-      className="rounded-xl shrink-0"
+      className="rounded-xl shrink-0 h-fit"
       width={36}
       height={36}
     />
