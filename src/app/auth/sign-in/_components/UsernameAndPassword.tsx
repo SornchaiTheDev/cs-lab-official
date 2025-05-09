@@ -1,10 +1,13 @@
 "use client";
 
+import { AxiosError } from "axios";
 import { LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { api } from "~/lib/api";
 
 function UsernameAndPassword() {
   const [username, setUsername] = useState("");
@@ -14,6 +17,8 @@ function UsernameAndPassword() {
 
   const isEmpty = username === "" || password === "";
 
+  const router = useRouter();
+
   const handleSignIn = async () => {
     const _payload = {
       username,
@@ -22,12 +27,21 @@ function UsernameAndPassword() {
 
     try {
       setIsLoading(true);
-      await new Promise((res) => setTimeout(() => res("finish"), 1000));
+      await api.post("/auth/sign-in/credential", _payload);
+      router.push("/");
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response?.data.code === 401) {
+          router.push("/auth/sign-in?error=INVALID_CREDENTIAL");
+          return;
+        }
+        router.push("/auth/sign-in?error=SOMETHING_WENT_WRONG");
+      }
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="flex flex-col gap-2 w-full mt-4">
       <div>
