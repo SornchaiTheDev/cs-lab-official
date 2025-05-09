@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { useSession } from "~/providers/SessionProvider";
+import UserProfileImage from "./UserProfileImage";
 
 function UserSection() {
   const { user, signOut } = useSession();
@@ -24,13 +25,7 @@ function UserSection() {
           transition={{ delay: 0.25 }}
           className="m-4 p-2 flex items-center gap-3 hover:bg-gray-4 rounded-lg"
         >
-          <Image
-            src={user.profileImage}
-            alt={`${user.username}'s Profile`}
-            className="rounded-xl shrink-0"
-            width={36}
-            height={36}
-          />
+          <UserProfileImage src={user.profileImage} username={user.username} />
           <div className="flex-1 space-y-0.5 grid text-left">
             <h4 className="text-sm font-medium truncate text-gray-12 leading-tight">
               {user.displayName}
@@ -44,13 +39,7 @@ function UserSection() {
       </PopoverTrigger>
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
         <div className="px-2 py-4 flex gap-3 rounded-lg">
-          <Image
-            src={user.profileImage}
-            alt={`${user.username}'s Profile`}
-            className="rounded-xl shrink-0 h-fit"
-            width={36}
-            height={36}
-          />
+          <UserProfileImage src={user.profileImage} username={user.username} />
           <div className="flex-1 space-y-0.5 grid text-left">
             <h4 className="text-sm font-medium truncate text-gray-12 leading-tight">
               {user.displayName}
