@@ -28,7 +28,11 @@ async function SignInPage({ searchParams }: Props) {
     }
 
     if (errorCode === "INVALID_CREDENTIAL") {
-      return <>username or password is incorrect.</>;
+      return "username or password is incorrect.";
+    }
+
+    if (errorCode === "SOMETHING_WENT_WRONG") {
+      return "Something went wrong. Please try again later.";
     }
 
     return null;
