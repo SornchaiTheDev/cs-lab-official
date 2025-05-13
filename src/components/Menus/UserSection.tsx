@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { DoorOpen, EllipsisVertical, SquareTerminal } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   Popover,
