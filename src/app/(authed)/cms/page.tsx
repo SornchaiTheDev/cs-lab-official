@@ -1,7 +1,7 @@
 import React from "react";
 
 function CMSMainPage() {
-  return <div>CMSMainPage</div>;
+  return <div></div>;
 }
 
 export default CMSMainPage;
