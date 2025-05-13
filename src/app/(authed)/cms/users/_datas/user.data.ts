@@ -1,0 +1,45 @@
+import type { User } from "~/types/user";
+
+export const sampleUsers: User[] = [
+  {
+    id: "1",
+    email: "john.doe@gmail.com",
+    username: "johndoe",
+    displayName: "John Doe",
+    profileImage: null,
+    roles: ["admin", "teacher", "student"],
+    type: "oauth",
+    createdAt: new Date("2025-05-12T00:00:00Z"),
+    updatedAt: new Date("2025-05-13T00:00:00Z"),
+  },
+  {
+    id: "2",
+    username: "janedoe",
+    displayName: "Jane Doe",
+    profileImage: null,
+    roles: ["teacher"],
+    type: "credential",
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2023-01-02T00:00:00Z"),
+  },
+  {
+    id: "3",
+    username: "alice",
+    displayName: "Alice Smith",
+    profileImage: null,
+    roles: ["student"],
+    type: "credential",
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2023-01-02T00:00:00Z"),
+  },
+  {
+    id: "4",
+    username: "bob",
+    displayName: "Bob Johnson",
+    profileImage: null,
+    roles: ["student"],
+    type: "credential",
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2023-01-02T00:00:00Z"),
+  },
+];

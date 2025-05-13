@@ -8,6 +8,7 @@ import {
 } from "~/components/ui/popover";
 import { useSession } from "~/providers/SessionProvider";
 import UserProfileImage from "./UserProfileImage";
+import UserRole from "../commons/UserRole";
 
 function UserSection() {
   const { user, signOut } = useSession();
@@ -48,12 +49,7 @@ function UserSection() {
             </h6>
             <div className="pt-1 space-x-1.5">
               {user.roles.map((role) => (
-                <span
-                  key={role}
-                  className="bg-gray-2 border-gray-4 border text-gray-12 rounded-lg px-2 py-1 text-xs font-light"
-                >
-                  {role[0].toUpperCase() + role.slice(1)}
-                </span>
+                <UserRole key={role} {...{ role }} />
               ))}
             </div>
           </div>
