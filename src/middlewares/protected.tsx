@@ -5,7 +5,7 @@ import type { User } from "~/types/user";
 
 export const protectedMiddleware = async (
   cond?: (user: User) => boolean,
-): Promise<User> => {
+): Promise<void> => {
   const cookieJar = await cookies();
   const accessToken = cookieJar.get("access_token");
 
@@ -18,8 +18,6 @@ export const protectedMiddleware = async (
     if (cond !== undefined && !cond(user)) {
       throw new Error("UNAUTHORIZED");
     }
-
-    return user;
   } catch (err) {
     if (err instanceof Error) {
       if (err.message === "UNAUTHORIZED") {
