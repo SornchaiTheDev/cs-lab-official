@@ -4,10 +4,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect } from "react";
 import { api } from "~/lib/api";
 import type { ChildrenProps } from "~/types/children-props";
-import type { User } from "~/types/user";
+import type { JWTUser } from "~/types/user";
 
 interface SessionContext {
-  user: User;
+  user: JWTUser;
   signOut: () => void;
 }
 const sessionContext = createContext<SessionContext | null>(null);
@@ -22,7 +22,7 @@ export const useSession = () => {
 };
 
 interface Props extends ChildrenProps {
-  user: User;
+  user: JWTUser;
 }
 
 function SessionProvider({ user, children }: Props) {

@@ -1,8 +1,8 @@
 import { jwtDecode } from "jwt-decode";
 import type { AccessTokenPayload } from "~/types/access-token";
-import type { User } from "~/types/user";
+import type { JWTUser } from "~/types/user";
 
-export const getUser = (accessToken: string): User => {
+export const getUser = (accessToken: string): JWTUser => {
   const decodedJWT = jwtDecode<AccessTokenPayload>(accessToken);
 
   if (decodedJWT.exp * 1000 < Date.now()) {

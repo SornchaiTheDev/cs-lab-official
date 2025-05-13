@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { getUser } from "./user";
-import type { User } from "~/types/user";
+import type { JWTUser } from "~/types/user";
 
-export const getUserSession = async (): Promise<User> => {
+export const getUserSession = async (): Promise<JWTUser> => {
   const cookieJar = await cookies();
   const accessToken = cookieJar.get("access_token")?.value;
 
