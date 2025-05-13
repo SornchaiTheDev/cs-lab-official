@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { useState } from "react";
-
+import { flexRender, type Table as TanstackTable } from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -17,29 +10,15 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { cn } from "~/lib/utils";
+import type { User } from "~/types/user";
 
-interface Props<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface Props {
+  table: TanstackTable<User>;
+  totalColumns: number;
   className?: string;
 }
 
-export function UsersTable<TData, TValue>({
-  columns,
-  data,
-  className,
-}: Props<TData, TValue>) {
-  const [rowSelection, setRowSelection] = useState({});
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    state: {
-      rowSelection,
-    },
-    onRowSelectionChange: setRowSelection,
-  });
-
+export function UsersTable({ className, table, totalColumns }: Props) {
   return (
     <div
       className={cn(
@@ -85,7 +64,7 @@ export function UsersTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={totalColumns} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

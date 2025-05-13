@@ -23,8 +23,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import UserProfileImage from "~/components/Menus/UserProfileImage";
@@ -37,6 +35,7 @@ export const columns = [
   columnHelper.display({
     id: "select",
     size: 10,
+    enableHiding: false,
     header: ({ table }) => (
       <div className="flex justify-center items-center">
         <Checkbox
@@ -61,6 +60,7 @@ export const columns = [
   }),
   columnHelper.accessor("type", {
     size: 10,
+    id: "Type",
     header: () => (
       <span className="flex gap-1.5 text-xs justify-center">
         <Shield size="1rem" /> Type
@@ -72,7 +72,24 @@ export const columns = [
       return <GoogleIcon className="w-4 h-4 mx-auto" />;
     },
   }),
+  columnHelper.accessor("username", {
+    id: "Username",
+    header: () => (
+      <span className="flex gap-1.5 text-xs">
+        <UserRound size="1rem" /> Username
+      </span>
+    ),
+  }),
+  columnHelper.accessor("email", {
+    id: "Email",
+    header: () => (
+      <span className="flex gap-1.5 text-xs">
+        <AtSign size="1rem" /> Email
+      </span>
+    ),
+  }),
   columnHelper.accessor("profileImage", {
+    id: "Profile",
     size: 10,
     header: () => (
       <span className="flex gap-1.5 text-xs justify-center items-center">
@@ -89,6 +106,7 @@ export const columns = [
     },
   }),
   columnHelper.accessor("displayName", {
+    id: "Display Name",
     size: 10,
     header: () => (
       <span className="flex gap-1.5 text-xs">
@@ -97,6 +115,7 @@ export const columns = [
     ),
   }),
   columnHelper.accessor("roles", {
+    id: "Roles",
     size: 10,
     header: () => (
       <span className="flex gap-1.5 text-xs">
@@ -116,6 +135,7 @@ export const columns = [
     },
   }),
   columnHelper.accessor("createdAt", {
+    id: "Created At",
     size: 10,
     header: () => (
       <span className="flex gap-1.5 text-xs">
@@ -128,6 +148,7 @@ export const columns = [
     },
   }),
   columnHelper.accessor("updatedAt", {
+    id: "Updated At",
     size: 10,
     header: () => (
       <span className="flex gap-1.5 text-xs">
@@ -141,6 +162,7 @@ export const columns = [
   }),
   columnHelper.display({
     id: "action",
+    enableHiding: false,
     size: 20,
     cell: () => {
       return (
