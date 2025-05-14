@@ -6,10 +6,11 @@ import {
   type VisibilityState,
   getPaginationRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
+  type SortingState,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
 import { columns } from "../_datas/columns";
-import { sampleUsers } from "../_datas/user.data";
 import { UserRoundPlus, Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
 import {
@@ -23,36 +24,63 @@ import {
 import PageSize from "./PageSize";
 import TablePagination from "./TablePagination";
 import SearchData from "./SearchData";
+import { useUserPagination } from "../_queries/pagination.queries";
+import TableSkeleton from "./TableSkeleton";
+import { mapUserColumnID } from "../_utils/mapColumnID";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    Email: false,
-    Username: false,
+    email: false,
+    username: false,
   });
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: "created_at",
+      desc: true,
+    },
+  ]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 25,
+    pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
 
+  const { data, isLoading } = useUserPagination({
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+    search: "",
+    sortBy: "created_at",
+    sortOrder: "desc",
+  });
+
+  const userAmount = data?.users.length ?? 0;
+
+  const memoizedColumns = React.useMemo(() => columns, []);
+
   const table = useReactTable({
-    data: sampleUsers,
-    columns,
+    data: data?.users ?? [],
+    columns: memoizedColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    enableRowSelection: true,
+    enableMultiSort: false,
+    manualFiltering: true,
     state: {
       rowSelection,
       columnVisibility,
       pagination,
       globalFilter,
+      sorting,
     },
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
     onGlobalFilterChange: setGlobalFilter,
-    pageCount: Math.ceil(sampleUsers.length / pagination.pageSize),
+    onSortingChange: setSorting,
+    pageCount: Math.ceil(userAmount / pagination.pageSize),
   });
 
   return (
@@ -62,7 +90,8 @@ function TableSection() {
         <FilterColumns
           columns={table
             .getAllColumns()
-            .filter((column) => column.getCanHide())}
+            .filter((column) => column.getCanHide())
+            .map((col) => ({ ...col, id: mapUserColumnID(col.id) }))}
         />
         <button className="px-3 py-1.5 border bg-gray-2 text-gray-11 text-sm rounded-md flex justify-center items-center gap-1.5 hover:bg-gray-3">
           <UserRoundPlus size="1rem" />
@@ -93,7 +122,9 @@ function TableSection() {
             ))}
           </TableHeader>
           <TableBody className="flex-1">
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <TableSkeleton columnVisibility={columnVisibility} />
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -148,7 +179,7 @@ function TableSection() {
           <p className="text-xs text-gray-10 tracking-wide">
             Total{" "}
             <span className="ml-1 text-gray-12 font-semibold">
-              {sampleUsers.length}
+              {userAmount}
             </span>
           </p>
           <div className="flex items-center gap-4">

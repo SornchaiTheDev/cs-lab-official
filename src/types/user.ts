@@ -2,12 +2,12 @@ export interface User {
   id: string;
   email?: string;
   username: string;
-  displayName: string;
-  profileImage: string | null;
+  display_name: string;
+  profile_image: string | null;
   roles: string[];
   type: UserType;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface JWTUser {

@@ -36,35 +36,33 @@ export const columns = [
     id: "select",
     size: 10,
     enableHiding: false,
+    enableSorting: false,
     header: ({ table }) => (
-      <div className="flex justify-center items-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      </div>
+      <Checkbox
+        checked={table.getIsAllRowsSelected()}
+        onCheckedChange={table.getToggleAllRowsSelectedHandler()}
+        aria-label="Select all"
+      />
     ),
     cell: ({ row }) => (
-      <div className="flex justify-center items-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      </div>
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={row.getToggleSelectedHandler()}
+        aria-label="Select row"
+      />
     ),
   }),
   columnHelper.accessor("type", {
+    id: "type",
     size: 10,
-    id: "Type",
-    header: () => (
-      <span className="flex gap-1.5 text-xs justify-center">
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs justify-center w-full"
+      >
         <Shield size="1rem" /> Type
-      </span>
+      </button>
     ),
     cell: ({ cell }) => {
       if (cell.getValue() === "credential")
@@ -73,24 +71,33 @@ export const columns = [
     },
   }),
   columnHelper.accessor("username", {
-    id: "Username",
-    header: () => (
-      <span className="flex gap-1.5 text-xs">
+    id: "username",
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs w-full"
+      >
         <UserRound size="1rem" /> Username
-      </span>
+      </button>
     ),
   }),
   columnHelper.accessor("email", {
-    id: "Email",
-    header: () => (
-      <span className="flex gap-1.5 text-xs">
+    id: "email",
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs w-full"
+      >
         <AtSign size="1rem" /> Email
-      </span>
+      </button>
     ),
   }),
-  columnHelper.accessor("profileImage", {
-    id: "Profile",
+  columnHelper.accessor("profile_image", {
+    id: "profile_image",
     size: 10,
+    enableSorting: false,
     header: () => (
       <span className="flex gap-1.5 text-xs justify-center items-center">
         <UserRound size="1rem" /> Profile
@@ -105,22 +112,30 @@ export const columns = [
       );
     },
   }),
-  columnHelper.accessor("displayName", {
-    id: "Display Name",
+  columnHelper.accessor("display_name", {
+    id: "display_name",
     size: 10,
-    header: () => (
-      <span className="flex gap-1.5 text-xs">
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs w-full"
+      >
         <UserPen size="1rem" /> Display Name
-      </span>
+      </button>
     ),
   }),
   columnHelper.accessor("roles", {
-    id: "Roles",
+    id: "roles",
     size: 10,
-    header: () => (
-      <span className="flex gap-1.5 text-xs">
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs w-full"
+      >
         <ShieldUser size="1rem" /> Roles
-      </span>
+      </button>
     ),
     cell: ({ cell }) => {
       const roles = cell.getValue() as string[];
@@ -134,26 +149,34 @@ export const columns = [
       );
     },
   }),
-  columnHelper.accessor("createdAt", {
-    id: "Created At",
+  columnHelper.accessor("created_at", {
+    id: "created_at",
     size: 10,
-    header: () => (
-      <span className="flex gap-1.5 text-xs">
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs w-full"
+      >
         <Calendar size="1rem" /> Created at
-      </span>
+      </button>
     ),
     cell: ({ cell }) => {
       const date = cell.getValue();
       return dayjs(date).fromNow();
     },
   }),
-  columnHelper.accessor("updatedAt", {
-    id: "Updated At",
+  columnHelper.accessor("updated_at", {
+    id: "updated_at",
     size: 10,
-    header: () => (
-      <span className="flex gap-1.5 text-xs">
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={() => column.toggleSorting()}
+        className="flex gap-1.5 text-xs w-full"
+      >
         <Calendar size="1rem" /> Updated at
-      </span>
+      </button>
     ),
     cell: ({ cell }) => {
       const date = cell.getValue();
@@ -163,6 +186,7 @@ export const columns = [
   columnHelper.display({
     id: "action",
     enableHiding: false,
+    enableSorting: false,
     size: 20,
     cell: () => {
       return (
