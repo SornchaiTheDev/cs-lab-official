@@ -98,12 +98,22 @@ function TableSection() {
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
     pageCount: Math.ceil(userAmount / pagination.pageSize),
+    getRowId: (row) => row.id,
   });
+
+  const isRowSelected =
+    table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
 
   return (
     <>
       <div className="flex justify-end items-center gap-2">
-        {table.getIsSomeRowsSelected() && <DeleteManyButton rows={[]} />}
+        {isRowSelected && (
+          <DeleteManyButton
+            users={data.users.filter((user) =>
+              Object.keys(rowSelection).includes(user.id),
+            )}
+          />
+        )}
         <SearchData value={globalFilter} onChange={setGlobalFilter} />
         <FilterColumns
           columns={table
