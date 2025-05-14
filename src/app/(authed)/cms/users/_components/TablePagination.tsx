@@ -1,20 +1,21 @@
 import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
 import { cn } from "~/lib/utils";
-import type { Table } from "@tanstack/react-table";
-import type { User } from "~/types/user";
 
 interface TablePaginationProps {
-  table: Table<User>;
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
 
-function TablePagination({ table, totalPages, currentPage, onPageChange }: TablePaginationProps) {
+function TablePagination({
+  totalPages,
+  currentPage,
+  onPageChange,
+}: TablePaginationProps) {
   const getPageNumbers = () => {
     const pages: (number | "ellipsis")[] = [];
     const maxVisiblePages = 5;
-    
+
     if (totalPages <= maxVisiblePages) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
@@ -66,7 +67,13 @@ function TablePagination({ table, totalPages, currentPage, onPageChange }: Table
       />
       {getPageNumbers().map((page, index) => {
         if (page === "ellipsis") {
-          return <Ellipsis key={`ellipsis-${index}`} size="1rem" className="text-gray-9" />;
+          return (
+            <Ellipsis
+              key={`ellipsis-${index}`}
+              size="1rem"
+              className="text-gray-9"
+            />
+          );
         }
         return (
           <PageNumber
@@ -116,14 +123,18 @@ interface PaginationActionProps {
   children: React.ReactNode;
 }
 
-const PaginationAction = ({ children, onClick, disabled }: PaginationActionProps) => {
+const PaginationAction = ({
+  children,
+  onClick,
+  disabled,
+}: PaginationActionProps) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       className={cn(
         "flex justify-center items-center p-1 rounded-lg hover:bg-gray-2 hover:text-gray-12",
-        disabled && "opacity-50 cursor-not-allowed"
+        disabled && "opacity-50 cursor-not-allowed",
       )}
     >
       {children}
@@ -136,7 +147,10 @@ interface PaginationNavigationProps {
   disabled?: boolean;
 }
 
-const PaginationPrevious = ({ onClick, disabled }: PaginationNavigationProps) => {
+const PaginationPrevious = ({
+  onClick,
+  disabled,
+}: PaginationNavigationProps) => {
   return (
     <PaginationAction {...{ onClick, disabled }}>
       <ChevronLeft size="1rem" />
