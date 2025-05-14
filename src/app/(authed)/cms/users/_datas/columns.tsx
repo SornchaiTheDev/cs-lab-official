@@ -32,27 +32,28 @@ dayjs.extend(relativeTime);
 const columnHelper = createColumnHelper<User>();
 
 export const columns = [
-  // TODO: Make this work without making whole web freeze
-  // columnHelper.display({
-  //   id: "select",
-  //   size: 10,
-  //   enableHiding: false,
-  //   enableSorting: false,
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={table.getIsAllRowsSelected()}
-  //       onCheckedChange={table.getToggleAllRowsSelectedHandler()}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={row.getToggleSelectedHandler()}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  // }),
+  columnHelper.display({
+    id: "select",
+    size: 10,
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        disabled={!row.getCanSelect()}
+        onCheckedChange={row.getToggleSelectedHandler()}
+        aria-label="Select row"
+      />
+    ),
+  }),
   columnHelper.accessor("type", {
     id: "type",
     size: 10,

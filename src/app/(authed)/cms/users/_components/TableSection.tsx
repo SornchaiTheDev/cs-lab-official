@@ -9,8 +9,8 @@ import {
   getSortedRowModel,
   type SortingState,
 } from "@tanstack/react-table";
-import React, { useState } from "react";
-import { columns, useSelectionColumn } from "../_datas/columns";
+import React, { useEffect, useMemo, useState } from "react";
+import { columns } from "../_datas/columns";
 import { UserRoundPlus, Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
 import {
@@ -30,7 +30,6 @@ import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyButton from "./DeleteManyButton";
 
 function TableSection() {
-  const { selectionColumn, selectedRows } = useSelectionColumn();
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     email: false,
@@ -47,21 +46,38 @@ function TableSection() {
     pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
+  const [search, setSearch] = useState("");
+
+  const handleOnSearch = useMemo(() => {
+    let timeout: NodeJS.Timeout | null = null;
+    return (globalFilter: string) => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        setSearch(globalFilter);
+      }, 500);
+    };
+  }, []);
+
+  useEffect(() => {
+    handleOnSearch(globalFilter);
+  }, [globalFilter, handleOnSearch]);
 
   const { data, isLoading } = useUserPagination({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
-    search: "",
-    sortBy: "created_at",
-    sortOrder: "desc",
+    search,
+    sortBy: sorting[0]?.id ?? "created_at",
+    sortOrder: sorting[0]?.desc ? "desc" : "asc",
   });
 
   const userAmount = data?.users.length ?? 0;
 
-  const memoizedColumns = React.useMemo(() => [selectionColumn, ...columns], [selectionColumn]);
+  const memoizedColumns = useMemo(() => columns, []);
 
   const table = useReactTable({
-    data: data?.users ?? [],
+    data: data.users,
     columns: memoizedColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -74,7 +90,9 @@ function TableSection() {
       pagination,
       globalFilter,
       sorting,
+      rowSelection,
     },
+    onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
     onGlobalFilterChange: setGlobalFilter,
@@ -85,7 +103,7 @@ function TableSection() {
   return (
     <>
       <div className="flex justify-end items-center gap-2">
-        <DeleteManyButton />
+        {table.getIsSomeRowsSelected() && <DeleteManyButton rows={[]} />}
         <SearchData value={globalFilter} onChange={setGlobalFilter} />
         <FilterColumns
           columns={table
@@ -107,6 +125,7 @@ function TableSection() {
                   return (
                     <TableHead
                       key={header.id}
+                      colSpan={header.colSpan}
                       style={{ width: header.getSize() }}
                     >
                       {header.isPlaceholder
@@ -149,7 +168,7 @@ function TableSection() {
                 >
                   <div className="h-full w-full flex items-center justify-center">
                     <div className="flex flex-col items-center justify-center gap-2 text-gray-10">
-                      {globalFilter ? (
+                      {search ? (
                         <>
                           <SearchX size="2.5rem" />
                           <p className="text-sm font-medium">

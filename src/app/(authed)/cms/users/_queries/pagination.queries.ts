@@ -9,5 +9,13 @@ export const useUserPagination = (args: GetUserPaginationParams) => {
   return useQuery({
     queryKey: userKeys.all.concat(args),
     queryFn: () => userService.getUserPagination(args),
+    initialData: {
+      users: [],
+      pagination: {
+        total: 0,
+        page: args.page,
+        pageSize: args.pageSize,
+      },
+    },
   });
 };
