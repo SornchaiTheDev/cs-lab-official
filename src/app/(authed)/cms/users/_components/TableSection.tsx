@@ -10,7 +10,7 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
-import { columns } from "../_datas/columns";
+import { columns, useSelectionColumn } from "../_datas/columns";
 import { UserRoundPlus, Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
 import {
@@ -27,8 +27,10 @@ import SearchData from "./SearchData";
 import { useUserPagination } from "../_queries/pagination.queries";
 import TableSkeleton from "./TableSkeleton";
 import { mapUserColumnID } from "../_utils/mapColumnID";
+import DeleteManyButton from "./DeleteManyButton";
 
 function TableSection() {
+  const { selectionColumn, selectedRows } = useSelectionColumn();
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     email: false,
@@ -56,7 +58,7 @@ function TableSection() {
 
   const userAmount = data?.users.length ?? 0;
 
-  const memoizedColumns = React.useMemo(() => columns, []);
+  const memoizedColumns = React.useMemo(() => [selectionColumn, ...columns], [selectionColumn]);
 
   const table = useReactTable({
     data: data?.users ?? [],
@@ -65,17 +67,14 @@ function TableSection() {
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    enableRowSelection: true,
     enableMultiSort: false,
     manualFiltering: true,
     state: {
-      rowSelection,
       columnVisibility,
       pagination,
       globalFilter,
       sorting,
     },
-    onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
     onGlobalFilterChange: setGlobalFilter,
@@ -86,6 +85,7 @@ function TableSection() {
   return (
     <>
       <div className="flex justify-end items-center gap-2">
+        <DeleteManyButton />
         <SearchData value={globalFilter} onChange={setGlobalFilter} />
         <FilterColumns
           columns={table
