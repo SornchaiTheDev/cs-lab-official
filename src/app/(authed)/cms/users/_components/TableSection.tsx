@@ -5,11 +5,12 @@ import {
   useReactTable,
   type VisibilityState,
   getPaginationRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
 import { columns } from "../_datas/columns";
 import { sampleUsers } from "../_datas/user.data";
-import { Search, UserRoundPlus } from "lucide-react";
+import { UserRoundPlus, Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
 import {
   Table,
@@ -21,6 +22,7 @@ import {
 } from "~/components/ui/table";
 import PageSize from "./PageSize";
 import TablePagination from "./TablePagination";
+import SearchData from "./SearchData";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -32,36 +34,31 @@ function TableSection() {
     pageIndex: 0,
     pageSize: 25,
   });
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     data: sampleUsers,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       rowSelection,
       columnVisibility,
       pagination,
+      globalFilter,
     },
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
+    onGlobalFilterChange: setGlobalFilter,
     pageCount: Math.ceil(sampleUsers.length / pagination.pageSize),
   });
 
   return (
     <>
       <div className="flex justify-end items-center gap-2">
-        <div className="relative pl-7 border border-gray-6 rounded-md w-64 h-8 flex items-center focus-within:ring-gray-9 focus-within:ring-2 hover:bg-gray-2">
-          <Search
-            size="1rem"
-            className="absolute left-1.5 top-1/2 -translate-y-1/2"
-          />
-          <input
-            placeholder="Search users"
-            className="block text-sm w-full h-fit outline-none bg-transparent"
-          />
-        </div>
+        <SearchData value={globalFilter} onChange={setGlobalFilter} />
         <FilterColumns
           columns={table
             .getAllColumns()
@@ -73,7 +70,7 @@ function TableSection() {
         </button>
       </div>
       <div className="rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col">
-        <Table>
+        <Table className="flex-1">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="bg-gray-2 h-9">
@@ -95,7 +92,7 @@ function TableSection() {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="flex-1">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
@@ -114,12 +111,34 @@ function TableSection() {
                 </TableRow>
               ))
             ) : (
-              <TableRow>
+              <TableRow className="hover:bg-transparent">
                 <TableCell
                   colSpan={columns.length}
-                  className="h-16 text-center"
+                  className="h-[calc(100vh-300px)]"
                 >
-                  No results.
+                  <div className="h-full w-full flex items-center justify-center">
+                    <div className="flex flex-col items-center justify-center gap-2 text-gray-10">
+                      {globalFilter ? (
+                        <>
+                          <SearchX size="2.5rem" />
+                          <p className="text-sm font-medium">
+                            No results found for &ldquo;{globalFilter}&rdquo;
+                          </p>
+                          <p className="text-xs text-gray-9">
+                            Try adjusting your search or filter to find what
+                            you&apos;re looking for.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <Inbox size="2.5rem" />
+                          <p className="text-sm font-medium">
+                            There is no data available
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
@@ -127,7 +146,10 @@ function TableSection() {
         </Table>
         <div className="p-2 border-t border-gray-4 flex justify-between items-center">
           <p className="text-xs text-gray-10 tracking-wide">
-            Total <span className="ml-1 text-gray-12 font-semibold">{sampleUsers.length}</span>
+            Total{" "}
+            <span className="ml-1 text-gray-12 font-semibold">
+              {sampleUsers.length}
+            </span>
           </p>
           <div className="flex items-center gap-4">
             <PageSize
@@ -135,7 +157,6 @@ function TableSection() {
               onChange={(value) => table.setPageSize(Number(value))}
             />
             <TablePagination
-              table={table}
               totalPages={table.getPageCount()}
               currentPage={table.getState().pagination.pageIndex + 1}
               onPageChange={(page) => table.setPageIndex(page - 1)}
