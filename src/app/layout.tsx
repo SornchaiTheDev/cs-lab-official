@@ -5,6 +5,7 @@ import "./globals.css";
 import AppLoading from "~/components/commons/AppLoading";
 import { Suspense } from "react";
 import { ClientEnv } from "~/lib/client-env";
+import { Toaster } from "~/components/ui/sonner";
 
 const onest = Onest({
   subsets: ["latin"],
@@ -49,6 +50,7 @@ export default function RootLayout({
       <body className={`${onest.className} ${anuphan.variable}`}>
         <Suspense>
           <AppLoading />
+          <Toaster />
         </Suspense>
         {children}
       </body>

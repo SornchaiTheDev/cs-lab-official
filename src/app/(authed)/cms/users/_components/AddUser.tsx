@@ -22,6 +22,7 @@ import { userService } from "~/services/user.service";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { userKeys } from "../_queries/key";
+import { toast } from "sonner";
 
 const AddUser = () => {
   const {
@@ -80,7 +81,9 @@ const AddUser = () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.all });
       reset();
       setIsOpen(false);
+      toast.success("User created successfully");
     } catch (err) {
+      toast.error("Failed to create user");
     } finally {
       setIsPending(false);
     }
