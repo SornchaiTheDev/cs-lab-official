@@ -1,6 +1,8 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { Trash } from "lucide-react";
+import { useState } from "react";
 import { Button } from "~/components/commons/Button";
 import UserProfileImage from "~/components/Menus/UserProfileImage";
 import {
@@ -13,15 +15,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
+import { userService } from "~/services/user.service";
 import type { User } from "~/types/user";
+import { userKeys } from "../_queries/key";
 interface Props {
   onClick?: () => void;
   users: User[];
 }
 
 function DeleteManyButton({ onClick, users }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+  const handleOnDelete = async () => {
+    try {
+      setIsLoading(true);
+      await userService.deleteManyUsers(users.map((user) => user.id));
+      setIsOpen(false);
+      queryClient.refetchQueries({ queryKey: userKeys.all });
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button {...{ onClick }} variant="danger">
           <Trash size="1rem" />
@@ -50,7 +70,12 @@ function DeleteManyButton({ onClick, users }: Props) {
               Cancel
             </Button>
           </DialogClose>
-          <Button isLoading className="w-full" variant="primary">
+          <Button
+            {...{ isLoading }}
+            onClick={handleOnDelete}
+            className="w-full"
+            variant="primary"
+          >
             <Trash size="1rem" />
             Delete
           </Button>

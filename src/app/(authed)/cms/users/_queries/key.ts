@@ -1,3 +1,3 @@
-export const userKeys: Record<string, any[]> = {
+export const userKeys = {
   all: ["users"],
-};
+} as const;

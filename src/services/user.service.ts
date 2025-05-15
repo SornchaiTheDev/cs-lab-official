@@ -19,6 +19,8 @@ interface PaginationResponse {
 }
 
 class UserService {
+  #baseURL = "/admin/users";
+
   async getUserPagination({
     page,
     pageSize,
@@ -34,10 +36,16 @@ class UserService {
     searchParams.append("sort_order", sortOrder ?? "desc");
 
     const res = await api.get<PaginationResponse>(
-      "/admin/users?" + searchParams.toString(),
+      this.#baseURL + "?" + searchParams.toString(),
     );
 
     return res.data;
+  }
+
+  async deleteManyUsers(IDs: string[]) {
+    await api.post(this.#baseURL + "/deleteMany", {
+      ids: IDs,
+    });
   }
 }
 
