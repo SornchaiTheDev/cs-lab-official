@@ -20,10 +20,11 @@ import type { User } from "~/types/user";
 import { userKeys } from "../_queries/key";
 interface Props {
   onClick?: () => void;
+  onSuccess?: () => void;
   users: User[];
 }
 
-function DeleteManyButton({ onClick, users }: Props) {
+function DeleteManyButton({ onClick, users, onSuccess }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,6 +35,7 @@ function DeleteManyButton({ onClick, users }: Props) {
       await userService.deleteManyUsers(users.map((user) => user.id));
       setIsOpen(false);
       queryClient.refetchQueries({ queryKey: userKeys.all });
+      if (!!onSuccess) onSuccess();
     } catch (err) {
     } finally {
       setIsLoading(false);

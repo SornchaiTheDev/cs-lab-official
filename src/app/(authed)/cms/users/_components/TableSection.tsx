@@ -110,6 +110,7 @@ function TableSection() {
       <div className="flex justify-end items-center gap-2">
         {isRowSelected && (
           <DeleteManyButton
+            onSuccess={() => setRowSelection({})}
             users={data.users.filter((user) =>
               Object.keys(rowSelection).includes(user.id),
             )}
