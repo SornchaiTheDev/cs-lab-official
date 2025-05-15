@@ -24,8 +24,6 @@ function BreadcrumbClient() {
     .split("/")
     .filter((path) => path !== "") as (keyof typeof pathNames)[];
 
-  console.log(paths);
-
   return (
     <Breadcrumb>
       <BreadcrumbList>
