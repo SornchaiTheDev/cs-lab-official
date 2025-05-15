@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import { columns } from "../_datas/columns";
-import { UserRoundPlus, Inbox, SearchX } from "lucide-react";
+import { Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
 import {
   Table,
@@ -28,6 +28,7 @@ import { useUserPagination } from "../_queries/pagination.queries";
 import TableSkeleton from "./TableSkeleton";
 import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyButton from "./DeleteManyButton";
+import AddUser from "./AddUser";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -121,10 +122,7 @@ function TableSection() {
             .filter((column) => column.getCanHide())
             .map((col) => ({ ...col, id: mapUserColumnID(col.id) }))}
         />
-        <button className="px-3 py-1.5 border bg-gray-2 text-gray-11 text-sm rounded-md flex justify-center items-center gap-1.5 hover:bg-gray-3">
-          <UserRoundPlus size="1rem" />
-          Add User
-        </button>
+        <AddUser />
       </div>
       <div className="rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col">
         <Table className="flex-1">

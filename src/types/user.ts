@@ -4,7 +4,7 @@ export interface User {
   username: string;
   display_name: string;
   profile_image: string | null;
-  roles: string[];
+  roles: UserRole[];
   type: UserType;
   created_at?: Date;
   updated_at?: Date;
@@ -19,3 +19,5 @@ export interface JWTUser {
 }
 
 export type UserType = "credential" | "oauth";
+
+export type UserRole = "admin" | "teacher" | "student";

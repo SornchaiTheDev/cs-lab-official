@@ -1,5 +1,5 @@
 import { api } from "~/lib/api";
-import type { User } from "~/types/user";
+import type { User, UserRole } from "~/types/user";
 
 export interface GetUserPaginationParams {
   page: number;
@@ -46,6 +46,38 @@ class UserService {
     await api.post(this.#baseURL + "/deleteMany", {
       ids: IDs,
     });
+  }
+
+  async createCredentialUser(
+    username: string,
+    password: string,
+    display_name: string,
+    roles: UserRole[],
+  ) {
+    const res = await api.post(this.#baseURL + "/credential", {
+      username,
+      display_name,
+      password,
+      roles,
+    });
+
+    return res.data;
+  }
+
+  async createOauthUser(
+    username: string,
+    display_name: string,
+    email: string,
+    roles: UserRole[],
+  ) {
+    const res = await api.post(this.#baseURL + "/oauth", {
+      username,
+      display_name,
+      email,
+      roles,
+    });
+
+    return res.data;
   }
 }
 
