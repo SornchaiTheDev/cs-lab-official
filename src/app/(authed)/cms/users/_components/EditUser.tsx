@@ -84,8 +84,8 @@ const EditUser = ({ user, onClose }: Props) => {
         await userService.editOauthUser(
           user.id,
           username,
-          display_name,
           email!,
+          display_name,
           roles,
         );
       }
