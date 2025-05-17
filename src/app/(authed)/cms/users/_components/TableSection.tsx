@@ -30,6 +30,7 @@ import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyButton from "./DeleteManyButton";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
+import type { User } from "~/types/user";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
