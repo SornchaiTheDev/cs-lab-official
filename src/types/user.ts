@@ -20,4 +20,4 @@ export interface JWTUser {
 
 export type UserType = "credential" | "oauth";
 
-export type UserRole = "admin" | "teacher" | "student";
+export type UserRole = "admin" | "instructor" | "student";

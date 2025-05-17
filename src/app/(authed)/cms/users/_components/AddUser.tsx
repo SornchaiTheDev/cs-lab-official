@@ -12,8 +12,8 @@ import { Label } from "~/components/ui/label";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  type WriteUserSchema,
-  writeUserSchema,
+  type AddUserSchema,
+  addUserSchema,
 } from "../_schemas/write-user.schema";
 import { cn } from "~/lib/utils";
 import { userService } from "~/services/user.service";
@@ -33,7 +33,7 @@ const AddUser = () => {
     formState: { errors },
     reset,
   } = useForm({
-    resolver: zodResolver(writeUserSchema),
+    resolver: zodResolver(addUserSchema),
     defaultValues: {
       username: "",
       display_name: "",
@@ -45,13 +45,13 @@ const AddUser = () => {
   const isOauth = watch("type") === "oauth";
   const isCredential = watch("type") === "credential";
 
-  const isError = (field: keyof WriteUserSchema) => !!errors[field];
+  const isError = (field: keyof AddUserSchema) => !!errors[field];
 
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const queryClient = useQueryClient();
 
-  const handleCreateUser: SubmitHandler<WriteUserSchema> = async ({
+  const handleCreateUser: SubmitHandler<AddUserSchema> = async ({
     type,
     username,
     password,

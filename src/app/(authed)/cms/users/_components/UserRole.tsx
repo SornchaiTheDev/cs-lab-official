@@ -6,8 +6,13 @@ interface UserRoleProps {
   onSelect: (value: UserRole[]) => void;
 }
 
+type Role = {
+  name: string;
+  value: UserRole;
+};
+
 const UserRole = ({ value, onSelect }: UserRoleProps) => {
-  const handleOnSelect = (role: "admin" | "teacher" | "student") => {
+  const handleOnSelect = (role: UserRole) => {
     if (value.includes(role)) {
       onSelect(value.filter((r) => r !== role));
     } else {
@@ -15,26 +20,32 @@ const UserRole = ({ value, onSelect }: UserRoleProps) => {
     }
   };
 
+  const roles: Role[] = [
+    {
+      name: "Admin",
+      value: "admin",
+    },
+    {
+      name: "Instructor",
+      value: "instructor",
+    },
+    {
+      name: "Student",
+      value: "student",
+    },
+  ];
+
   return (
     <div className="flex gap-2">
-      <Button
-        isActive={value.includes("admin")}
-        onClick={() => handleOnSelect("admin")}
-      >
-        Admin
-      </Button>
-      <Button
-        isActive={value.includes("teacher")}
-        onClick={() => handleOnSelect("teacher")}
-      >
-        Teacher
-      </Button>
-      <Button
-        isActive={value.includes("student")}
-        onClick={() => handleOnSelect("student")}
-      >
-        Student
-      </Button>
+      {roles.map(({ name, value: _val }) => (
+        <Button
+          key={name}
+          isActive={value.includes(_val)}
+          onClick={() => handleOnSelect(_val)}
+        >
+          {name}
+        </Button>
+      ))}
     </div>
   );
 };

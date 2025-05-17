@@ -83,7 +83,7 @@ class UserService {
   async editCredentialUser(
     id: string,
     username: string,
-    password: string,
+    password: string | undefined,
     display_name: string,
     roles: UserRole[],
   ) {

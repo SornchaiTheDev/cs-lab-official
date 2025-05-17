@@ -8,12 +8,10 @@ import CoreLayout, {
 import { protectedMiddleware } from "~/middlewares/protected";
 import type { ChildrenProps } from "~/types/children-props";
 import BreadcrumbClient from "./_components/BreadcrumbClient";
-import { UsersTable } from "./users/_components/UsersTable";
-import { columns } from "./users/_datas/columns";
 
 async function Layout({ children }: ChildrenProps) {
   await protectedMiddleware((user) =>
-    user.roles.some((role) => ["teacher", "admin"].includes(role)),
+    user.roles.some((role) => ["instrctor", "admin"].includes(role)),
   );
 
   return (

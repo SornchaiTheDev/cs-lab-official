@@ -11,8 +11,8 @@ import { Label } from "~/components/ui/label";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  type WriteUserSchema,
-  writeUserSchema,
+  type EditUserSchema,
+  editUserSchema,
 } from "../_schemas/write-user.schema";
 import { cn } from "~/lib/utils";
 import { userService } from "~/services/user.service";
@@ -43,9 +43,10 @@ const EditUser = ({ user, onClose }: Props) => {
     formState: { errors },
     reset,
   } = useForm({
-    resolver: zodResolver(writeUserSchema),
+    resolver: zodResolver(editUserSchema),
     defaultValues: {
       ...user,
+      email: user.email || "",
       password: "",
     },
   });
@@ -53,13 +54,14 @@ const EditUser = ({ user, onClose }: Props) => {
   const isOauth = watch("type") === "oauth";
   const isCredential = watch("type") === "credential";
 
-  const isError = (field: keyof WriteUserSchema) => !!errors[field];
+  const isError = (field: keyof EditUserSchema) => !!errors[field];
 
   const [isOpen, setIsOpen] = useState(true);
   const [isPending, setIsPending] = useState(false);
   const queryClient = useQueryClient();
 
-  const handleEditUser: SubmitHandler<WriteUserSchema> = async ({
+  console.log(errors);
+  const handleEditUser: SubmitHandler<EditUserSchema> = async ({
     type,
     username,
     password,
