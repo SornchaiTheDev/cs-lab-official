@@ -128,7 +128,7 @@ function TableSection() {
       {!!editUser && (
         <EditUser user={editUser} onClose={() => setEditUser(null)} />
       )}
-      <div className="flex justify-end items-center gap-2">
+      <div className="flex justify-end items-center gap-2 mt-4">
         {isRowSelected && (
           <DeleteManyButton
             onSuccess={() => setRowSelection({})}
