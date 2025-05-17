@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import { columns } from "../_datas/columns";
-import { Inbox, SearchX } from "lucide-react";
+import { ChevronDown, ChevronUp, Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
 import {
   Table,
@@ -32,6 +32,7 @@ import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import type { User } from "~/types/user";
 import DeleteUserDialog from "./DeleteUserDialog";
+import { cn } from "~/lib/utils";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
@@ -158,7 +159,7 @@ function TableSection() {
         <FilterColumns
           columns={table
             .getAllColumns()
-            .filter((column) => column.getCanHide())
+            .filter((column) => column.getCanFilter())
             .map((col) => ({ ...col, id: mapUserColumnID(col.id) }))}
         />
         <AddUser />
@@ -174,12 +175,32 @@ function TableSection() {
                       key={header.id}
                       style={{ width: header.getSize() }}
                     >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                      <div
+                        onClick={() => {
+                          if (header.column.getCanSort()) {
+                            header.column.toggleSorting();
+                          }
+                        }}
+                        className={cn(
+                          "flex gap-1.5 text-xs",
+                          header.column.getCanSort() && "cursor-pointer",
+                        )}
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                        {{
+                          asc: (
+                            <ChevronDown size="1rem" className="text-gray-11" />
+                          ),
+                          desc: (
+                            <ChevronUp size="1rem" className="text-gray-11" />
+                          ),
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </div>
                     </TableHead>
                   );
                 })}

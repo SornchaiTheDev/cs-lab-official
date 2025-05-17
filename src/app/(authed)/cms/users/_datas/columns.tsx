@@ -35,6 +35,8 @@ export const columns = [
   columnHelper.display({
     id: "select",
     size: 10,
+    enableSorting: false,
+    enableColumnFilter: false,
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -58,43 +60,16 @@ export const columns = [
     id: "type",
     size: 10,
     enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs justify-center w-full"
-      >
+    header: () => (
+      <>
         <Shield size="1rem" /> Type
-      </button>
+      </>
     ),
     cell: ({ cell }) => {
       if (cell.getValue() === "credential")
         return <Lock size="1rem" className="mx-auto" />;
       return <GoogleIcon className="w-4 h-4 mx-auto" />;
     },
-  }),
-  columnHelper.accessor("username", {
-    id: "username",
-    enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs w-full"
-      >
-        <UserRound size="1rem" /> Username
-      </button>
-    ),
-  }),
-  columnHelper.accessor("email", {
-    id: "email",
-    enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs w-full"
-      >
-        <AtSign size="1rem" /> Email
-      </button>
-    ),
   }),
   columnHelper.accessor("profile_image", {
     id: "profile_image",
@@ -114,30 +89,41 @@ export const columns = [
       );
     },
   }),
+  columnHelper.accessor("username", {
+    id: "username",
+    enableSorting: true,
+    header: () => (
+      <>
+        <UserRound size="1rem" /> Username
+      </>
+    ),
+  }),
+  columnHelper.accessor("email", {
+    id: "email",
+    enableSorting: true,
+    header: () => (
+      <>
+        <AtSign size="1rem" /> Email
+      </>
+    ),
+  }),
+
   columnHelper.accessor("display_name", {
     id: "display_name",
-    size: 200,
     enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs w-full"
-      >
+    header: () => (
+      <>
         <UserPen size="1rem" /> Display Name
-      </button>
+      </>
     ),
   }),
   columnHelper.accessor("roles", {
     id: "roles",
-    size: 10,
     enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs w-full"
-      >
+    header: () => (
+      <>
         <ShieldUser size="1rem" /> Roles
-      </button>
+      </>
     ),
     cell: ({ cell }) => {
       const roles = cell.getValue() as string[];
@@ -154,13 +140,10 @@ export const columns = [
   columnHelper.accessor("created_at", {
     id: "created_at",
     enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs w-full"
-      >
+    header: () => (
+      <>
         <Calendar size="1rem" /> Created at
-      </button>
+      </>
     ),
     cell: ({ cell }) => {
       const date = cell.getValue();
@@ -170,13 +153,10 @@ export const columns = [
   columnHelper.accessor("updated_at", {
     id: "updated_at",
     enableSorting: true,
-    header: ({ column }) => (
-      <button
-        onClick={() => column.toggleSorting()}
-        className="flex gap-1.5 text-xs w-full"
-      >
+    header: () => (
+      <>
         <Calendar size="1rem" /> Updated at
-      </button>
+      </>
     ),
     cell: ({ cell }) => {
       const date = cell.getValue();
@@ -185,7 +165,7 @@ export const columns = [
   }),
   columnHelper.display({
     id: "action",
-    enableHiding: false,
+    enableColumnFilter: false,
     enableSorting: false,
     size: 10,
     cell: ({ table, row }) => {
