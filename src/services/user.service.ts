@@ -79,6 +79,40 @@ class UserService {
 
     return res.data;
   }
+
+  async editCredentialUser(
+    id: string,
+    username: string,
+    password: string,
+    display_name: string,
+    roles: UserRole[],
+  ) {
+    const res = await api.patch(this.#baseURL + `/${id}`, {
+      username,
+      password,
+      display_name,
+      roles,
+    });
+
+    return res.data;
+  }
+
+  async editOauthUser(
+    id: string,
+    username: string,
+    email: string,
+    display_name: string,
+    roles: UserRole[],
+  ) {
+    const res = await api.patch(this.#baseURL + `/${id}`, {
+      username,
+      email,
+      display_name,
+      roles,
+    });
+
+    return res.data;
+  }
 }
 
 export const userService = new UserService();

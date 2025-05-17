@@ -190,7 +190,7 @@ export const columns = [
     enableHiding: false,
     enableSorting: false,
     size: 20,
-    cell: () => {
+    cell: ({ table, row }) => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger className="flex justify-center items-center">
@@ -202,7 +202,10 @@ export const columns = [
             sideOffset={-2}
             alignOffset={200}
           >
-            <DropdownMenuItem className="flex items-center gap-2">
+            <DropdownMenuItem
+              onClick={() => table.options.meta?.editUser(row.original.id)}
+              className="flex items-center gap-2"
+            >
               <Pencil size="1rem" />
               Edit
             </DropdownMenuItem>

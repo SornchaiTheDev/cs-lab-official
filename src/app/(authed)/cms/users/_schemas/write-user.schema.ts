@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createUserSchema = z
+export const writeUserSchema = z
   .object({
     username: z.string().min(1, { message: "username cannot be empty" }),
     password: z.string(),
@@ -29,4 +29,4 @@ export const createUserSchema = z
     },
   );
 
-export type CreateUserSchema = z.infer<typeof createUserSchema>;
+export type WriteUserSchema = z.infer<typeof writeUserSchema>;

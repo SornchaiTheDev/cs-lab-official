@@ -29,6 +29,13 @@ import TableSkeleton from "./TableSkeleton";
 import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyButton from "./DeleteManyButton";
 import AddUser from "./AddUser";
+import EditUser from "./EditUser";
+
+declare module "@tanstack/react-table" {
+  interface TableMeta<TData extends RowData> {
+    editUser: (id: string) => void;
+  }
+}
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -48,6 +55,8 @@ function TableSection() {
   });
   const [globalFilter, setGlobalFilter] = useState("");
   const [search, setSearch] = useState("");
+
+  const [editUser, setEditUser] = useState<User | null>(null);
 
   const handleOnSearch = useMemo(() => {
     let timeout: NodeJS.Timeout | null = null;
@@ -100,6 +109,14 @@ function TableSection() {
     onSortingChange: setSorting,
     pageCount: Math.ceil(userAmount / pagination.pageSize),
     getRowId: (row) => row.id,
+    meta: {
+      editUser: (id: string) => {
+        const user = data.users.find((user) => user.id === id);
+        if (user) {
+          setEditUser(user);
+        }
+      },
+    },
   });
 
   const isRowSelected =
@@ -107,6 +124,9 @@ function TableSection() {
 
   return (
     <>
+      {!!editUser && (
+        <EditUser user={editUser} onClose={() => setEditUser(null)} />
+      )}
       <div className="flex justify-end items-center gap-2">
         {isRowSelected && (
           <DeleteManyButton

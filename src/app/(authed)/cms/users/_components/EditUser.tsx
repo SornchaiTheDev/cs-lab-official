@@ -1,11 +1,10 @@
-import { Plus, UserRoundPlus } from "lucide-react";
+import { UserRoundPen } from "lucide-react";
 import { Button } from "~/components/commons/Button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -23,8 +22,19 @@ import { userKeys } from "../_queries/key";
 import { toast } from "sonner";
 import UserRole from "./UserRole";
 import UserType from "./UserType";
+import type { User } from "~/types/user";
 
-const AddUser = () => {
+type EditUser = Pick<
+  User,
+  "id" | "username" | "display_name" | "email" | "type" | "roles"
+>;
+
+interface Props {
+  user: EditUser;
+  onClose?: () => void;
+}
+
+const EditUser = ({ user, onClose }: Props) => {
   const {
     register,
     handleSubmit,
@@ -35,10 +45,8 @@ const AddUser = () => {
   } = useForm({
     resolver: zodResolver(writeUserSchema),
     defaultValues: {
-      username: "",
-      display_name: "",
-      type: "credential",
-      roles: [],
+      ...user,
+      password: "",
     },
   });
 
@@ -47,11 +55,11 @@ const AddUser = () => {
 
   const isError = (field: keyof WriteUserSchema) => !!errors[field];
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [isPending, setIsPending] = useState(false);
   const queryClient = useQueryClient();
 
-  const handleCreateUser: SubmitHandler<WriteUserSchema> = async ({
+  const handleEditUser: SubmitHandler<WriteUserSchema> = async ({
     type,
     username,
     password,
@@ -62,7 +70,8 @@ const AddUser = () => {
     try {
       setIsPending(true);
       if (type === "credential") {
-        await userService.createCredentialUser(
+        await userService.editCredentialUser(
+          user.id,
           username,
           password,
           display_name,
@@ -71,7 +80,8 @@ const AddUser = () => {
       }
 
       if (type === "oauth") {
-        await userService.createOauthUser(
+        await userService.editOauthUser(
+          user.id,
           username,
           display_name,
           email!,
@@ -81,27 +91,29 @@ const AddUser = () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.all });
       reset();
       setIsOpen(false);
-      toast.success("User created successfully");
+      if (!!onClose) onClose();
+      toast.success("User edited successfully");
     } catch (err) {
-      toast.error("Failed to create user");
+      toast.error("Failed to edit user");
     } finally {
       setIsPending(false);
     }
   };
 
+  const handleOnOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (!!onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button>
-          <UserRoundPlus size="1rem" />
-          Add User
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={handleOnOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add new user</DialogTitle>
+          <DialogTitle>Edit User</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleCreateUser)} className="space-y-4">
+        <form onSubmit={handleSubmit(handleEditUser)} className="space-y-4">
           <div className="space-y-1.5">
             <Label className={cn(isError("type") && "text-red-9")}>
               User Type
@@ -110,7 +122,7 @@ const AddUser = () => {
               name="type"
               {...{ control }}
               render={({ field: { onChange, value } }) => (
-                <UserType value={value} onSelect={onChange} />
+                <UserType value={value} onSelect={onChange} disabled />
               )}
             />
             {isError("type") && (
@@ -133,12 +145,12 @@ const AddUser = () => {
           {isCredential && (
             <div className="space-y-1.5">
               <Label className={cn(isError("password") && "text-red-9")}>
-                Password
+                New Password
               </Label>
               <Input type="password" {...register("password")} />
-              {isError("password") && (
+              {isError("username") && (
                 <p className="text-red-9 text-sm font-light">
-                  {errors.password?.message}
+                  {errors.username?.message}
                 </p>
               )}
             </div>
@@ -192,8 +204,8 @@ const AddUser = () => {
             disabled={isPending}
             className="bg-gray-12 text-gray-1 hover:bg-gray-11 hover:text-gray-2 py-2 w-full"
           >
-            <Plus size="1rem" />
-            Create
+            <UserRoundPen size="1rem" />
+            Edit
           </Button>
         </form>
       </DialogContent>
@@ -201,4 +213,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default EditUser;

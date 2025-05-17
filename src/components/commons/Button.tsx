@@ -21,8 +21,7 @@ export const Button = ({
   isActive,
   ...props
 }: Props) => {
-  let bgColor =
-    "border-gray-6 bg-gray-2 hover:bg-gray-3 disabled:bg-gray-3 disabled:text-gray-11";
+  let bgColor = "border-gray-6 bg-gray-2 hover:bg-gray-3";
   let textColor = "text-gray-11 hover:text-gray-12";
   let activeColor = "bg-gray-3 text-gray-12";
 
