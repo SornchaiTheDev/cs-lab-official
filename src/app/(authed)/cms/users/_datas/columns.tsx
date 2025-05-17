@@ -116,7 +116,7 @@ export const columns = [
   }),
   columnHelper.accessor("display_name", {
     id: "display_name",
-    size: 10,
+    size: 200,
     enableSorting: true,
     header: ({ column }) => (
       <button
@@ -153,7 +153,6 @@ export const columns = [
   }),
   columnHelper.accessor("created_at", {
     id: "created_at",
-    size: 10,
     enableSorting: true,
     header: ({ column }) => (
       <button
@@ -170,7 +169,6 @@ export const columns = [
   }),
   columnHelper.accessor("updated_at", {
     id: "updated_at",
-    size: 10,
     enableSorting: true,
     header: ({ column }) => (
       <button
@@ -189,7 +187,7 @@ export const columns = [
     id: "action",
     enableHiding: false,
     enableSorting: false,
-    size: 20,
+    size: 10,
     cell: ({ table, row }) => {
       return (
         <DropdownMenu>
@@ -209,7 +207,10 @@ export const columns = [
               <Pencil size="1rem" />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex items-center gap-2 text-red-9 focus:text-red-10">
+            <DropdownMenuItem
+              onClick={() => table.options.meta?.deleteUser(row.original.id)}
+              className="flex items-center gap-2 text-red-9 focus:text-red-10"
+            >
               <Trash size="1rem" />
               Delete
             </DropdownMenuItem>

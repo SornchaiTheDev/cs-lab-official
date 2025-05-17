@@ -42,6 +42,10 @@ class UserService {
     return res.data;
   }
 
+  async deleteUser(id: string) {
+    await api.delete(this.#baseURL + `/${id}`);
+  }
+
   async deleteManyUsers(IDs: string[]) {
     await api.post(this.#baseURL + "/deleteMany", {
       ids: IDs,

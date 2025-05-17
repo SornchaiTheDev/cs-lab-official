@@ -31,10 +31,12 @@ import DeleteManyButton from "./DeleteManyButton";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import type { User } from "~/types/user";
+import DeleteUserDialog from "./DeleteUserDialog";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
     editUser: (id: string) => void;
+    deleteUser: (id: string) => void;
   }
 }
 
@@ -58,6 +60,7 @@ function TableSection() {
   const [search, setSearch] = useState("");
 
   const [editUser, setEditUser] = useState<User | null>(null);
+  const [deleteUser, setDeleteUser] = useState<User | null>(null);
 
   const handleOnSearch = useMemo(() => {
     let timeout: NodeJS.Timeout | null = null;
@@ -117,6 +120,12 @@ function TableSection() {
           setEditUser(user);
         }
       },
+      deleteUser: (id: string) => {
+        const user = data.users.find((user) => user.id === id);
+        if (user) {
+          setDeleteUser(user);
+        }
+      },
     },
   });
 
@@ -128,6 +137,14 @@ function TableSection() {
       {!!editUser && (
         <EditUser user={editUser} onClose={() => setEditUser(null)} />
       )}
+
+      {!!deleteUser && (
+        <DeleteUserDialog
+          user={deleteUser}
+          onClose={() => setDeleteUser(null)}
+        />
+      )}
+
       <div className="flex justify-end items-center gap-2 mt-4">
         {isRowSelected && (
           <DeleteManyButton
@@ -155,7 +172,6 @@ function TableSection() {
                   return (
                     <TableHead
                       key={header.id}
-                      colSpan={header.colSpan}
                       style={{ width: header.getSize() }}
                     >
                       {header.isPlaceholder
