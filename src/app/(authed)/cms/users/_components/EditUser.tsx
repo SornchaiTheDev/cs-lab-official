@@ -60,7 +60,6 @@ const EditUser = ({ user, onClose }: Props) => {
   const [isPending, setIsPending] = useState(false);
   const queryClient = useQueryClient();
 
-  console.log(errors);
   const handleEditUser: SubmitHandler<EditUserSchema> = async ({
     type,
     username,
