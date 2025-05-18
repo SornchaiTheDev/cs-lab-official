@@ -94,7 +94,7 @@ const AddUser = () => {
       <DialogTrigger asChild>
         <Button>
           <UserRoundPlus size="1rem" />
-          Add User
+          Add
         </Button>
       </DialogTrigger>
       <DialogContent>
