@@ -11,9 +11,9 @@ export interface GetUserPaginationParams {
 
 interface PaginationResponse {
   pagination: {
-    total: number;
     page: number;
-    pageSize: number;
+    total_rows: number;
+    total_page: number;
   };
   users: User[];
 }

@@ -1,6 +1,5 @@
 "use client";
 import {
-  flexRender,
   getCoreRowModel,
   useReactTable,
   type VisibilityState,
@@ -11,28 +10,17 @@ import {
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import { columns } from "../_datas/columns";
-import { ChevronDown, ChevronUp, Inbox, SearchX } from "lucide-react";
 import FilterColumns from "./FilterColumns";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "~/components/ui/table";
-import PageSize from "./PageSize";
-import TablePagination from "./TablePagination";
 import SearchData from "./SearchData";
 import { useUserPagination } from "../_queries/pagination.queries";
-import TableSkeleton from "./TableSkeleton";
 import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyButton from "./DeleteManyButton";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import type { User } from "~/types/user";
 import DeleteUserDialog from "./DeleteUserDialog";
-import { cn } from "~/lib/utils";
+import ImportUser from "./ImportUser";
+import DataTable from "~/components/commons/DataTable";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
@@ -79,7 +67,7 @@ function TableSection() {
     handleOnSearch(globalFilter);
   }, [globalFilter, handleOnSearch]);
 
-  const { data, isLoading } = useUserPagination({
+  const { data, isPending } = useUserPagination({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     search,
@@ -128,6 +116,7 @@ function TableSection() {
         }
       },
     },
+    autoResetPageIndex: false,
   });
 
   const isRowSelected =
@@ -163,124 +152,12 @@ function TableSection() {
             .map((col) => ({ ...col, id: mapUserColumnID(col.id) }))}
         />
         <AddUser />
+        <ImportUser />
       </div>
-      <div className="rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col">
-        <Table className="flex-1">
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="bg-gray-2 h-9">
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      style={{ width: header.getSize() }}
-                    >
-                      <div
-                        onClick={() => {
-                          if (header.column.getCanSort()) {
-                            header.column.toggleSorting();
-                          }
-                        }}
-                        className={cn(
-                          "flex gap-1.5 text-xs",
-                          header.column.getCanSort() && "cursor-pointer",
-                        )}
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                        {{
-                          asc: (
-                            <ChevronDown size="1rem" className="text-gray-11" />
-                          ),
-                          desc: (
-                            <ChevronUp size="1rem" className="text-gray-11" />
-                          ),
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </div>
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody className="flex-1">
-            {isLoading ? (
-              <TableSkeleton columnVisibility={columnVisibility} />
-            ) : table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="border-b last:border-none border-gray-4 h-9"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="py-1.5">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow className="hover:bg-transparent">
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-[calc(100vh-300px)]"
-                >
-                  <div className="h-full w-full flex items-center justify-center">
-                    <div className="flex flex-col items-center justify-center gap-2 text-gray-10">
-                      {search ? (
-                        <>
-                          <SearchX size="2.5rem" />
-                          <p className="text-sm font-medium">
-                            No results found for &ldquo;{globalFilter}&rdquo;
-                          </p>
-                          <p className="text-xs text-gray-9">
-                            Try adjusting your search or filter to find what
-                            you&apos;re looking for.
-                          </p>
-                        </>
-                      ) : (
-                        <>
-                          <Inbox size="2.5rem" />
-                          <p className="text-sm font-medium">
-                            There is no data available
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <div className="p-2 border-t border-gray-4 flex justify-between items-center">
-          <p className="text-xs text-gray-10 tracking-wide">
-            Total{" "}
-            <span className="ml-1 text-gray-12 font-semibold">
-              {userAmount}
-            </span>
-          </p>
-          <div className="flex items-center gap-4">
-            <PageSize
-              value={pagination.pageSize}
-              onChange={(value) => table.setPageSize(Number(value))}
-            />
-            <TablePagination
-              totalPages={table.getPageCount()}
-              currentPage={table.getState().pagination.pageIndex + 1}
-              onPageChange={(page) => table.setPageIndex(page - 1)}
-            />
-          </div>
-        </div>
-      </div>
+      <DataTable
+        {...{ table, isLoading: isPending, search }}
+        totalData={data.pagination.total_rows}
+      />
     </>
   );
 }

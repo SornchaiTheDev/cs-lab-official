@@ -12,9 +12,9 @@ export const useUserPagination = (args: GetUserPaginationParams) => {
     initialData: {
       users: [],
       pagination: {
-        total: 0,
         page: args.page,
-        pageSize: args.pageSize,
+        total_page: 0,
+        total_rows: 0,
       },
     },
   });

@@ -2,20 +2,13 @@
 
 import { TableCell, TableRow } from "~/components/ui/table";
 import { Skeleton } from "~/components/ui/skeleton";
-import { columns } from "../_datas/columns";
-import type { VisibilityState } from "@tanstack/react-table";
+import type { Column } from "@tanstack/react-table";
 
 interface TableSkeletonProps {
-  columnVisibility: VisibilityState;
+  columns: Column<any, unknown>[];
 }
 
-export default function TableSkeleton({
-  columnVisibility,
-}: TableSkeletonProps) {
-  const visibleColumns = columns.filter(
-    (column) => columnVisibility[column.id as keyof VisibilityState] !== false,
-  );
-
+export default function TableSkeleton({ columns }: TableSkeletonProps) {
   return (
     <>
       {Array.from({ length: 5 }).map((_, index) => (
@@ -23,7 +16,7 @@ export default function TableSkeleton({
           key={index}
           className="border-b last:border-none border-gray-4 h-9"
         >
-          {visibleColumns.map((column) => {
+          {columns.map((column) => {
             // Customize skeleton based on column type
             let skeletonContent = <Skeleton className="h-4 w-24" />;
 
@@ -64,4 +57,3 @@ export default function TableSkeleton({
     </>
   );
 }
-
