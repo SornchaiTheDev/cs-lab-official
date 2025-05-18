@@ -34,21 +34,21 @@ export const FileUploader = ({
   return (
     <div
       {...getRootProps()}
-      className={`flex flex-col items-center justify-center w-full px-4 transition-colors border-2 border-dashed rounded-lg cursor-pointer hover:bg-slate-3 ${
+      className={`flex flex-col items-center justify-center w-full px-4 transition-colors border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-3 ${
         isDragActive
-          ? 'border-blue-9 bg-blue-3'
-          : 'border-slate-7 bg-slate-2'
+          ? 'border-lime-9 bg-lime-3'
+          : 'border-gray-7 bg-gray-2'
       } ${className}`}
     >
       <input {...getInputProps()} />
-      <Upload className="w-6 h-6 mb-2 text-slate-11" />
-      <p className="text-sm text-slate-11">
+      <Upload className="w-6 h-6 mb-2 text-gray-11" />
+      <p className="text-sm text-gray-11">
         {isDragActive
           ? 'Drop the files here...'
           : 'Drag & drop files here, or click to select'}
       </p>
       {maxSize && (
-        <p className="mt-1 text-xs text-slate-10">
+        <p className="mt-1 text-xs text-gray-10">
           Max file size: {Math.round(maxSize / 1024 / 1024)}MB
         </p>
       )}
