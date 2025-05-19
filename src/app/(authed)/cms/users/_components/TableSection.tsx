@@ -144,7 +144,11 @@ function TableSection() {
             )}
           />
         )}
-        <SearchData value={globalFilter} onChange={setGlobalFilter} />
+        <SearchData
+          className="h-full"
+          value={globalFilter}
+          onChange={setGlobalFilter}
+        />
         <FilterColumns
           columns={table
             .getAllColumns()
