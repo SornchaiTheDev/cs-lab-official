@@ -45,12 +45,12 @@ function DataTable({ table, isLoading, search, totalData, className }: Props) {
   return (
     <div
       className={cn(
-        "rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col",
+        "rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col relative",
         className,
       )}
     >
       <Table className="flex-1">
-        <TableHeader>
+        <TableHeader className="sticky top-0">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="bg-gray-2 h-9">
               {headerGroup.headers.map((header) => {
