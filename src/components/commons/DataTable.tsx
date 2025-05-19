@@ -25,9 +25,10 @@ interface Props {
   isLoading?: boolean;
   search?: string;
   totalData?: number;
+  className?: string;
 }
 
-function DataTable({ table, isLoading, search, totalData }: Props) {
+function DataTable({ table, isLoading, search, totalData, className }: Props) {
   const visibleColumns = useMemo(
     () =>
       table
@@ -42,7 +43,12 @@ function DataTable({ table, isLoading, search, totalData }: Props) {
   );
 
   return (
-    <div className="rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col">
+    <div
+      className={cn(
+        "rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col",
+        className,
+      )}
+    >
       <Table className="flex-1">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
