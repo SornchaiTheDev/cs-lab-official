@@ -57,7 +57,7 @@ function DataTable({ table, isLoading, search, totalData, className }: Props) {
                 return (
                   <TableHead
                     key={header.id}
-                    style={{ width: header.getSize() }}
+                    style={{ minWidth: header.getSize() }}
                   >
                     <div
                       onClick={() => {
@@ -78,10 +78,16 @@ function DataTable({ table, isLoading, search, totalData, className }: Props) {
                           )}
                       {{
                         asc: (
-                          <ChevronDown size="1rem" className="text-gray-11" />
+                          <ChevronDown
+                            size="1rem"
+                            className="text-gray-11 shrink-0"
+                          />
                         ),
                         desc: (
-                          <ChevronUp size="1rem" className="text-gray-11" />
+                          <ChevronUp
+                            size="1rem"
+                            className="text-gray-11 shrink-0"
+                          />
                         ),
                       }[header.column.getIsSorted() as string] ?? null}
                     </div>
