@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
-  variant?: "primary" | "danger";
+  variant?: "primary" | "danger" | "action";
   className?: string;
   isLoading?: boolean;
   isActive?: boolean;
@@ -30,6 +30,11 @@ export const Button = ({
       bgColor = "border-red-6 bg-red-2 hover:bg-red-3";
       textColor = "text-red-11 hover:text-red-10";
       activeColor = "bg-red-3 text-red-12";
+      break;
+    case "action":
+      bgColor = "border-gray-6 bg-gray-12 hover:bg-gray-11 active:bg-gray-10";
+      textColor = "text-gray-2 hover:text-gray-1";
+      activeColor = "bg-gray-3 text-gray-12";
       break;
   }
 
