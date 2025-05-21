@@ -26,9 +26,17 @@ interface Props {
   search?: string;
   totalData?: number;
   className?: string;
+  hidePagination?: boolean;
 }
 
-function DataTable({ table, isLoading, search, totalData, className }: Props) {
+function DataTable({
+  table,
+  isLoading,
+  search,
+  totalData,
+  className,
+  hidePagination,
+}: Props) {
   const visibleColumns = useMemo(
     () =>
       table
@@ -154,17 +162,19 @@ function DataTable({ table, isLoading, search, totalData, className }: Props) {
           Total{" "}
           <span className="ml-1 text-gray-12 font-semibold">{totalData}</span>
         </p>
-        <div className="flex items-center gap-4">
-          <PageSize
-            value={table.getState().pagination.pageSize}
-            onChange={(value) => table.setPageSize(Number(value))}
-          />
-          <TablePagination
-            totalPages={table.getPageCount()}
-            currentPage={table.getState().pagination.pageIndex + 1}
-            onPageChange={(page) => table.setPageIndex(page - 1)}
-          />
-        </div>
+        {!hidePagination && (
+          <div className="flex items-center gap-4">
+            <PageSize
+              value={table.getState().pagination.pageSize}
+              onChange={(value) => table.setPageSize(Number(value))}
+            />
+            <TablePagination
+              totalPages={table.getPageCount()}
+              currentPage={table.getState().pagination.pageIndex + 1}
+              onPageChange={(page) => table.setPageIndex(page - 1)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
