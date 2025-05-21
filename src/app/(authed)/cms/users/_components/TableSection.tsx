@@ -14,20 +14,16 @@ import FilterColumns from "./FilterColumns";
 import SearchData from "./SearchData";
 import { useUserPagination } from "../_queries/pagination.queries";
 import { mapUserColumnID } from "../_utils/mapColumnID";
-import DeleteManyButton from "./DeleteManyButton";
+import DeleteManyUsersButton from "./DeleteManyUsersButton";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import type { User } from "~/types/user";
 import DeleteUserDialog from "./DeleteUserDialog";
-import ImportUser from "./ImportUser";
+import ImportUser from "./import-users";
 import DataTable from "~/components/commons/DataTable";
-
-declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
-    editUser: (id: string) => void;
-    deleteUser: (id: string) => void;
-  }
-}
+import { useQueryClient } from "@tanstack/react-query";
+import { userKeys } from "../_queries/key";
+import { userService } from "~/services/user.service";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -103,17 +99,19 @@ function TableSection() {
     pageCount: Math.ceil(userAmount / pagination.pageSize),
     getRowId: (row) => row.id,
     meta: {
-      editUser: (id: string) => {
-        const user = data.users.find((user) => user.id === id);
-        if (user) {
-          setEditUser(user);
-        }
-      },
-      deleteUser: (id: string) => {
-        const user = data.users.find((user) => user.id === id);
-        if (user) {
-          setDeleteUser(user);
-        }
+      addUser: {
+        editUser: (id: string) => {
+          const user = data.users.find((user) => user.id === id);
+          if (user) {
+            setEditUser(user);
+          }
+        },
+        deleteUser: (id: string) => {
+          const user = data.users.find((user) => user.id === id);
+          if (user) {
+            setDeleteUser(user);
+          }
+        },
       },
     },
     autoResetPageIndex: false,
@@ -121,6 +119,17 @@ function TableSection() {
 
   const isRowSelected =
     table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
+
+  const queryClient = useQueryClient();
+  const handleOnDeleteManyUsers = async () => {
+    await userService.deleteManyUsers(
+      data.users
+        .filter((user) => Object.keys(rowSelection).includes(user.id))
+        .map((user) => user.id),
+    );
+    setRowSelection({});
+    queryClient.refetchQueries({ queryKey: userKeys.all });
+  };
 
   return (
     <>
@@ -137,11 +146,15 @@ function TableSection() {
 
       <div className="flex justify-end items-center gap-2 mt-4">
         {isRowSelected && (
-          <DeleteManyButton
-            onSuccess={() => setRowSelection({})}
-            users={data.users.filter((user) =>
-              Object.keys(rowSelection).includes(user.id),
-            )}
+          <DeleteManyUsersButton
+            onConfirm={handleOnDeleteManyUsers}
+            users={data.users
+              .filter((user) => Object.keys(rowSelection).includes(user.id))
+              .map(({ display_name, username, profile_image }) => ({
+                display_name,
+                username,
+                profile_image,
+              }))}
           />
         )}
         <SearchData

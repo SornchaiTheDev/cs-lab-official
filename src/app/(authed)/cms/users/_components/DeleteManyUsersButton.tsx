@@ -1,6 +1,5 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/commons/Button";
@@ -15,28 +14,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
-import { userService } from "~/services/user.service";
-import type { User } from "~/types/user";
-import { userKeys } from "../_queries/key";
-interface Props {
-  onClick?: () => void;
-  onSuccess?: () => void;
-  users: User[];
+
+interface UserPreview {
+  username: string;
+  display_name: string;
+  profile_image?: string | null;
 }
 
-function DeleteManyButton({ onClick, users, onSuccess }: Props) {
+interface Props {
+  onConfirm: (() => Promise<void>) | (() => void);
+  users: UserPreview[];
+}
+
+function DeleteManyUsersButton({ users, onConfirm }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const queryClient = useQueryClient();
-  const handleOnDelete = async () => {
+  const handleOnConfirm = async () => {
     try {
       setIsLoading(true);
-      await userService.deleteManyUsers(users.map((user) => user.id));
+      await onConfirm();
       setIsOpen(false);
-      queryClient.refetchQueries({ queryKey: userKeys.all });
-      if (!!onSuccess) onSuccess();
-    } catch (err) {
     } finally {
       setIsLoading(false);
     }
@@ -45,7 +43,7 @@ function DeleteManyButton({ onClick, users, onSuccess }: Props) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button {...{ onClick }} variant="danger">
+        <Button variant="danger">
           <Trash size="1rem" />
           Delete
         </Button>
@@ -59,8 +57,8 @@ function DeleteManyButton({ onClick, users, onSuccess }: Props) {
           </DialogDescription>
         </DialogHeader>
         <div className="max-h-[300px] overflow-auto space-y-1.5">
-          {users.map(({ id, display_name, profile_image, username }) => (
-            <div key={id} className="flex items-center gap-2.5">
+          {users.map(({ display_name, profile_image, username }) => (
+            <div key={username} className="flex items-center gap-2.5">
               <UserProfileImage src={profile_image} username={username} />
               <span className="text-sm text-gray-12">{display_name}</span>
             </div>
@@ -74,7 +72,7 @@ function DeleteManyButton({ onClick, users, onSuccess }: Props) {
           </DialogClose>
           <Button
             {...{ isLoading }}
-            onClick={handleOnDelete}
+            onClick={handleOnConfirm}
             className="w-full"
             variant="primary"
           >
@@ -87,4 +85,4 @@ function DeleteManyButton({ onClick, users, onSuccess }: Props) {
   );
 }
 
-export default DeleteManyButton;
+export default DeleteManyUsersButton;
