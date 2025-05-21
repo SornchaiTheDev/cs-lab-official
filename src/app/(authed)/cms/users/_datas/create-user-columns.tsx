@@ -1,13 +1,11 @@
 "use client";
 
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import type { User } from "~/types/user";
+import type { CreateUser } from "~/types/user";
 import {
   AtSign,
-  Calendar,
   EllipsisVertical,
   Lock,
-  Pencil,
   Shield,
   ShieldUser,
   Trash,
@@ -29,9 +27,9 @@ import UserProfileImage from "~/components/Menus/UserProfileImage";
 
 dayjs.extend(relativeTime);
 
-const columnHelper = createColumnHelper<User>();
+const columnHelper = createColumnHelper<CreateUser>();
 
-export const columns = [
+export const createUserColumns = [
   columnHelper.display({
     id: "select",
     size: 10,
@@ -80,11 +78,10 @@ export const columns = [
         <UserRound size="1rem" /> Profile
       </span>
     ),
-    cell: ({ cell, row }) => {
-      const image = cell.getValue() as string;
+    cell: ({ row }) => {
       return (
         <div className="flex justify-center items-center">
-          <UserProfileImage src={image} username={row.original.username} />
+          <UserProfileImage src={null} username={row.original.username} />
         </div>
       );
     },
@@ -98,6 +95,21 @@ export const columns = [
       </>
     ),
   }),
+  columnHelper.accessor("password", {
+    id: "password",
+    enableSorting: true,
+    header: () => (
+      <>
+        <Lock size="1rem" /> Password
+      </>
+    ),
+    cell: ({ cell }) => {
+      if (cell.getValue() === "") {
+        return "-";
+      }
+      return cell.getValue();
+    },
+  }),
   columnHelper.accessor("email", {
     id: "email",
     enableSorting: true,
@@ -106,14 +118,22 @@ export const columns = [
         <AtSign size="1rem" /> Email
       </>
     ),
+    cell: ({ cell }) => {
+      if (cell.getValue() === "") {
+        return "-";
+      }
+      return cell.getValue();
+    },
   }),
 
   columnHelper.accessor("display_name", {
     id: "display_name",
+    size: 120,
     enableSorting: true,
     header: () => (
       <>
-        <UserPen size="1rem" /> Display Name
+        <UserPen size="1rem" className="shrink-0" />{" "}
+        <span className="shrink-0">Display Name</span>
       </>
     ),
   }),
@@ -137,32 +157,6 @@ export const columns = [
       );
     },
   }),
-  columnHelper.accessor("created_at", {
-    id: "created_at",
-    enableSorting: true,
-    header: () => (
-      <>
-        <Calendar size="1rem" /> Created at
-      </>
-    ),
-    cell: ({ cell }) => {
-      const date = cell.getValue();
-      return dayjs(date).fromNow();
-    },
-  }),
-  columnHelper.accessor("updated_at", {
-    id: "updated_at",
-    enableSorting: true,
-    header: () => (
-      <>
-        <Calendar size="1rem" /> Updated at
-      </>
-    ),
-    cell: ({ cell }) => {
-      const date = cell.getValue();
-      return dayjs(date).fromNow();
-    },
-  }),
   columnHelper.display({
     id: "action",
     enableColumnFilter: false,
@@ -182,16 +176,9 @@ export const columns = [
           >
             <DropdownMenuItem
               onClick={() =>
-                table.options.meta?.addUser!.editUser(row.original.id)
-              }
-              className="flex items-center gap-2"
-            >
-              <Pencil size="1rem" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                table.options.meta?.addUser!.deleteUser(row.original.id)
+                table.options.meta?.userPreview!.deleteUser(
+                  row.original.username,
+                )
               }
               className="flex items-center gap-2 text-red-9 focus:text-red-10"
             >
@@ -203,4 +190,4 @@ export const columns = [
       );
     },
   }),
-] satisfies ColumnDef<User, any>[];
+] satisfies ColumnDef<CreateUser, any>[];
