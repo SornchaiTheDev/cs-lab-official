@@ -136,11 +136,14 @@ const AddUser = () => {
                 Password
               </Label>
               <Input type="password" {...register("password")} />
-              {isError("password") && (
-                <p className="text-red-9 text-sm font-light">
-                  {errors.password?.message}
-                </p>
-              )}
+              <p
+                className={cn(
+                  "text-sm font-light",
+                  isError("password") && "text-red-9",
+                )}
+              >
+                password must have at least 8 characters
+              </p>
             </div>
           )}
           <div className="space-y-1.5">
