@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 interface Props {
-  src: string | null;
+  src?: string | null;
   username: string;
 }
 function UserProfileImage({ src, username }: Props) {
-  if (src === null) {
+  if (src === null || src === undefined) {
     return (
       <div className="w-9 h-9 rounded-full flex justify-center items-center bg-gray-3">
         <p className="text-sm font-medium text-gray-11">
