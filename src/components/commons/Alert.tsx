@@ -39,5 +39,5 @@ interface AlertBodyProps extends ChildrenProps {
 }
 
 export const AlertBody = ({ className, children }: AlertBodyProps) => {
-  return <p className={cn("text-sm font-light", className)}>{children}</p>;
+  return <div className={cn("text-sm font-light", className)}>{children}</div>;
 };
