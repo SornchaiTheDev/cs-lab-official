@@ -13,14 +13,14 @@ import type { ExtensionMap } from "./types";
 import { highlightExtension } from "./extensions/highlightRanges";
 
 function CodeMirror(
-  props: Omit<ReactCodeMirrorProps, "extensions"> & {
+  props: ReactCodeMirrorProps & {
     lang?: string;
     vimMode?: boolean;
     initialCode?: string;
   },
 ) {
-  const { lang, vimMode, initialCode = "" } = props;
-  const [extensions, setExtensions] = useState<ExtensionMap>({
+  const { lang, vimMode, initialCode = "", extensions } = props;
+  const [_extensions, setExtensions] = useState<ExtensionMap>({
     indent: indentWithTab,
   });
 
@@ -44,9 +44,9 @@ function CodeMirror(
     }
   }, [lang, vimMode, initialCode]);
 
-  const finalExtensions = Object.values(extensions).filter(
-    (ext) => ext !== null,
-  );
+  const finalExtensions = Object.values(_extensions)
+    .filter((ext) => ext !== null)
+    .concat(extensions || []);
 
   const codeMirrorProps = Object.entries(props).reduce(
     (acc: ReactCodeMirrorProps, [key, value]) => {
