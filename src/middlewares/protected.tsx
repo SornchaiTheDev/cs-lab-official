@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { getUser } from "~/lib/user";
-import type { User } from "~/types/user";
+import type { JWTUser } from "~/types/user";
 
 export const protectedMiddleware = async (
-  cond?: (user: User) => boolean,
+  cond?: (user: JWTUser) => boolean,
 ): Promise<void> => {
   const cookieJar = await cookies();
   const accessToken = cookieJar.get("access_token");
