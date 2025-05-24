@@ -12,14 +12,19 @@ import DataTable from "~/components/commons/DataTable";
 import DeleteManyUserButton from "../DeleteManyUsersButton";
 import { Button } from "~/components/commons/Button";
 import { ArrowLeft, Import } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { userKeys } from "../../_queries/key";
+import { toast } from "sonner";
+import { userService } from "~/services/user.service";
 
 interface Props {
   users: CreateUser[];
   onDeleteUsers: (usernames: string[]) => void;
   onBack?: () => void;
+  onClose?: () => void;
 }
 
-const DataPreview = ({ users, onDeleteUsers, onBack }: Props) => {
+const DataPreview = ({ users, onDeleteUsers, onBack, onClose }: Props) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [rowSelection, setRowSelection] = useState({});
 
@@ -55,6 +60,22 @@ const DataPreview = ({ users, onDeleteUsers, onBack }: Props) => {
     setRowSelection({});
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const handleImport = async () => {
+    try {
+      setIsLoading(true);
+      await userService.importUsers(users);
+      await queryClient.invalidateQueries({ queryKey: userKeys.all });
+      toast.success("Users imported successfully!");
+      if (onClose) onClose();
+    } catch (err) {
+      toast.error("Failed to import users. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <button
@@ -86,7 +107,12 @@ const DataPreview = ({ users, onDeleteUsers, onBack }: Props) => {
         hidePagination
       />
       <div className="flex justify-end mt-2 gap-1.5">
-        <Button variant="action" className="px-8">
+        <Button
+          {...{ isLoading }}
+          onClick={handleImport}
+          variant="action"
+          className="px-8"
+        >
           <Import size="1rem" />
           Import
         </Button>

@@ -8,6 +8,15 @@ export const parseCSV = (content: string) => {
       if (context.column === "roles") {
         return value.split("+");
       }
+
+      if (context.column === "email") {
+        if (value === "") return null;
+      }
+
+      if (context.column === "password") {
+        if (value === "") return null;
+      }
+
       return value;
     },
   });

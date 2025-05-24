@@ -1,5 +1,5 @@
 import { api } from "~/lib/api";
-import type { User, UserRole } from "~/types/user";
+import type { CreateUser, User, UserRole } from "~/types/user";
 
 export interface GetUserPaginationParams {
   page: number;
@@ -113,6 +113,14 @@ class UserService {
       email,
       display_name,
       roles,
+    });
+
+    return res.data;
+  }
+
+  async importUsers(users: CreateUser[]) {
+    const res = await api.post(this.#baseURL + "/import", {
+      users,
     });
 
     return res.data;

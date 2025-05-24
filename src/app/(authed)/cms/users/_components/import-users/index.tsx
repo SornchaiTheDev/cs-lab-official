@@ -41,13 +41,14 @@ function ImportUser() {
 
   const handleOnImport = (content: string) => {
     const parsedUsers = parseCSV(content);
-    console.log(content);
     setUsers(parsedUsers);
     setStep("preview");
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>
           <Import size="1rem" />
@@ -71,6 +72,7 @@ function ImportUser() {
           <DataPreview
             {...{ users }}
             onDeleteUsers={handleDeleteUsers}
+            onClose={() => setIsOpen(false)}
             onBack={() => setStep("create")}
           />
         )}
