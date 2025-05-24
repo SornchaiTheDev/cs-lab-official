@@ -1,5 +1,5 @@
 export {};
 
 declare global {
-  interface Window extends Env {}
+  interface Window extends ClientEnv {}
 }
