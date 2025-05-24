@@ -5,14 +5,12 @@ import CoreLayout, {
   CoreLayoutContent,
   CoreLayoutSidebar,
 } from "~/layouts/CoreLayout";
-import { protectedMiddleware } from "~/middlewares/protected";
 import type { ChildrenProps } from "~/types/children-props";
 import BreadcrumbClient from "./_components/BreadcrumbClient";
+import { rolesAllowlistMiddleware } from "~/middlewares/roles-allowlist";
 
 async function Layout({ children }: ChildrenProps) {
-  await protectedMiddleware((user) =>
-    user.roles.some((role) => ["instrctor", "admin"].includes(role)),
-  );
+  await rolesAllowlistMiddleware(["admin", "instructor"]);
 
   return (
     <CoreLayout homePath="/cms">

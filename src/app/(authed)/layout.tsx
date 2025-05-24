@@ -2,8 +2,8 @@ import { type ReactNode } from "react";
 import { Provider as JotaiProvider } from "jotai";
 import SessionProvider from "~/providers/SessionProvider";
 import { protectedMiddleware } from "~/middlewares/protected";
-import { getUserSession } from "~/lib/getUserSession";
 import QueryProvider from "~/providers/QueryProvider";
+import { getUser } from "~/lib/get-user";
 
 interface Props {
   children: ReactNode;
@@ -12,7 +12,7 @@ interface Props {
 export default async function Layout({ children }: Props) {
   await protectedMiddleware();
 
-  const user = await getUserSession();
+  const user = await getUser();
 
   return (
     <JotaiProvider>
