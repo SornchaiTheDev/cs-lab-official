@@ -11,11 +11,11 @@ export interface User {
 }
 
 export interface JWTUser {
-  id: string;
+  sub: string;
   username: string;
   displayName: string;
   profileImage: string | null;
-  roles: string[];
+  roles: UserRole[];
 }
 
 export type UserType = "credential" | "oauth";
