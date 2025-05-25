@@ -6,10 +6,6 @@ export const protectedMiddleware = async (): Promise<void> => {
   const cookieJar = await cookies();
   const accessToken = cookieJar.get("access_token")?.value;
 
-  if (!accessToken) {
-    redirect("/auth/sign-in");
-  }
-
   try {
     verifyJWT(accessToken);
   } catch (err) {
@@ -18,7 +14,7 @@ export const protectedMiddleware = async (): Promise<void> => {
         notFound();
       }
 
-      if (err.message === "TOKEN_EXPIRED") {
+      if (err.message === "NO_TOKEN" || err.message === "TOKEN_EXPIRED") {
         redirect("/auth/refresh-token");
       }
     }

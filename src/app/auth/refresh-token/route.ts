@@ -12,11 +12,15 @@ export const GET = async () => {
 
   const redirectTo = headerList.get("referer") || "/";
 
-  const accessToken = cookieJar.get("access_token")?.value;
+  const accessToken = cookieJar.get("access_token")?.value ?? "";
   const refreshToken = cookieJar.get("refresh_token")?.value;
 
-  // verify if refresh token is valid throw error if not
-  verifyJWT(refreshToken);
+  try {
+    // verify if refresh token is valid throw error if not
+    verifyJWT(refreshToken);
+  } catch (err) {
+    redirect("/auth/sign-in");
+  }
 
   let resCookies: AxiosHeaderValue = [];
 
@@ -28,7 +32,9 @@ export const GET = async () => {
     });
 
     resCookies = res.headers["set-cookie"] || [];
-  } catch (err) {}
+  } catch (err) {
+    redirect("/auth/sign-in");
+  }
 
   // Get Set-Cookie header from response then convert into nextjs cookies then set them
   resCookies.map((cookie) => {
