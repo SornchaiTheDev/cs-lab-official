@@ -7,11 +7,8 @@ import CoreLayout, {
 } from "~/layouts/CoreLayout";
 import type { ChildrenProps } from "~/types/children-props";
 import BreadcrumbClient from "./_components/BreadcrumbClient";
-import { rolesAllowlistMiddleware } from "~/middlewares/roles-allowlist";
 
 async function Layout({ children }: ChildrenProps) {
-  await rolesAllowlistMiddleware(["admin", "instructor"]);
-
   return (
     <CoreLayout homePath="/cms">
       <CoreLayoutSidebar>
