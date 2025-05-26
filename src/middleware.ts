@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { protectedMiddleware } from "./middlewares/protected";
 import { rolesAllowlistMiddleware } from "./middlewares/roles-allowlist";
+import { verifyJWT } from "./lib/verify-jwt";
 
 export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/auth/")) {
@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/")) {
     try {
-      await protectedMiddleware(req);
+      verifyJWT(req.cookies.get("access_token")?.value || "");
     } catch (err) {
       if (err instanceof Error) {
         if (err.message === "UNAUTHORIZED") {
@@ -17,10 +17,10 @@ export async function middleware(req: NextRequest) {
         }
 
         if (err.message === "NO_TOKEN" || err.message === "TOKEN_EXPIRED") {
-          NextResponse.redirect("/auth/refresh-token");
+          return NextResponse.redirect(new URL("/auth/refresh-token", req.url));
         }
       }
-      NextResponse.redirect("/auth/sign-out");
+      return NextResponse.redirect(new URL("/auth/sign-out", req.url));
     }
   }
 
