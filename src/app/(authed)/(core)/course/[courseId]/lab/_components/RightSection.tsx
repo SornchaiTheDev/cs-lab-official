@@ -77,7 +77,7 @@ const VerticalSectionControl = ({
     >
       <div
         className={cn(
-          "w-12 h-1 bg-gray-6 rounded-full hover:w-14 transition-all",
+          "w-12 h-1 bg-(--gray-6) rounded-full hover:w-14 transition-all",
           isDrag && "w-16",
         )}
       ></div>

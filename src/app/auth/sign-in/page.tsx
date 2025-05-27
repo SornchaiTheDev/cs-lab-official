@@ -41,7 +41,7 @@ async function SignInPage({ searchParams }: Props) {
   const isError = errorMessage !== null;
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen p-6 bg-gray-2">
+    <div className="flex flex-col lg:flex-row h-screen p-6 bg-(--gray-2)">
       <div className="flex-1 flex flex-col items-center">
         <div className="w-full h-full max-w-120 flex flex-col justify-center items-center">
           {isError && <ErrorAlert className="mb-8" message={errorMessage} />}
@@ -52,9 +52,9 @@ async function SignInPage({ searchParams }: Props) {
           <GoogleSignIn />
 
           <div className="flex gap-2 w-1/2 items-center mt-4">
-            <div className="flex-1 border-t border-gray-6"></div>
-            <p className="text-sm text-gray-8">or</p>
-            <div className="flex-1 border-t border-gray-6"></div>
+            <div className="flex-1 border-t border-(--gray-6)"></div>
+            <p className="text-sm text-(--gray-8)">or</p>
+            <div className="flex-1 border-t border-(--gray-6)"></div>
           </div>
 
           <UsernameAndPassword />

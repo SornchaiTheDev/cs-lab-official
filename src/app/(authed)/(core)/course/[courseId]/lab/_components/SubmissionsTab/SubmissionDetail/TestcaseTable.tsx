@@ -39,9 +39,11 @@ function TestcaseTable({ isLoading }: Props) {
   return (
     <>
       {!isLoading && (
-        <h6 className="text-sm font-semibold text-gray-11 mt-4">Testcases</h6>
+        <h6 className="text-sm font-semibold text-(--gray-11) mt-4">
+          Testcases
+        </h6>
       )}
-      <Table noScroll className="mt-2 overflow-visible">
+      <Table className="mt-2 overflow-visible">
         <TableHeader>
           <TableRow>
             <TableHead>#</TableHead>

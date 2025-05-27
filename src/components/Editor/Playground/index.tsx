@@ -51,7 +51,7 @@ function Playground({ className }: Props) {
       )}
     >
       <div className="flex items-center gap-2 p-2">
-        <h4 className="font-medium text-gray-12 text-sm leading-tight">Playground</h4>
+        <h4 className="font-medium text-(--gray-12) text-sm leading-tight">Playground</h4>
         <Button
           onClick={handleOnRun}
           className="space-x-2 w-fit"

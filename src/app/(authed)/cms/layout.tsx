@@ -12,11 +12,12 @@ async function Layout({ children }: ChildrenProps) {
   return (
     <CoreLayout homePath="/cms">
       <CoreLayoutSidebar>
-        <h6 className="text-gray-11 text-sm font-light py-2">CMS</h6>
+        <h6 className="text-(--gray-11) text-sm font-light py-2">CMS</h6>
+        <h6 className="text-xs text-(--gray-11) font-light">Management</h6>
         <div className="mt-2">
           <Link
             href="/cms/users"
-            className="flex items-center gap-1.5 text-gray-10 p-2 hover:bg-gray-4 rounded-lg hover:text-gray-11 w-full"
+            className="flex items-center gap-1.5 text-(--gray-10) p-2 hover:bg-(--gray-4) rounded-lg hover:text-(--gray-11) w-full"
           >
             <UserRound size="1rem" />
             <p className="text-sm">Users Management</p>

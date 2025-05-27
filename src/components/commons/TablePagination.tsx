@@ -71,7 +71,7 @@ function TablePagination({
             <Ellipsis
               key={`ellipsis-${index}`}
               size="1rem"
-              className="text-gray-9"
+              className="text-(--gray-9)"
             />
           );
         }
@@ -106,10 +106,10 @@ const PageNumber = ({ children, isActive, onClick }: PageNumberProps) => {
     <button
       onClick={onClick}
       className={cn(
-        "rounded-lg p-2 w-6 h-6 flex justify-center items-center text-gray-9 text-xs",
+        "rounded-lg p-2 w-6 h-6 flex justify-center items-center text-(--gray-9) text-xs",
         isActive
-          ? "text-gray-1 bg-gray-12"
-          : "hover:bg-gray-2 hover:text-gray-12",
+          ? "text-(--gray-1) bg-(--gray-12)"
+          : "hover:bg-(--gray-2) hover:text-(--gray-12)",
       )}
     >
       {children}
@@ -133,7 +133,7 @@ const PaginationAction = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "flex justify-center items-center p-1 rounded-lg hover:bg-gray-2 hover:text-gray-12",
+        "flex justify-center items-center p-1 rounded-lg hover:bg-(--gray-2) hover:text-(--gray-12)",
         disabled && "opacity-50 cursor-not-allowed",
       )}
     >

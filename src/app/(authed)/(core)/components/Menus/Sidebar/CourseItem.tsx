@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import StatusIcon from "../../StatusIcon";
-import type { CourseItem } from "~/app/(core)/types";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "~/components/commons/Link";
 import { useParams, usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
+import type { ICourseItem } from "../../../types";
 
 const CourseItem = ({
   name,
   subItems,
   type,
   courseId,
-}: CourseItem & { type: "lesson" | "lab"; courseId: string }) => {
+}: ICourseItem & { type: "lesson" | "lab"; courseId: string }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
@@ -27,10 +27,10 @@ const CourseItem = ({
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-sm text-gray-12 flex items-center justify-between w-full"
+        className="text-sm text-(--gray-12) flex items-center justify-between w-full"
       >
         {name}
-        <div className="p-0 text-gray-10 w-6 h-6 rounded-md hover:bg-gray-3 hover:text-gray-10 flex justify-center items-center">
+        <div className="p-0 text-(--gray-10) w-6 h-6 rounded-md hover:bg-(--gray-3) hover:text-(--gray-10) flex justify-center items-center">
           {isOpen ? <ChevronUp size="1rem" /> : <ChevronDown size="1rem" />}
         </div>
       </button>
@@ -42,18 +42,14 @@ const CourseItem = ({
               <Link
                 href={`/course/${courseId}/${type}/${_slug}`}
                 className={cn(
-                  "grid grid-cols-12 items-center p-2 rounded-md hover:bg-gray-3",
-                  _slug === slug && "bg-gray-4",
+                  "grid grid-cols-12 items-center p-2 rounded-md hover:bg-(--gray-3)",
+                  _slug === slug && "bg-(--gray-4)",
                 )}
               >
-                <div className="text-gray-12 flex justify-center items-center">
+                <div className="text-(--gray-12) flex justify-center items-center">
                   <StatusIcon {...{ status }} size="1rem" />
                 </div>
-                <p
-                  className={cn(
-                    "col-span-11 ml-2 truncate text-gray-12",
-                  )}
-                >
+                <p className={cn("col-span-11 ml-2 truncate text-(--gray-12)")}>
                   {name}
                 </p>
               </Link>

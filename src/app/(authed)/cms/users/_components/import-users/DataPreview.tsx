@@ -79,7 +79,7 @@ const DataPreview = ({ users, onDeleteUsers, onBack, onClose }: Props) => {
   return (
     <div className="flex flex-col">
       <button
-        className="flex items-center gap-1.5 w-fit text-sm text-gray-12 hover:text-gray-11"
+        className="flex items-center gap-1.5 w-fit text-sm text-(--gray-12) hover:text-(--gray-11)"
         onClick={onBack}
       >
         <ArrowLeft size="1rem" />

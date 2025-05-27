@@ -53,14 +53,14 @@ function DataTable({
   return (
     <div
       className={cn(
-        "rounded-md border border-gray-4 overflow-hidden mt-4 h-full flex flex-col relative",
+        "rounded-md border border-(--gray-4) overflow-hidden mt-4 h-full flex flex-col relative",
         className,
       )}
     >
       <Table className="flex-1">
         <TableHeader className="sticky top-0">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="bg-gray-2 h-9">
+            <TableRow key={headerGroup.id} className="bg-(--gray-2) h-9">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead
@@ -88,13 +88,13 @@ function DataTable({
                         asc: (
                           <ChevronDown
                             size="1rem"
-                            className="text-gray-11 shrink-0"
+                            className="text-(--gray-11) shrink-0"
                           />
                         ),
                         desc: (
                           <ChevronUp
                             size="1rem"
-                            className="text-gray-11 shrink-0"
+                            className="text-(--gray-11) shrink-0"
                           />
                         ),
                       }[header.column.getIsSorted() as string] ?? null}
@@ -113,7 +113,7 @@ function DataTable({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="border-b last:border-none border-gray-4 h-9"
+                className="border-b last:border-none border-(--gray-4) h-9"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className="py-1.5">
@@ -129,7 +129,7 @@ function DataTable({
                 className="h-[calc(100vh-300px)]"
               >
                 <div className="h-full w-full flex items-center justify-center">
-                  <div className="flex flex-col items-center justify-center gap-2 text-gray-10">
+                  <div className="flex flex-col items-center justify-center gap-2 text-(--gray-10)">
                     {search && table.getState().globalFilter !== "" ? (
                       <>
                         <SearchX size="2.5rem" />
@@ -137,7 +137,7 @@ function DataTable({
                           No results found for &ldquo;
                           {table.getState().globalFilter}&rdquo;
                         </p>
-                        <p className="text-xs text-gray-9">
+                        <p className="text-xs text-(--gray-9)">
                           Try adjusting your search or filter to find what
                           you&apos;re looking for.
                         </p>
@@ -157,10 +157,10 @@ function DataTable({
           )}
         </TableBody>
       </Table>
-      <div className="p-2 border-t border-gray-4 flex justify-between items-center">
-        <p className="text-xs text-gray-10 tracking-wide">
+      <div className="p-2 border-t border-(--gray-4) flex justify-between items-center">
+        <p className="text-xs text-(--gray-10) tracking-wide">
           Total{" "}
-          <span className="ml-1 text-gray-12 font-semibold">{totalData}</span>
+          <span className="ml-1 text-(--gray-12) font-semibold">{totalData}</span>
         </p>
         {!hidePagination && (
           <div className="flex items-center gap-4">

@@ -17,7 +17,7 @@ interface Props {
 function FilterColumns({ columns }: Props) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="px-3 py-1.5 border bg-gray-2 text-gray-11 text-sm rounded-md flex justify-center items-center gap-1.5 hover:bg-gray-3">
+      <DropdownMenuTrigger className="px-3 py-1.5 border bg-(--gray-2) text-(--gray-11) text-sm rounded-md flex justify-center items-center gap-1.5 hover:bg-(--gray-3)">
         <SlidersHorizontal size="1rem" />
         Columns
       </DropdownMenuTrigger>

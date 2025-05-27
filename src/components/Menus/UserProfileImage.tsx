@@ -7,8 +7,8 @@ interface Props {
 function UserProfileImage({ src, username }: Props) {
   if (src === null || src === undefined) {
     return (
-      <div className="w-9 h-9 rounded-full flex justify-center items-center bg-gray-3">
-        <p className="text-sm font-medium text-gray-11">
+      <div className="w-9 h-9 rounded-full flex justify-center items-center bg-(--gray-3)">
+        <p className="text-sm font-medium text-(gray-11)">
           {username.charAt(0).toUpperCase()}
           {username.charAt(1).toLowerCase()}
         </p>

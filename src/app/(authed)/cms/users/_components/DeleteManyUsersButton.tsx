@@ -60,7 +60,7 @@ function DeleteManyUsersButton({ users, onConfirm }: Props) {
           {users.map(({ display_name, profile_image, username }) => (
             <div key={username} className="flex items-center gap-2.5">
               <UserProfileImage src={profile_image} username={username} />
-              <span className="text-sm text-gray-12">{display_name}</span>
+              <span className="text-sm text-(--gray-12)">{display_name}</span>
             </div>
           ))}
         </div>

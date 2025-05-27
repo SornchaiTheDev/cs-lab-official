@@ -51,7 +51,7 @@ function UsernameAndPassword() {
             id="username"
             name="username"
             value={username}
-            className="bg-gray-1 focus-visible:ring-0"
+            className="bg-(--gray-1) focus-visible:ring-0"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -62,7 +62,7 @@ function UsernameAndPassword() {
             name="password"
             type="password"
             value={password}
-            className="bg-gray-1 focus-visible:ring-0"
+            className="bg-(--gray-1) focus-visible:ring-0"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

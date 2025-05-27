@@ -45,7 +45,7 @@ export function CoreLayoutContent({ className, children }: ContentProps) {
 export function CoreLayoutSidebar({ children }: ChildrenProps) {
   return (
     <SidebarWrapper>
-      <h5 className="text-gray-12 font-medium">CS Lab</h5>
+      <h5 className="text-(--gray-12) font-medium">CS Lab</h5>
       {children}
     </SidebarWrapper>
   );
@@ -68,12 +68,12 @@ function Navigation({ homePath = "/" }: { homePath?: string }) {
   const canGoBack = pathname !== homePath;
 
   return (
-    <div className="px-2 py-1 flex justify-between items-center border-b border-gray-4">
+    <div className="px-2 py-1 flex justify-between items-center border-b border-(--gray-4)">
       <div className="flex items-center">
         <Button
           variant="ghost"
           onClick={toggleSidebar}
-          className="w-10 h-8 p-0 text-gray-10"
+          className="w-10 h-8 p-0 text-(--gray-10)"
         >
           <PanelLeft size="1.25rem" />
         </Button>
@@ -81,7 +81,7 @@ function Navigation({ homePath = "/" }: { homePath?: string }) {
           onClick={() => router.push(homePath)}
           disabled={pathname === homePath}
           variant="ghost"
-          className="w-10 h-8 p-0 text-gray-10"
+          className="w-10 h-8 p-0 text-(--gray-10)"
         >
           <House size="1.25rem" />
         </Button>
@@ -89,7 +89,7 @@ function Navigation({ homePath = "/" }: { homePath?: string }) {
           onClick={() => router.back()}
           disabled={!canGoBack}
           variant="ghost"
-          className="w-10 h-8 p-0 text-gray-10"
+          className="w-10 h-8 p-0 text-(--gray-10)"
         >
           <ArrowLeft size="1.25rem" />
         </Button>

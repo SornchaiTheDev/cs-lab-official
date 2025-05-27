@@ -18,7 +18,7 @@ function LeftSection({ descriptionTab }: Props) {
   return (
     <>
       <div
-        className="border border-gray-6 rounded-lg h-full bg-white"
+        className="border border-(--gray-6) rounded-lg h-full bg-white"
         style={{ width: size, minWidth: 300 }}
         ref={containerRef}
       >
@@ -82,7 +82,7 @@ const HorizontalSectionControl = ({
     >
       <div
         className={cn(
-          "w-1 h-12 bg-gray-6 rounded-full hover:h-14 transition-all",
+          "w-1 h-12 bg-(--gray-6) rounded-full hover:h-14 transition-all",
           isDrag && "h-16",
         )}
       ></div>

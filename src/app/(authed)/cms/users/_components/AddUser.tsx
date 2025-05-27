@@ -193,7 +193,7 @@ const AddUser = () => {
             type="submit"
             isLoading={isPending}
             disabled={isPending}
-            className="bg-gray-12 text-gray-1 hover:bg-gray-11 hover:text-gray-2 py-2 w-full"
+            className="bg-(--gray-12) text-(--gray-1) hover:bg-(--gray-11) hover:text-(--gray-2) py-2 w-full"
           >
             <Plus size="1rem" />
             Create

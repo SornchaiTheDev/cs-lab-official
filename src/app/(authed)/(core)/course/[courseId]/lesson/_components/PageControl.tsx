@@ -26,10 +26,10 @@ function PageControl({ nextPage, prevPage }: Props) {
           className="flex flex-col gap-2 not-prose rounded-lg group flex-1 overflow-hidden max-w-[20rem]"
           href={prevPage.slug}
         >
-          <h5 className="text-sm text-gray-11 group-hover:text-gray-10">
+          <h5 className="text-sm text-(--gray-11) group-hover:text-(--gray-10)">
             Previous
           </h5>
-          <h2 className="text-lg font-medium group-hover:text-gray-11 text-gray-12 truncate">
+          <h2 className="text-lg font-medium group-hover:text-(--gray-11) text-(--gray-12) truncate">
             {prevPage.title}
           </h2>
         </Link>
@@ -39,10 +39,10 @@ function PageControl({ nextPage, prevPage }: Props) {
           className="flex flex-col gap-2 items-end not-prose rounded-lg group flex-1 overflow-hidden max-w-[20rem]"
           href={nextPage.slug}
         >
-          <h5 className="text-sm text-gray-11 group-hover:text-gray-10">
+          <h5 className="text-sm text-(--gray-11) group-hover:text-(--gray-10)">
             Next
           </h5>
-          <h2 className="text-lg font-medium group-hover:text-gray-11 text-gray-12 truncate">
+          <h2 className="text-lg font-medium group-hover:text-(--gray-11) text-(--gray-12) truncate">
             {nextPage.title}
           </h2>
         </Link>

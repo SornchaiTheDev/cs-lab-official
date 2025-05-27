@@ -14,7 +14,7 @@ export default function TableSkeleton({ columns }: TableSkeletonProps) {
       {Array.from({ length: 5 }).map((_, index) => (
         <TableRow
           key={index}
-          className="border-b last:border-none border-gray-4 h-9"
+          className="border-b last:border-none border-(--gray-4) h-9"
         >
           {columns.map((column) => {
             // Customize skeleton based on column type

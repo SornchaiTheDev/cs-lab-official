@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 @import "@radix-ui/colors/gray";
 @import "@radix-ui/colors/grass";
+@import "@radix-ui/colors/red";
+@import "@radix-ui/colors/lime";
+@import "@radix-ui/colors/amber";
+
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 

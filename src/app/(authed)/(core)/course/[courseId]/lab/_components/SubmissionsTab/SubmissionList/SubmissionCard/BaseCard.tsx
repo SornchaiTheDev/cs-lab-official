@@ -19,7 +19,7 @@ export function Card({
       {...{ onClick }}
       disabled={typeof onClick === "undefined"}
       className={cn(
-        "border flex justify-between items-center gap-2 px-4 py-2 rounded-lg bg-gray-2 border-gray-6 w-full",
+        "border flex justify-between items-center gap-2 px-4 py-2 rounded-lg bg-(--gray-2) border-(--gray-6) w-full",
         className,
       )}
     >
@@ -38,18 +38,18 @@ export const CardStatusLine = ({ children, className }: Children) => (
 );
 
 export const Order = ({ children, className }: Children) => (
-  <h5 className={cn("font-medium text-gray-12", className)}>
+  <h5 className={cn("font-medium text-(--gray-12)", className)}>
     Submission #{children}
   </h5>
 );
 
 export const Status = ({ children, className }: Children) => (
-  <h6 className={cn("text-gray-11 font-semibold", className)}>{children}</h6>
+  <h6 className={cn("text-(--gray-11) font-semibold", className)}>{children}</h6>
 );
 
 export const SubmissionDate = ({ date }: { date: Date }) => {
   const formattedDate = dayjs(date).format("DD MMMM YYYY HH:mm:ss");
-  return <h6 className="mt-1 text-xs text-gray-11">{formattedDate}</h6>;
+  return <h6 className="mt-1 text-xs text-(--gray-11)">{formattedDate}</h6>;
 };
 
 export const Testcase = ({
@@ -60,7 +60,7 @@ export const Testcase = ({
   correctCase: number;
   totalCase: number;
 }) => (
-  <h6 className={cn("text-gray-11", className)}>
+  <h6 className={cn("text-(--gray-11)", className)}>
     {correctCase}/{totalCase} Testcases
   </h6>
 );

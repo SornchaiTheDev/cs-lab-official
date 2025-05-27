@@ -20,7 +20,7 @@ export function QueueCard({ order, onClick }: IBaseCard) {
         </CardStatusLine>
         <SubmissionDate date={new Date()} />
       </CardContent>
-      <RefreshCcw className="text-gray-11" />
+      <RefreshCcw className="text-(--gray-11)" />
     </Card>
   );
 }

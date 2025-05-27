@@ -43,7 +43,7 @@ async function LabPage(props: { params: Promise<{ problemId: string }> }) {
   }
 
   return (
-    <div className="h-full flex flex-col bg-gray-2 gap-2">
+    <div className="h-full flex flex-col bg-(--gray-2) gap-2">
       <div className="flex-1 flex min-h-0">
         <LeftSection descriptionTab={<DescriptionTab />} />
         <RightSection

@@ -109,7 +109,7 @@ function ImportEditor({ onImport }: Props) {
 
   return (
     <>
-      <div className="min-h-[300px] border border-gray-4 rounded-lg overflow-hidden">
+      <div className="min-h-[300px] border border-(--gray-4) rounded-lg overflow-hidden">
         <CodeMirror
           height="300px"
           lang="csv"

@@ -172,7 +172,7 @@ export const columns = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger className="flex justify-center items-center">
-            <EllipsisVertical size="1rem" className="text-gray-12" />
+            <EllipsisVertical size="1rem" className="text-(--gray-12)" />
           </DropdownMenuTrigger>
           <DropdownMenuContent
             side="left"
