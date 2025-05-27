@@ -17,7 +17,7 @@ function SidebarWrapper({ children }: Props) {
       <motion.nav
         initial={{ width }}
         animate={{ width }}
-        className="flex flex-col justify-between border-r border-gray-4 bg-gray-2"
+        className="flex flex-col justify-between border-r border-(--gray-4) bg-(--gray-2)"
       >
         {!isCollapse && (
           <>
