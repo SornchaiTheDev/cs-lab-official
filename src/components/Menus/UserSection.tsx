@@ -37,7 +37,7 @@ function UserSection() {
           <EllipsisVertical size="1rem" className="shrink-0 text-gray-11" />
         </motion.button>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+      <PopoverContent className="w-(--radix-popover-trigger-width) p-0">
         <div className="px-2 py-4 flex gap-3 rounded-lg">
           <UserProfileImage src={user.profileImage} username={user.username} />
           <div className="flex-1 space-y-0.5 grid text-left">

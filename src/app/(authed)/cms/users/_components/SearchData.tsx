@@ -23,7 +23,7 @@ function SearchData({ value, onChange, className }: SearchDataProps) {
         placeholder="Search users"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="block text-sm w-full h-fit outline-none bg-transparent"
+        className="block text-sm w-full h-fit outline-hidden bg-transparent"
       />
     </div>
   );

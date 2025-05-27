@@ -61,11 +61,11 @@ function QuotesSection() {
 
   return (
     <div className="flex-1 max-h-[300px] md:max-h-[450px] lg:max-h-full relative rounded-3xl overflow-hidden">
-      <div className="absolute top-0 bottom-0 left-0 right-0 backdrop-blur-sm bg-black/40 z-10">
+      <div className="absolute top-0 bottom-0 left-0 right-0 backdrop-blur-xs bg-black/40 z-10">
         {!isNoQuote && (
           <div className="flex flex-col justify-end pb-10 items-center h-full gap-4">
             <div className="px-10">
-              <h1 className="text-2xl lg:text-4xl font-medium text-white lg:leading-[3rem]">
+              <h1 className="text-2xl lg:text-4xl font-medium text-white lg:leading-12">
                 {quote}
               </h1>
               <p className="mt-4 text-lg text-white self-start">- {author}</p>

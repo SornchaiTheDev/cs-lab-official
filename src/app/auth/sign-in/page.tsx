@@ -43,7 +43,7 @@ async function SignInPage({ searchParams }: Props) {
   return (
     <div className="flex flex-col lg:flex-row h-screen p-6 bg-gray-2">
       <div className="flex-1 flex flex-col items-center">
-        <div className="w-full h-full max-w-[30rem] flex flex-col justify-center items-center">
+        <div className="w-full h-full max-w-120 flex flex-col justify-center items-center">
           {isError && <ErrorAlert className="mb-8" message={errorMessage} />}
           <h3 className="text-2xl lg:text-3xl font-semibold text-center">
             Sign in
