@@ -15,6 +15,8 @@ import {
 function BreadcrumbClient() {
   const pathname = usePathname();
 
+  if (pathname.endsWith("/cms")) return null;
+
   const pathNames = {
     cms: "CMS",
     users: "Users Management",
