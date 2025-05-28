@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import CourseCard from "../(core)/components/CourceCard";
+import CourseCard from "../../../components/commons/CourceCard";
 
 export const metadata : Metadata = {
   title : "My Courses | CS Lab"
