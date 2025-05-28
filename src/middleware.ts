@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/")) {
     try {
-      verifyJWT(req.cookies.get("access_token")?.value || "");
+      verifyJWT(req.cookies.get("access_token")?.value);
     } catch (err) {
       if (err instanceof Error) {
         if (err.message === "UNAUTHORIZED") {
