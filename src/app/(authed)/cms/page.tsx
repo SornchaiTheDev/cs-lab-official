@@ -7,9 +7,9 @@ import { Plus } from "lucide-react";
 
 function CMSMainPage() {
   return (
-    <div>
-      <h3 className="text-3xl font-medium">Courses</h3>
-      <div className="flex justify-end">
+    <div className="@container">
+      <div className="flex justify-between w-full">
+        <h3 className="text-3xl font-medium">Courses</h3>
         <Button className="my-4">
           <Plus size="1rem" />
           Create

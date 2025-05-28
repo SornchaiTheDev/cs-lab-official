@@ -4,7 +4,7 @@ const CourseCard = () => {
   return (
     <Link
       href="/course/1"
-      className="rounded-xl drop-shadow-md col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 flex flex-col justify-end group aspect-square bg-linear-to-t from-sky-500 to-indigo-500"
+      className="rounded-xl drop-shadow-md flex flex-col justify-end group aspect-square bg-linear-to-t from-sky-500 to-indigo-500 col-span-4 @6xl:col-span-3"
     >
       <div className="flex justify-center items-center w-full h-full flex-1 min-h-[200px] text-6xl group-hover:text-[5rem] group-hover:rotate-45 transition-all">
         ✨
