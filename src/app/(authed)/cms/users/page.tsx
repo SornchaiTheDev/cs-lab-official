@@ -3,7 +3,7 @@ import TableSection from "./_components/TableSection";
 function UsersManagementPage() {
   return (
     <div className="flex-1 flex flex-col">
-      <h4 className="text-(--gray-12) text-2xl font-medium mt-4">
+      <h4 className="text-(--gray-12) text-2xl font-medium">
         Users Management
       </h4>
       <TableSection />
