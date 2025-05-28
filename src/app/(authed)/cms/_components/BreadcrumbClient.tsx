@@ -11,14 +11,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
+import type { ClassNameProps } from "~/types/classname-props";
 
-function BreadcrumbClient() {
+function BreadcrumbClient({ className }: ClassNameProps) {
   const pathname = usePathname();
 
   if (pathname.endsWith("/cms")) return null;
 
   const pathNames = {
     cms: "CMS",
+    courses: "Courses",
     users: "Users Management",
   } as const;
 
@@ -27,7 +29,7 @@ function BreadcrumbClient() {
     .filter((path) => path !== "") as (keyof typeof pathNames)[];
 
   return (
-    <Breadcrumb>
+    <Breadcrumb {...{ className }}>
       <BreadcrumbList>
         {paths.map((path, index) => {
           let renderBreadcrumb = (
