@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useAtom } from "jotai";
 import { sidebarAtom } from "~/globalStore/sidebar";
 import type { ReactNode } from "react";

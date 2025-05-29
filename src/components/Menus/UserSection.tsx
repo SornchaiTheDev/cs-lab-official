@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { DoorOpen, EllipsisVertical, SquareTerminal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
