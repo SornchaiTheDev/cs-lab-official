@@ -1,5 +1,3 @@
-import { Book, UserRound } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 import CoreLayout, {
   CoreLayoutContent,
@@ -7,29 +5,14 @@ import CoreLayout, {
 } from "~/layouts/CoreLayout";
 import type { ChildrenProps } from "~/types/children-props";
 import BreadcrumbClient from "./_components/BreadcrumbClient";
+import SidebarMenus from "./_components/SidebarMenus";
 
 async function Layout({ children }: ChildrenProps) {
   return (
     <CoreLayout homePath="/cms">
       <CoreLayoutSidebar>
         <h6 className="text-(--gray-11) text-sm font-light py-2">CMS</h6>
-        <Link
-          href="/cms/courses"
-          className="flex items-center gap-1.5 text-(--gray-10) p-2 hover:bg-(--gray-4) rounded-lg hover:text-(--gray-11) w-full"
-        >
-          <Book size="1rem" />
-          <p className="text-sm">Courses</p>
-        </Link>
-        <h6 className="text-xs text-(--gray-11) font-light">Management</h6>
-        <div className="mt-2">
-          <Link
-            href="/cms/users"
-            className="flex items-center gap-1.5 text-(--gray-10) p-2 hover:bg-(--gray-4) rounded-lg hover:text-(--gray-11) w-full"
-          >
-            <UserRound size="1rem" />
-            <p className="text-sm">Users Management</p>
-          </Link>
-        </div>
+        <SidebarMenus />
       </CoreLayoutSidebar>
       <CoreLayoutContent className="p-4 min-h-0 gap-2">
         <BreadcrumbClient />
