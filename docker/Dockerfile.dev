@@ -22,6 +22,4 @@ RUN ARCH=$(uname -m) && \
 COPY package.json pnpm-lock.yaml* ./
 RUN corepack enable pnpm && pnpm i --frozen-lockfile
 
-RUN npm i lightningcss-linux-arm64-musl
-
 CMD ["pnpm", "dev"]
