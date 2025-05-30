@@ -5,6 +5,8 @@
 @import "@radix-ui/colors/lime";
 @import "@radix-ui/colors/amber";
 
+@source "../node_modules/@ferrucc-io/emoji-picker";
+
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
