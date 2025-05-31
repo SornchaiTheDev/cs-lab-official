@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/components/ui/dialog";
+} from "~/components/commons/Dialog";
 import type { CreateUser } from "~/types/user";
 import ImportMethod from "./ImportMethod";
 import DataPreview from "./DataPreview";
@@ -55,7 +55,7 @@ function ImportUser() {
           Import
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[600px] max-w-fit">
+      <DialogContent className="min-w-[600px] max-w-fit p-4">
         <DialogHeader className="flex-row justify-between">
           <div className="space-y-2">
             <DialogTitle>{dialogTitle}</DialogTitle>

@@ -25,7 +25,7 @@ function CreateCourseButton() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create New Course</DialogTitle>
+          <DialogTitle className="p-4">Create New Course</DialogTitle>
         </DialogHeader>
         <form>
           <div className="p-4 space-y-6">

@@ -7,6 +7,7 @@ import {
   DialogOverlay as ShadcnDialogOverlay,
   DialogTrigger,
   DialogPortal,
+  DialogDescription,
 } from "~/components/ui/dialog";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -24,7 +25,7 @@ function DialogHeader(props: React.ComponentProps<typeof ShadcnDialogHeader>) {
 function DialogTitle(props: React.ComponentProps<typeof ShadcnDialogTitle>) {
   return (
     <ShadcnDialogTitle
-      className="text-xl leading-none font-semibold p-4"
+      className="text-xl leading-none font-semibold"
       {...props}
     />
   );
@@ -80,4 +81,5 @@ export {
   DialogTrigger,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 };
