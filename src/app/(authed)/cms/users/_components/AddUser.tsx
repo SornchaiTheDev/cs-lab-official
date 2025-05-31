@@ -3,6 +3,7 @@ import { Button } from "~/components/commons/Button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -101,103 +102,106 @@ const AddUser = () => {
         <DialogHeader>
           <DialogTitle className="p-4">Add new user</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleCreateUser)} className="space-y-4 p-4">
-          <div className="space-y-1.5">
-            <Label className={cn(isError("type") && "text-red-9")}>
-              User Type
-            </Label>
-            <Controller
-              name="type"
-              {...{ control }}
-              render={({ field: { onChange, value } }) => (
-                <UserType value={value} onSelect={onChange} />
-              )}
-            />
-            {isError("type") && (
-              <p className="text-red-9 text-sm font-light">
-                {errors.type?.message}
-              </p>
-            )}
-          </div>
-          <div className="space-y-1.5">
-            <Label className={cn(isError("username") && "text-red-9")}>
-              Username
-            </Label>
-            <Input {...register("username")} />
-            {isError("username") && (
-              <p className="text-red-9 text-sm font-light">
-                {errors.username?.message}
-              </p>
-            )}
-          </div>
-          {isCredential && (
+        <form onSubmit={handleSubmit(handleCreateUser)}>
+          <div className="p-4 space-y-4">
             <div className="space-y-1.5">
-              <Label className={cn(isError("password") && "text-red-9")}>
-                Password
+              <Label className={cn(isError("type") && "text-red-9")}>
+                User Type
               </Label>
-              <Input type="password" {...register("password")} />
-              <p
-                className={cn(
-                  "text-sm font-light",
-                  isError("password") && "text-red-9",
+              <Controller
+                name="type"
+                {...{ control }}
+                render={({ field: { onChange, value } }) => (
+                  <UserType value={value} onSelect={onChange} />
                 )}
-              >
-                password must have at least 8 characters
-              </p>
-            </div>
-          )}
-          <div className="space-y-1.5">
-            <Label className={cn(isError("display_name") && "text-red-9")}>
-              Display Name
-            </Label>
-            <Input {...register("display_name")} />
-            {isError("display_name") && (
-              <p className="text-red-9 text-sm font-light">
-                {errors.display_name?.message}
-              </p>
-            )}
-          </div>
-
-          {isOauth && (
-            <div className="space-y-1.5">
-              <Label className={cn(isError("email") && "text-red-9")}>
-                Email
-              </Label>
-              <Input {...register("email")} />
-              {isError("email") && (
+              />
+              {isError("type") && (
                 <p className="text-red-9 text-sm font-light">
-                  {errors.email?.message}
+                  {errors.type?.message}
                 </p>
               )}
             </div>
-          )}
-          <div className="space-y-1.5">
-            <Label className={cn(isError("roles") && "text-red-9")}>
-              Roles
-            </Label>
-            <Controller
-              name="roles"
-              {...{ control }}
-              render={({ field: { onChange, value } }) => (
-                <UserRole value={value} onSelect={onChange} />
+            <div className="space-y-1.5">
+              <Label className={cn(isError("username") && "text-red-9")}>
+                Username
+              </Label>
+              <Input {...register("username")} />
+              {isError("username") && (
+                <p className="text-red-9 text-sm font-light">
+                  {errors.username?.message}
+                </p>
               )}
-            />
-            {isError("roles") && (
-              <p className="text-red-9 text-sm font-light">
-                {errors.roles?.message}
-              </p>
+            </div>
+            {isCredential && (
+              <div className="space-y-1.5">
+                <Label className={cn(isError("password") && "text-red-9")}>
+                  Password
+                </Label>
+                <Input type="password" {...register("password")} />
+                <p
+                  className={cn(
+                    "text-sm font-light",
+                    isError("password") && "text-red-9",
+                  )}
+                >
+                  password must have at least 8 characters
+                </p>
+              </div>
             )}
-          </div>
+            <div className="space-y-1.5">
+              <Label className={cn(isError("display_name") && "text-red-9")}>
+                Display Name
+              </Label>
+              <Input {...register("display_name")} />
+              {isError("display_name") && (
+                <p className="text-red-9 text-sm font-light">
+                  {errors.display_name?.message}
+                </p>
+              )}
+            </div>
 
-          <Button
-            type="submit"
-            isLoading={isPending}
-            disabled={isPending}
-            className="bg-(--gray-12) text-(--gray-1) hover:bg-(--gray-11) hover:text-(--gray-2) py-2 w-full"
-          >
-            <Plus size="1rem" />
-            Create
-          </Button>
+            {isOauth && (
+              <div className="space-y-1.5">
+                <Label className={cn(isError("email") && "text-red-9")}>
+                  Email
+                </Label>
+                <Input {...register("email")} />
+                {isError("email") && (
+                  <p className="text-red-9 text-sm font-light">
+                    {errors.email?.message}
+                  </p>
+                )}
+              </div>
+            )}
+            <div className="space-y-1.5">
+              <Label className={cn(isError("roles") && "text-red-9")}>
+                Roles
+              </Label>
+              <Controller
+                name="roles"
+                {...{ control }}
+                render={({ field: { onChange, value } }) => (
+                  <UserRole value={value} onSelect={onChange} />
+                )}
+              />
+              {isError("roles") && (
+                <p className="text-red-9 text-sm font-light">
+                  {errors.roles?.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              type="submit"
+              isLoading={isPending}
+              disabled={isPending}
+              className="bg-(--gray-12) text-(--gray-1) hover:bg-(--gray-11) hover:text-(--gray-2) py-2 w-full"
+            >
+              <Plus size="1rem" />
+              Create
+            </Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
