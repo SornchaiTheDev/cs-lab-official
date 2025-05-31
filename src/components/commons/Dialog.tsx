@@ -66,7 +66,7 @@ function DialogOverlay(
 ) {
   return (
     <ShadcnDialogOverlay
-      className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-(--gray-12)/90 backdrop-blur-xs"
+      className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-(--gray-4)/40 backdrop-blur-xs"
       {...props}
     />
   );
