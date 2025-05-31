@@ -13,7 +13,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "~/components/ui/table";
+} from "~/components/commons/Table";
 import { cn } from "~/lib/utils";
 import PageSize from "./PageSize";
 import TablePagination from "./TablePagination";
