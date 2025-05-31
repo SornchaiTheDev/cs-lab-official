@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/components/ui/dialog";
+} from "~/components/commons/Dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
@@ -101,7 +101,7 @@ const AddUser = () => {
         <DialogHeader>
           <DialogTitle>Add new user</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleCreateUser)} className="space-y-4">
+        <form onSubmit={handleSubmit(handleCreateUser)} className="space-y-4 p-4">
           <div className="space-y-1.5">
             <Label className={cn(isError("type") && "text-red-9")}>
               User Type
