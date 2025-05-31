@@ -17,7 +17,7 @@ function EmojiPicker({ onEmojiSelect }: DefaultPickerExampleProps) {
   return (
     <Popover>
       <PopoverTrigger>
-        <div className="rounded-lg bg-(--gray-2) border border-(--gray-6) w-10 h-10 flex justify-center items-center">
+        <div className="rounded-lg bg-(--gray-2) border border-(--gray-6) w-12 h-12 flex justify-center items-center text-3xl">
           {selectedEmoji}
         </div>
       </PopoverTrigger>
