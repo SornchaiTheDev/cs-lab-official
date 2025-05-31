@@ -1,4 +1,4 @@
-import CourseCard from "~/components/commons/CourceCard";
+import CourseCard from "~/components/commons/CourseCard";
 import CreateCourseButton from "./_components/CreateCourseButton";
 
 function CMSMainPage() {
