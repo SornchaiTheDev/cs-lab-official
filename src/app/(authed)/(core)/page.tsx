@@ -1,9 +1,9 @@
 import { type Metadata } from "next";
-import CourseCard from "../../../components/commons/CourceCard";
+import SectionCard from "../../../components/commons/SectionCard";
 
-export const metadata : Metadata = {
-  title : "My Courses | CS Lab"
-}
+export const metadata: Metadata = {
+  title: "My Courses | CS Lab",
+};
 
 export default function Home() {
   return (
@@ -12,10 +12,9 @@ export default function Home() {
 
       <div className="mt-8 grid grid-cols-12 gap-8">
         {Array.from({ length: 1 }).map((_, i) => (
-          <CourseCard key={i} />
+          <SectionCard key={i} />
         ))}
       </div>
     </div>
   );
 }
-

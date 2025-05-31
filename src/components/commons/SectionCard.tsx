@@ -1,6 +1,6 @@
 import Link from "~/components/commons/Link";
 
-const CourseCard = () => {
+const SectionCard = () => {
   return (
     <Link
       href="/course/1"
@@ -15,11 +15,13 @@ const CourseCard = () => {
           <h4 className="font-semibold truncate">
             Fundamental Computing Concepts
           </h4>
-          <h6 className="font-anuphan text-sm">อ.ศรชัย ลักษณะปิติ, อ.สุทธิพงษ์ หมื่นตาบุตร</h6>
+          <h6 className="font-anuphan text-sm">
+            อ.ศรชัย ลักษณะปิติ, อ.สุทธิพงษ์ หมื่นตาบุตร
+          </h6>
         </div>
       </div>
     </Link>
   );
 };
 
-export default CourseCard;
+export default SectionCard;
