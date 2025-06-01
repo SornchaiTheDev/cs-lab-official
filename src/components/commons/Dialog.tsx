@@ -12,22 +12,38 @@ import {
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "~/lib/utils";
+import { X } from "lucide-react";
 
-function DialogHeader(props: React.ComponentProps<typeof ShadcnDialogHeader>) {
+function DialogHeader({
+  className,
+  ...props
+}: React.ComponentProps<typeof ShadcnDialogHeader>) {
   return (
     <ShadcnDialogHeader
-      className="flex flex-col gap-2 text-center sm:text-left mt-2 border-b bg-(--gray-1)"
       {...props}
+      className={cn(
+        "flex flex-col gap-2 justify-center border-b bg-(--gray-1)",
+        className,
+      )}
     />
   );
 }
 
 function DialogTitle(props: React.ComponentProps<typeof ShadcnDialogTitle>) {
   return (
-    <ShadcnDialogTitle
-      className="text-xl leading-none font-semibold"
-      {...props}
-    />
+    <div className="flex items-center justify-between relative">
+      <ShadcnDialogTitle
+        className="text-xl leading-none font-semibold"
+        {...props}
+      />
+
+      <DialogClose
+        className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-(--gray-7) focus:ring-offset-2"
+        aria-label="Close"
+      >
+        <X size="1.25rem" className="text-(--gray-11)" />
+      </DialogClose>
+    </div>
   );
 }
 

@@ -71,8 +71,8 @@ function CreateCourseButton() {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="p-4">Create New Course</DialogTitle>
+        <DialogHeader className="p-4">
+          <DialogTitle>Create New Course</DialogTitle>
         </DialogHeader>
         <form onSubmit={form.handleSubmit((course) => mutation.mutate(course))}>
           <div className="p-4 space-y-6">

@@ -99,8 +99,8 @@ const AddUser = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="p-4">Add new user</DialogTitle>
+        <DialogHeader className="p-4">
+          <DialogTitle>Add new user</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(handleCreateUser)}>
           <div className="p-4 space-y-4">
