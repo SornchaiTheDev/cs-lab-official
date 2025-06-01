@@ -1,21 +1,25 @@
 "use client";
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Popover, PopoverAnchor, PopoverContent } from "../ui/popover";
 import Input from "./Input";
 import useInputDebounce from "~/hooks/useInputDebounce";
 import Loading from "./Loading";
+import { SearchX } from "lucide-react";
 
-interface Props<T extends { id: string | number }> {
+interface Props<T extends { id: string | number }, K extends string | number> {
   isError?: boolean;
-  value: T[];
-  onChange?: (value: T[]) => void;
+  value: K[];
+  onChange?: (value: K[]) => void;
   queryFn: (query: string) => Promise<T[]>;
   renderSelected: (option: T) => React.ReactNode;
   children?: (options: T[]) => React.ReactNode;
   loadingFallback?: React.ReactNode;
 }
 
-function AutoComplete<T extends { id: string | number }>({
+function AutoComplete<
+  T extends { id: string | number },
+  K extends string | number,
+>({
   isError,
   value,
   onChange,
@@ -23,21 +27,30 @@ function AutoComplete<T extends { id: string | number }>({
   children,
   renderSelected,
   loadingFallback,
-}: Props<T>) {
+}: Props<T, K>) {
   const [inputValue, setInputValue] = useState("");
 
   const debouncedInput = useInputDebounce(inputValue, 1000);
   const [options, setOptions] = useState<T[]>([]);
 
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const memoizedQueryFn = useMemo(() => queryFn, [queryFn]);
 
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
   useEffect(() => {
-    if (debouncedInput === "") return;
+    if (debouncedInput.length > 0) {
+      setIsFirstRender(false);
+    }
+
+    if (isFirstRender) return;
+
     const query = async () => {
       try {
         setIsLoading(true);
+        setIsOpen(true);
         const res = await memoizedQueryFn(debouncedInput);
         setOptions(res);
       } finally {
@@ -45,7 +58,7 @@ function AutoComplete<T extends { id: string | number }>({
       }
     };
     query();
-  }, [memoizedQueryFn, debouncedInput]);
+  }, [memoizedQueryFn, debouncedInput, isFirstRender]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -70,24 +83,39 @@ function AutoComplete<T extends { id: string | number }>({
   };
 
   const memoizedOptions = useMemo(
-    () => options.filter((option) => !value.some((v) => v.id === option.id)),
+    () => options.filter((option) => !value.some((v) => v === option.id)),
     [options, value],
   );
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<T[]>([]);
 
   useEffect(() => {
-    setIsOpen(options.length > 0 || value.length > 0);
-  }, [options.length, value.length]);
+    setSelectedOptions((prev) => {
+      const currentSelectedOptions = prev.filter((option) =>
+        value.some((v) => v === option.id),
+      );
+
+      const newSelectedOptions = options.filter(
+        (option) =>
+          value.some((v) => v === option.id) &&
+          !currentSelectedOptions.some((o) => o.id === option.id),
+      );
+
+      return [...currentSelectedOptions, ...newSelectedOptions];
+    });
+  }, [value, memoizedOptions, options]);
+
+  const isOptionEmpty =
+    memoizedOptions.length === 0 && debouncedInput.length > 0 && !isLoading;
 
   return (
-    <Popover open={isOpen || isLoading}>
+    <Popover open={isOpen && (isOptionEmpty || memoizedOptions.length > 0)}>
       <PopoverAnchor className="w-full">
         <div
           onClick={handleDivClick}
           className="flex flex-wrap items-center border rounded-md p-2 min-h-10 gap-2"
         >
-          {value.map((option) => renderSelected(option))}
+          {selectedOptions.map((option) => renderSelected(option))}
           <Input
             {...{ isError }}
             ref={inputRef}
@@ -106,7 +134,14 @@ function AutoComplete<T extends { id: string | number }>({
         className="w-(--radix-popper-anchor-width) p-2 max-h-40 overflow-y-auto"
       >
         <Loading {...{ isLoading }} fallback={loadingFallback}>
-          {!!children && children(memoizedOptions)}
+          {isOptionEmpty ? (
+            <div className="flex flex-col justify-center items-center gap-2 text-(--gray-11) my-2">
+              <SearchX size="1.5rem" />
+              <h6 className="text-sm">No options available</h6>
+            </div>
+          ) : (
+            !!children && children(memoizedOptions)
+          )}
         </Loading>
       </PopoverContent>
     </Popover>
