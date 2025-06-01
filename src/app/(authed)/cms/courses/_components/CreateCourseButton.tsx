@@ -24,8 +24,8 @@ import Label from "~/components/commons/Label";
 import InlineError from "~/components/commons/InlineError";
 import AutoComplete from "~/components/commons/AutoComplete";
 import UserProfileImage from "~/components/Menus/UserProfileImage";
-import { timeout } from "~/lib/timeout";
 import { Skeleton } from "~/components/ui/skeleton";
+import { userService } from "~/services/user.service";
 
 function CreateCourseButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,51 +48,18 @@ function CreateCourseButton() {
     },
   });
 
-  const creators = [
-    {
-      id: "1",
-      name: "John Doe",
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-    },
-    {
-      id: "3",
-      name: "Alice Johnson",
-    },
-    {
-      id: "4",
-      name: "Bob Brown",
-    },
-    {
-      id: "5",
-      name: "Charlie White",
-    },
-    {
-      id: "6",
-      name: "Diana Green",
-    },
-    {
-      id: "7",
-      name: "Ethan Blue",
-    },
-    {
-      id: "8",
-      name: "Fiona Black",
-    },
-  ];
-
   const queryUsers = async (query: string) => {
-    return new Promise((res) => {
-      timeout(100).then(() => {
-        res(
-          creators.filter((creator) =>
-            creator.name.toLowerCase().includes(query.toLowerCase()),
-          ),
-        );
-      });
+    const res = await userService.getUserPagination({
+      search: query,
+      sortBy: "display_name",
     });
+
+    return res.users.map((user) => ({
+      id: user.id,
+      username: user.username,
+      displayName: user.display_name,
+      profileImage: user.profile_image,
+    }));
   };
 
   return (
@@ -142,16 +109,17 @@ function CreateCourseButton() {
                         className="flex items-center gap-2 shrink-0 bg-(--gray-4) pl-2 pr-3 py-0.5 rounded-full"
                       >
                         <UserProfileImage
-                          username={creator.name}
+                          username={creator.username}
+                          src={creator.profileImage}
                           size="1.5rem"
                           textSize="0.5rem"
                         />
-                        <span className="text-xs">{creator.name}</span>
+                        <span className="text-xs">{creator.displayName}</span>
                         <button
                           className="text-(--gray-11) hover:text-(--gray-12) focus:outline-none"
                           type="button"
                           onClick={() =>
-                            onChange(value.filter((c) => c.id !== creator.id))
+                            onChange(value.filter((c) => c !== creator.id))
                           }
                         >
                           <X size="0.8rem" />
@@ -174,19 +142,29 @@ function CreateCourseButton() {
                     {(options) =>
                       options.map((creator) => (
                         <button
-                          onClick={() => onChange([...value, creator])}
+                          onClick={() => onChange([...value, creator.id])}
                           key={creator.id}
                           className="flex items-center px-2 py-1.5 gap-2 hover:bg-gray-100 cursor-pointer w-full rounded-md"
                         >
-                          <UserProfileImage username={creator.name} />
-                          <span className="text-sm">{creator.name}</span>
+                          <UserProfileImage
+                            src={creator.profileImage}
+                            username={creator.displayName}
+                          />
+                          <div className="flex-1 space-y-0.5 grid text-left">
+                            <h4 className="text-sm font-medium truncate text-(--gray-12) leading-tight">
+                              {creator.displayName}
+                            </h4>
+                            <h6 className="text-xs font-light text-(--gray-10)">
+                              @{creator.username}
+                            </h6>
+                          </div>
                         </button>
                       ))
                     }
                   </AutoComplete>
                 )}
               />
-              <InlineError isError={!!form.formState.errors.name}>
+              <InlineError isError={!!form.formState.errors.creators}>
                 course creators is required
               </InlineError>
             </div>
