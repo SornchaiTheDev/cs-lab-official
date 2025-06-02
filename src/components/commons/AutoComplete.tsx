@@ -6,20 +6,17 @@ import useInputDebounce from "~/hooks/useInputDebounce";
 import Loading from "./Loading";
 import { SearchX } from "lucide-react";
 
-interface Props<T extends { id: string | number }, K extends string | number> {
+interface Props<T extends { id: string | number }> {
   isError?: boolean;
-  value: K[];
-  onChange?: (value: K[]) => void;
+  value: T[];
+  onChange?: (value: T[]) => void;
   queryFn: (query: string) => Promise<T[]>;
   renderSelected: (option: T) => React.ReactNode;
   children?: (options: T[]) => React.ReactNode;
   loadingFallback?: React.ReactNode;
 }
 
-function AutoComplete<
-  T extends { id: string | number },
-  K extends string | number,
->({
+function AutoComplete<T extends { id: string | number }>({
   isError,
   value,
   onChange,
@@ -27,7 +24,7 @@ function AutoComplete<
   children,
   renderSelected,
   loadingFallback,
-}: Props<T, K>) {
+}: Props<T>) {
   const [inputValue, setInputValue] = useState("");
 
   const debouncedInput = useInputDebounce(inputValue, 1000);
@@ -83,27 +80,9 @@ function AutoComplete<
   };
 
   const memoizedOptions = useMemo(
-    () => options.filter((option) => !value.some((v) => v === option.id)),
+    () => options.filter((option) => !value.some((v) => v.id === option.id)),
     [options, value],
   );
-
-  const [selectedOptions, setSelectedOptions] = useState<T[]>([]);
-
-  useEffect(() => {
-    setSelectedOptions((prev) => {
-      const currentSelectedOptions = prev.filter((option) =>
-        value.some((v) => v === option.id),
-      );
-
-      const newSelectedOptions = options.filter(
-        (option) =>
-          value.some((v) => v === option.id) &&
-          !currentSelectedOptions.some((o) => o.id === option.id),
-      );
-
-      return [...currentSelectedOptions, ...newSelectedOptions];
-    });
-  }, [value, memoizedOptions, options]);
 
   const isOptionEmpty =
     memoizedOptions.length === 0 && debouncedInput.length > 0 && !isLoading;
@@ -115,7 +94,7 @@ function AutoComplete<
           onClick={handleDivClick}
           className="flex flex-wrap items-center border rounded-md p-2 min-h-10 gap-2"
         >
-          {selectedOptions.map((option) => renderSelected(option))}
+          {value.map((option) => renderSelected(option))}
           <Input
             {...{ isError }}
             ref={inputRef}

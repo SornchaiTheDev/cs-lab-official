@@ -119,7 +119,7 @@ function CreateCourseButton() {
                           className="text-(--gray-11) hover:text-(--gray-12) focus:outline-none"
                           type="button"
                           onClick={() =>
-                            onChange(value.filter((c) => c !== creator.id))
+                            onChange(value.filter((c) => c.id !== creator.id))
                           }
                         >
                           <X size="0.8rem" />
@@ -142,7 +142,7 @@ function CreateCourseButton() {
                     {(options) =>
                       options.map((creator) => (
                         <button
-                          onClick={() => onChange([...value, creator.id])}
+                          onClick={() => onChange([...value, creator])}
                           key={creator.id}
                           className="flex items-center px-2 py-1.5 gap-2 hover:bg-gray-100 cursor-pointer w-full rounded-md"
                         >
