@@ -73,7 +73,6 @@ function SidebarMenus() {
             </Link>,
           );
         });
-        console.log(render);
         return <Fragment key={category}>{render}</Fragment>;
       })}
     </div>
