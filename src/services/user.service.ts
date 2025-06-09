@@ -1,22 +1,11 @@
 import { api } from "~/lib/api";
+import type {
+  PaginationRequestParams,
+  PaginationResponse,
+} from "~/types/pagination";
 import type { CreateUser, User, UserRole } from "~/types/user";
 
-export interface GetUserPaginationParams {
-  page: number;
-  pageSize: number;
-  search: string;
-  sortBy: keyof User | "";
-  sortOrder: string;
-}
-
-interface PaginationResponse {
-  pagination: {
-    page: number;
-    total_rows: number;
-    total_page: number;
-  };
-  users: User[];
-}
+export type GetUserPaginationParams = PaginationRequestParams<User>;
 
 class UserService {
   #baseURL = "/admin/users";
@@ -27,7 +16,9 @@ class UserService {
     search,
     sortBy,
     sortOrder,
-  }: Partial<GetUserPaginationParams>): Promise<PaginationResponse> {
+  }: Partial<PaginationRequestParams<User>>): Promise<
+    PaginationResponse<User>
+  > {
     const searchParams = new URLSearchParams();
     searchParams.append("page", page?.toString() ?? "1");
     searchParams.append("page_size", pageSize?.toString() ?? "10");
@@ -35,7 +26,7 @@ class UserService {
     searchParams.append("sort_by", sortBy ?? "created_at");
     searchParams.append("sort_order", sortOrder ?? "desc");
 
-    const res = await api.get<PaginationResponse>(
+    const res = await api.get<PaginationResponse<User>>(
       this.#baseURL + "?" + searchParams.toString(),
     );
 

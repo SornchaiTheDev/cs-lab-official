@@ -1,16 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  userService,
+import { userService,
   type GetUserPaginationParams,
 } from "~/services/user.service";
-import { userKeys } from "./key";
+import { userKeys } from "../_queries/key";
 
-export const useUserPagination = (args: GetUserPaginationParams) => {
+const useUserPagination = (args: GetUserPaginationParams) => {
   return useQuery({
     queryKey: userKeys.all.concat(args),
     queryFn: () => userService.getUserPagination(args),
     initialData: {
-      users: [],
+      data: [],
       pagination: {
         page: args.page,
         total_page: 0,
@@ -19,3 +18,5 @@ export const useUserPagination = (args: GetUserPaginationParams) => {
     },
   });
 };
+
+export default useUserPagination;

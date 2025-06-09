@@ -12,7 +12,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { columns } from "../_datas/columns";
 import FilterColumns from "./FilterColumns";
 import SearchData from "./SearchData";
-import { useUserPagination } from "../_queries/pagination.queries";
+import useUserPagination from "../_hooks/useUserPagination";
 import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyUsersButton from "./DeleteManyUsersButton";
 import AddUser from "./AddUser";
@@ -63,20 +63,20 @@ function TableSection() {
     handleOnSearch(globalFilter);
   }, [globalFilter, handleOnSearch]);
 
-  const { data, isPending } = useUserPagination({
+  const { data: userPagination, isPending } = useUserPagination({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     search,
-    sortBy: sorting[0]?.id ?? "created_at",
+    sortBy: (sorting[0]?.id as keyof User) ?? "created_at",
     sortOrder: sorting[0]?.desc ? "desc" : "asc",
   });
 
-  const userAmount = data?.users.length ?? 0;
+  const userAmount = userPagination?.data.length ?? 0;
 
   const memoizedColumns = useMemo(() => columns, []);
 
   const table = useReactTable({
-    data: data.users,
+    data: userPagination.data,
     columns: memoizedColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -101,13 +101,13 @@ function TableSection() {
     meta: {
       addUser: {
         editUser: (id: string) => {
-          const user = data.users.find((user) => user.id === id);
+          const user = userPagination.data.find((user) => user.id === id);
           if (user) {
             setEditUser(user);
           }
         },
         deleteUser: (id: string) => {
-          const user = data.users.find((user) => user.id === id);
+          const user = userPagination.data.find((user) => user.id === id);
           if (user) {
             setDeleteUser(user);
           }
@@ -123,7 +123,7 @@ function TableSection() {
   const queryClient = useQueryClient();
   const handleOnDeleteManyUsers = async () => {
     await userService.deleteManyUsers(
-      data.users
+      userPagination.data
         .filter((user) => Object.keys(rowSelection).includes(user.id))
         .map((user) => user.id),
     );
@@ -148,7 +148,7 @@ function TableSection() {
         {isRowSelected && (
           <DeleteManyUsersButton
             onConfirm={handleOnDeleteManyUsers}
-            users={data.users
+            users={userPagination.data
               .filter((user) => Object.keys(rowSelection).includes(user.id))
               .map(({ display_name, username, profile_image }) => ({
                 display_name,
@@ -173,7 +173,7 @@ function TableSection() {
       </div>
       <DataTable
         {...{ table, isLoading: isPending, search }}
-        totalData={data.pagination.total_rows}
+        totalData={userPagination.pagination.total_rows}
       />
     </>
   );
