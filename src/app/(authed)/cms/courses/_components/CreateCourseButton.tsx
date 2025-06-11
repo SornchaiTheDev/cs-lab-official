@@ -54,7 +54,7 @@ function CreateCourseButton() {
       sortBy: "display_name",
     });
 
-    return res.users.map((user) => ({
+    return res.data.map((user) => ({
       id: user.id,
       username: user.username,
       displayName: user.display_name,
