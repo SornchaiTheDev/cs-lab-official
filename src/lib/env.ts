@@ -3,5 +3,9 @@ export const env = (key: keyof Env["env"]) => {
     return process.env["SERVER_" + key];
   }
 
+  if (window.env === undefined) {
+    throw new Error("widnow.env is not defined.");
+  }
+
   return window.env[("CLIENT_" + key) as keyof ClientEnv["env"]];
 };

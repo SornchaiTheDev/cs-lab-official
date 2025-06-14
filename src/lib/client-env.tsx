@@ -10,6 +10,7 @@ export const ClientEnv = () => {
   return (
     <Script
       id="client-env"
+      strategy="beforeInteractive"
       dangerouslySetInnerHTML={{
         __html: `window.env = {${Object.entries(envs)
           .map(([key, value]) => `${key}:"${value}"`)
