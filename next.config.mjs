@@ -5,6 +5,7 @@ const nextConfig = {
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   transpilePackages: ["next-mdx-remote"],
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       {
