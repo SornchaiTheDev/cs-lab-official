@@ -7,7 +7,6 @@ import {
 import { useState } from "react";
 import type { CreateUser } from "~/types/user";
 import { createUserColumns } from "../../_datas/create-user-columns";
-import SearchData from "../SearchData";
 import DataTable from "~/components/commons/DataTable";
 import DeleteManyUserButton from "../DeleteManyUsersButton";
 import { Button } from "~/components/commons/Button";
@@ -16,6 +15,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { userKeys } from "../../_queries/key";
 import { toast } from "sonner";
 import { userService } from "~/services/user.service";
+import SearchInput from "~/components/commons/SearchInput";
 
 interface Props {
   users: CreateUser[];
@@ -94,7 +94,8 @@ const DataPreview = ({ users, onDeleteUsers, onBack, onClose }: Props) => {
             )}
           />
         )}
-        <SearchData
+        <SearchInput
+          placeholder="Search users..."
           className="h-[34px] self-end"
           value={globalFilter}
           onChange={setGlobalFilter}

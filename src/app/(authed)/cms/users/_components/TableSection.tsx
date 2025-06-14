@@ -11,7 +11,6 @@ import {
 import React, { useEffect, useMemo, useState } from "react";
 import { columns } from "../_datas/columns";
 import FilterColumns from "./FilterColumns";
-import SearchData from "./SearchData";
 import useUserPagination from "../_hooks/useUserPagination";
 import { mapUserColumnID } from "../_utils/mapColumnID";
 import DeleteManyUsersButton from "./DeleteManyUsersButton";
@@ -24,6 +23,7 @@ import DataTable from "~/components/commons/DataTable";
 import { useQueryClient } from "@tanstack/react-query";
 import { userKeys } from "../_queries/key";
 import { userService } from "~/services/user.service";
+import SearchInput from "~/components/commons/SearchInput";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -157,7 +157,8 @@ function TableSection() {
               }))}
           />
         )}
-        <SearchData
+        <SearchInput
+          placeholder="Search users..."
           className="h-full"
           value={globalFilter}
           onChange={setGlobalFilter}

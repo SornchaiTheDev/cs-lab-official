@@ -1,13 +1,14 @@
 import { Search } from "lucide-react";
 import { cn } from "~/lib/utils";
 
-interface SearchDataProps {
+interface Props {
   value: string;
   onChange: (value: string) => void;
   className?: string;
+  placeholder?: string;
 }
 
-function SearchData({ value, onChange, className }: SearchDataProps) {
+function SearchInput({ value, onChange, className, placeholder }: Props) {
   return (
     <div
       className={cn(
@@ -20,8 +21,7 @@ function SearchData({ value, onChange, className }: SearchDataProps) {
         className="absolute left-1.5 top-1/2 -translate-y-1/2 text-(--gray-9)"
       />
       <input
-        placeholder="Search users"
-        value={value}
+        {...{ placeholder, value }}
         onChange={(e) => onChange(e.target.value)}
         className="block text-sm w-full h-fit outline-hidden bg-transparent"
       />
@@ -29,4 +29,4 @@ function SearchData({ value, onChange, className }: SearchDataProps) {
   );
 }
 
-export default SearchData;
+export default SearchInput;
