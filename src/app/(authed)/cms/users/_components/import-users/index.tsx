@@ -19,10 +19,6 @@ function ImportUser() {
   const [step, setStep] = useState<"create" | "preview">("create");
   const [users, setUsers] = useState<CreateUser[]>([]);
 
-  const router = useRouter();
-
-  const goToDocs = () => router.push("#");
-
   const dialogTitle = {
     create: "Import Users",
     preview: "Preview Users",
@@ -55,27 +51,29 @@ function ImportUser() {
           Import
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[600px] max-w-fit p-4">
-        <DialogHeader className="flex-row justify-between">
-          <div className="space-y-2">
+      <DialogContent className="min-w-[600px] max-w-fit">
+        <DialogHeader className="flex-row justify-between p-4 w-full">
+          <div className="space-y-2 w-full">
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogDescription>{dialogDescription}</DialogDescription>
+            <a className="inline-flex items-center gap-1.5 hover:text-(--grass-9)" href="#">
+              <ExternalLink size="1rem" />
+              Docs
+            </a>
           </div>
-          <Button onClick={goToDocs} className="h-fit shrink-0">
-            <ExternalLink size="1rem" />
-            Docs
-          </Button>
         </DialogHeader>
-        {step === "create" ? (
-          <ImportMethod onImport={handleOnImport} />
-        ) : (
-          <DataPreview
-            {...{ users }}
-            onDeleteUsers={handleDeleteUsers}
-            onClose={() => setIsOpen(false)}
-            onBack={() => setStep("create")}
-          />
-        )}
+        <div className="p-4 space-y-4">
+          {step === "create" ? (
+            <ImportMethod onImport={handleOnImport} />
+          ) : (
+            <DataPreview
+              {...{ users }}
+              onDeleteUsers={handleDeleteUsers}
+              onClose={() => setIsOpen(false)}
+              onBack={() => setStep("create")}
+            />
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   );
