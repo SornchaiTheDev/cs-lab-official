@@ -65,7 +65,7 @@ function CreateCourseButton() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="my-4 shrink-0 h-9">
+        <Button className="my-4 shrink-0 px-3 py-1.5">
           <Plus size="1rem" />
           New course
         </Button>

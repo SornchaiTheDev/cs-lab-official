@@ -12,9 +12,12 @@ import useCoursePagination from "./_hooks/useCoursePagination";
 import SearchInput from "~/components/commons/SearchInput";
 import useInputDebounce from "~/hooks/useInputDebounce";
 import NoDataAvailable from "~/components/commons/NoDataAvailable";
+import CourseVisibility from "./_components/CourseVisibility";
+import type { VisibilityKey } from "~/types/visibilities";
 
 function CMSCoursePage() {
   const [search, setSearch] = useState("");
+  const [visibility, setVisibility] = useState<VisibilityKey>("all");
 
   const debouncedSearch = useInputDebounce(search, 1000);
 
@@ -30,12 +33,14 @@ function CMSCoursePage() {
     search: debouncedSearch,
     sortBy: "id",
     sortOrder: "asc",
+    show: visibility,
   });
 
   const isNoData =
-    search.length > 0 &&
     coursePagination.pages.every((page) => page.data.length === 0) &&
     !isFetching;
+
+  const isSearchNoData = search.length > 0 && isNoData;
 
   const bottomDivRef = useRef<HTMLDivElement>(null);
 
@@ -66,20 +71,19 @@ function CMSCoursePage() {
 
   return (
     <div className="@container w-full max-w-[1920px] mx-auto h-screen flex flex-col mb-20">
-      <div className="flex justify-between w-full">
-        <h3 className="text-3xl font-medium">Courses</h3>
-        <div className="flex items-center gap-4">
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder="Search courses..."
-            className="h-9"
-          />
-          <CreateCourseButton />
-        </div>
+      <h3 className="text-3xl font-medium">Courses</h3>
+      <div className="flex justify-end items-center gap-2">
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Search courses..."
+          className=""
+        />
+        <CourseVisibility selected={visibility} onChange={setVisibility} />
+        <CreateCourseButton />
       </div>
       <Error
-        {...{ isError }}
+        isError={isError}
         fallback={
           <ErrorFallback
             icon={<ServerCrash size="2rem" />}
@@ -89,11 +93,11 @@ function CMSCoursePage() {
           />
         }
       >
-        {isNoData ? (
+        {isNoData || isSearchNoData ? (
           <NoDataAvailable />
         ) : (
           <>
-            <div className="grid grid-cols-12 mt-10 gap-x-4 gap-y-10">
+            <div className="grid grid-cols-12 mt-4 gap-x-4 gap-y-10">
               <Loading
                 isLoading={isFetching}
                 fallback={Array.from({ length: 12 }).map((_, index) => (

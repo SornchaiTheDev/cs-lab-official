@@ -12,7 +12,7 @@ function SearchInput({ value, onChange, className, placeholder }: Props) {
   return (
     <div
       className={cn(
-        "relative pl-7 border bg-(--gray-2) rounded-md w-64 flex items-center hover:bg-(--gray-2)",
+        "relative pl-7 pr-3 py-1.5 border border-(--gray-6) bg-(--gray-2) rounded-md w-64 flex items-center hover:bg-(--gray-2)",
         className,
       )}
     >
