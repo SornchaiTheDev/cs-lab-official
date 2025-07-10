@@ -1,18 +1,19 @@
 import { api } from "~/lib/api";
-import type { Course } from "~/types/cms-course";
+import type { Course, CreateCourse } from "~/types/cms-course";
 import type {
   PaginationRequestParams,
   PaginationResponse,
 } from "~/types/pagination";
+import type { VisibilityKey } from "~/types/visibilities";
 
 export type GetCoursePaginationParams = Partial<
   PaginationRequestParams<Course>
->;
+> & { show: VisibilityKey };
 
 class CMSCourseService {
   #baseURL = "/admin/courses";
 
-  async createCourse({ name, creators }: Course): Promise<void> {
+  async createCourse({ name, creators }: CreateCourse): Promise<void> {
     const creatorIds = creators.map((creator) => creator.id);
     return api.post(this.#baseURL, {
       name,
@@ -26,6 +27,7 @@ class CMSCourseService {
     search,
     sortBy,
     sortOrder,
+    show,
   }: GetCoursePaginationParams): Promise<PaginationResponse<Course>> {
     const searchParams = new URLSearchParams();
     searchParams.append("page", page?.toString() ?? "1");
@@ -33,6 +35,7 @@ class CMSCourseService {
     searchParams.append("search", search ?? "");
     searchParams.append("sort_by", sortBy ?? "created_at");
     searchParams.append("sort_order", sortOrder ?? "desc");
+    searchParams.append("show", show ?? "all");
 
     const res = await api.get<PaginationResponse<Course>>(
       this.#baseURL + "?" + searchParams.toString(),

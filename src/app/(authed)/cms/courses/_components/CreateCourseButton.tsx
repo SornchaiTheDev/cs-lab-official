@@ -18,7 +18,7 @@ import Input from "~/components/commons/Input";
 import { cmsCourseService } from "~/services/cms-course.service";
 import { createCourseSchame } from "../_schemas/course.create";
 import { useState } from "react";
-import type { Course } from "~/types/cms-course";
+import type { CreateCourse } from "~/types/cms-course";
 import { toast } from "sonner";
 import Label from "~/components/commons/Label";
 import InlineError from "~/components/commons/InlineError";
@@ -39,7 +39,7 @@ function CreateCourseButton() {
   });
 
   const mutation = useMutation({
-    mutationFn: async (course: Course) =>
+    mutationFn: async (course: CreateCourse) =>
       await cmsCourseService.createCourse(course),
     onSuccess: () => {
       toast.success("Course created successfully!");
@@ -57,8 +57,8 @@ function CreateCourseButton() {
     return res.data.map((user) => ({
       id: user.id,
       username: user.username,
-      displayName: user.display_name,
-      profileImage: user.profile_image,
+      display_name: user.display_name,
+      profile_image: user.profile_image,
     }));
   };
 
@@ -110,11 +110,11 @@ function CreateCourseButton() {
                       >
                         <UserProfileImage
                           username={creator.username}
-                          src={creator.profileImage}
+                          src={creator.profile_image}
                           size="1.5rem"
                           textSize="0.5rem"
                         />
-                        <span className="text-xs">{creator.displayName}</span>
+                        <span className="text-xs">{creator.display_name}</span>
                         <button
                           className="text-(--gray-11) hover:text-(--gray-12) focus:outline-none"
                           type="button"
@@ -147,12 +147,12 @@ function CreateCourseButton() {
                           className="flex items-center px-2 py-1.5 gap-2 hover:bg-gray-100 cursor-pointer w-full rounded-md"
                         >
                           <UserProfileImage
-                            src={creator.profileImage}
-                            username={creator.displayName}
+                            src={creator.profile_image}
+                            username={creator.display_name}
                           />
                           <div className="flex-1 space-y-0.5 grid text-left">
                             <h4 className="text-sm font-medium truncate text-(--gray-12) leading-tight">
-                              {creator.displayName}
+                              {creator.display_name}
                             </h4>
                             <h6 className="text-xs font-light text-(--gray-10)">
                               @{creator.username}

@@ -1,3 +1,8 @@
+export interface CreateCourse {
+  name: string;
+  creators: Creator[];
+}
+
 export interface Course {
   id: string;
   name: string;

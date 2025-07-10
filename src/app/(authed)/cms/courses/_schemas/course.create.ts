@@ -7,8 +7,8 @@ export const createCourseSchame = z.object({
       z.object({
         id: z.string(),
         username: z.string(),
-        displayName: z.string(),
-        profileImage: z.string().or(z.null()),
+        display_name: z.string(),
+        profile_image: z.string().or(z.null()),
       }),
     )
     .min(1, "Creator is required"),
