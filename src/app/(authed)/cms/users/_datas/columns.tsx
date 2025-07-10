@@ -34,26 +34,30 @@ const columnHelper = createColumnHelper<User>();
 export const columns = [
   columnHelper.display({
     id: "select",
-    size: 10,
+    size: 20,
     enableSorting: false,
     enableColumnFilter: false,
     header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
+      <div className="mx-auto">
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      </div>
     ),
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        disabled={!row.getCanSelect()}
-        onCheckedChange={row.getToggleSelectedHandler()}
-        aria-label="Select row"
-      />
+      <div className="flex justify-center items-center">
+        <Checkbox
+          checked={row.getIsSelected()}
+          disabled={!row.getCanSelect()}
+          onCheckedChange={row.getToggleSelectedHandler()}
+          aria-label="Select row"
+        />
+      </div>
     ),
   }),
   columnHelper.accessor("type", {
@@ -66,9 +70,8 @@ export const columns = [
       </>
     ),
     cell: ({ cell }) => {
-      if (cell.getValue() === "credential")
-        return <Lock size="1rem" className="mx-auto" />;
-      return <GoogleIcon className="w-4 h-4 mx-auto" />;
+      if (cell.getValue() === "credential") return <Lock size="1rem" />;
+      return <GoogleIcon className="w-4 h-4" />;
     },
   }),
   columnHelper.accessor("profile_image", {
@@ -76,17 +79,13 @@ export const columns = [
     size: 10,
     enableSorting: false,
     header: () => (
-      <span className="flex gap-1.5 text-xs justify-center items-center">
+      <span className="flex gap-1.5 text-xs">
         <UserRound size="1rem" /> Profile
       </span>
     ),
     cell: ({ cell, row }) => {
       const image = cell.getValue() as string;
-      return (
-        <div className="flex justify-center items-center">
-          <UserProfileImage src={image} username={row.original.username} />
-        </div>
-      );
+      return <UserProfileImage src={image} username={row.original.username} />;
     },
   }),
   columnHelper.accessor("username", {

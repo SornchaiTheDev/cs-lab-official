@@ -65,7 +65,7 @@ function DataTable({
                 return (
                   <TableHead
                     key={header.id}
-                    style={{ minWidth: header.getSize() }}
+                    style={{ width: header.getSize() }}
                   >
                     <div
                       onClick={() => {
@@ -160,7 +160,9 @@ function DataTable({
       <div className="p-2 border-t border-(--gray-4) flex justify-between items-center">
         <p className="text-xs text-(--gray-10) tracking-wide">
           Total{" "}
-          <span className="ml-1 text-(--gray-12) font-semibold">{totalData}</span>
+          <span className="ml-1 text-(--gray-12) font-semibold">
+            {totalData}
+          </span>
         </p>
         {!hidePagination && (
           <div className="flex items-center gap-4">
