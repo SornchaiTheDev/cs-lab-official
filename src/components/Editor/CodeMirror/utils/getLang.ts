@@ -11,6 +11,7 @@ export const getLang = (lang: string) => {
     case "go":
       return go();
     case "cpp":
+    case "c":
       return cpp();
     case "java":
       return java();

@@ -1,73 +1,125 @@
 "use client";
-import ReactCodeMirror, {
-  type ReactCodeMirrorProps,
-} from "@uiw/react-codemirror";
-import { indentWithTab } from "./extensions/indentWithTab";
-import { githubLight } from "@uiw/codemirror-theme-github";
-import { useEffect, useState } from "react";
+import {
+  EditorView,
+  placeholder as placeHolderExtension,
+} from "@codemirror/view";
+import { basicSetup } from "codemirror";
+import { EditorState, type Extension } from "@codemirror/state";
+import { useEffect, useMemo, useRef } from "react";
 import { getLang } from "./utils/getLang";
 import { vim } from "@replit/codemirror-vim";
 import readOnlyRangeExtension from "codemirror-readonly-ranges";
 import { getReadOnlyRanges } from "./utils/getReadOnlyRanges";
-import type { ExtensionMap } from "./types";
 import { highlightExtension } from "./extensions/highlightRanges";
+import { githubLight } from "@uiw/codemirror-theme-github";
 
-function CodeMirror(
-  props: ReactCodeMirrorProps & {
-    lang?: string;
-    vimMode?: boolean;
-    initialCode?: string;
+interface CodeMirrorProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  lang?: string;
+  vimMode?: boolean;
+  initialCode?: string;
+  extensions?: Extension[];
+  editable?: boolean;
+  readOnly?: boolean;
+  placeholder?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const theme = EditorView.theme({
+  "&": {
+    height: "100%",
   },
-) {
-  const { lang, vimMode, initialCode = "", extensions } = props;
-  const [_extensions, setExtensions] = useState<ExtensionMap>({
-    indent: indentWithTab,
-  });
+});
+
+function CodeMirror(props: CodeMirrorProps) {
+  const {
+    value = "",
+    onChange,
+    lang,
+    vimMode,
+    extensions = [],
+    editable = true,
+    readOnly = false,
+    className = "",
+    style,
+    initialCode = "",
+    placeholder,
+  } = props;
+
+  const editorRef = useRef<HTMLDivElement>(null);
+  const viewRef = useRef<EditorView | null>(null);
+
+  const mergedExtensions = useMemo(
+    () =>
+      Object.values({
+        lang: lang ? getLang(lang) : null,
+        vimMode: vimMode ? vim() : null,
+        readOnlyRange: readOnlyRangeExtension((state) =>
+          getReadOnlyRanges(state, initialCode),
+        ),
+        highlightRanges: highlightExtension((state) =>
+          getReadOnlyRanges(state, initialCode),
+        ),
+        placeholder: placeHolderExtension(placeholder || "Start typing..."),
+      }).filter((ext) => ext !== null),
+    [lang, vimMode, initialCode, placeholder],
+  );
 
   useEffect(() => {
-    if (lang !== undefined) {
-      const langHighlight = getLang(lang);
+    if (!editorRef.current) return;
 
-      setExtensions((prev) => {
-        return {
-          ...prev,
-          lang: langHighlight,
-          vimMode: vimMode ? vim() : null,
-          readOnlyRange: readOnlyRangeExtension((state) =>
-            getReadOnlyRanges(state, initialCode),
-          ),
-          highlightRanges: highlightExtension((state) =>
-            getReadOnlyRanges(state, initialCode),
-          ),
-        };
-      });
-    }
-  }, [lang, vimMode, initialCode]);
+    const state = EditorState.create({
+      doc: "",
+      extensions: [
+        basicSetup,
+        theme,
+        githubLight,
+        ...mergedExtensions,
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged && onChange) {
+            onChange(update.state.doc.toString());
+          }
+        }),
+        EditorState.readOnly.of(readOnly || !editable),
+      ],
+    });
 
-  const finalExtensions = Object.values(_extensions)
-    .filter((ext) => ext !== null)
-    .concat(extensions || []);
+    const view = new EditorView({
+      state: state,
+      parent: editorRef.current,
+    });
 
-  const codeMirrorProps = Object.entries(props).reduce(
-    (acc: ReactCodeMirrorProps, [key, value]) => {
-      if (!["lang", "vimMode", "initialCode"].includes(key)) {
-        acc[key as keyof ReactCodeMirrorProps] = value;
+    viewRef.current = view;
+
+    return () => {
+      if (viewRef.current) {
+        viewRef.current.destroy();
+        viewRef.current = null;
       }
-      return acc;
-    },
-    {},
-  );
+    };
+  }, [onChange, editable, readOnly, mergedExtensions]);
 
-  return (
-    <ReactCodeMirror
-      key={initialCode}
-      theme={githubLight}
-      {...{
-        ...codeMirrorProps,
-        extensions: finalExtensions,
-      }}
-    />
-  );
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (viewRef.current) {
+      if (viewRef.current.state.doc.toString() === value) return;
+      if (!isFirstRender.current) return;
+
+      viewRef.current.dispatch({
+        changes: {
+          from: 0,
+          to: viewRef.current.state.doc.length,
+          insert: value,
+        },
+      });
+
+      isFirstRender.current = false;
+    }
+  }, [value]);
+
+  return <div ref={editorRef} className={className} {...{ style }} />;
 }
 
 export default CodeMirror;
