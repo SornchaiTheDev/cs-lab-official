@@ -2,13 +2,13 @@
 
 import useDrag from "../hooks/useDrag";
 import { cn } from "~/lib/utils";
-import { useEffect, type RefObject } from "react";
-import CodeMirror from "~/components/Editor/CodeMirror";
+import { useCallback, useEffect, type RefObject } from "react";
 import useEditor, {
   type SetupEditor,
 } from "~/components/Editor/hooks/useEditor";
 import Playground from "~/components/Editor/Playground";
 import CodeHeader from "~/components/Editor/CodeHeader";
+import CodeMirror from "~/components/Editor/CodeMirror";
 
 function RightSection(props: SetupEditor) {
   const { isDrag, size, containerRef, buttonRef, events } = useDrag({
@@ -25,6 +25,13 @@ function RightSection(props: SetupEditor) {
     initialCode,
   } = useEditor();
 
+  const handleCodeChange = useCallback(
+    (newCode: string) => {
+      setCode(newCode);
+    },
+    [setCode],
+  );
+
   useEffect(() => {
     setup(props);
   }, [props, setup]);
@@ -39,13 +46,13 @@ function RightSection(props: SetupEditor) {
         <CodeHeader />
         <div className="h-full overflow-auto">
           <CodeMirror
-            height="100%"
             style={{ fontSize }}
             lang={selectedLanguage}
             value={code}
-            onChange={setCode}
+            onChange={handleCodeChange}
             vimMode={vimMode}
             initialCode={initialCode}
+            className="h-full"
           />
         </div>
       </div>
