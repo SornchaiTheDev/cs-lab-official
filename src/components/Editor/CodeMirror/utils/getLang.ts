@@ -3,8 +3,9 @@ import { go } from "@codemirror/lang-go";
 import { cpp } from "@codemirror/lang-cpp";
 import { java } from "@codemirror/lang-java";
 import { javascript } from "@codemirror/lang-javascript";
+import type { LanguageSupport } from "@codemirror/language";
 
-export const getLang = (lang: string) => {
+export const getLang = (lang: string): LanguageSupport | null => {
   switch (lang) {
     case "python":
       return python();
@@ -18,6 +19,6 @@ export const getLang = (lang: string) => {
     case "javascript":
       return javascript();
     default:
-      return python();
+      return null;
   }
 };
