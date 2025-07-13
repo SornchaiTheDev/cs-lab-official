@@ -149,7 +149,7 @@ function ImportEditor({ onImport }: Props) {
         />
       </div>
       {errors.length > 0 && (
-        <AlertContainer>
+        <AlertContainer className="max-h-[200px] overflow-auto">
           <AlertHeader icon={<AlertTriangle size="1.2rem" />}>
             CSV Validation Errors
           </AlertHeader>

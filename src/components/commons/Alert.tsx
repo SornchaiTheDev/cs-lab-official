@@ -12,7 +12,7 @@ export const AlertContainer = ({
   return (
     <div
       className={cn(
-        "border-red-6 bg-red-4 rounded-lg w-full p-4 space-y-2 mt-4",
+        "border-(--red-6) bg-(--red-4) rounded-lg w-full p-4 space-y-2 mt-4",
         className,
       )}
     >
@@ -27,7 +27,7 @@ interface AlertHeaderProps extends ChildrenProps {
 
 export const AlertHeader = ({ icon, children }: AlertHeaderProps) => {
   return (
-    <div className="flex items-center gap-1 text-red-9">
+    <div className="flex items-center gap-1 text-(--red-9)">
       {icon}
       <h6 className="text-sm font-medium">{children}</h6>
     </div>
