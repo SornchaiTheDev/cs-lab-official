@@ -10,7 +10,7 @@ function Label({ className, isError, ...props }: Props) {
   return (
     <ShadcnLabel
       {...props}
-      className={cn(className, isError && "text-(--red-9)")}
+      className={cn(className, "font-light", isError && "text-(--red-9)")}
     />
   );
 }

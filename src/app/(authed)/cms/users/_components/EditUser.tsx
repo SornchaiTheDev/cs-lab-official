@@ -6,8 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
+import Input from "~/components/commons/Input";
+import Label from "~/components/commons/Label";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -115,10 +115,8 @@ const EditUser = ({ user, onClose }: Props) => {
           <DialogTitle>Edit User</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(handleEditUser)} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label className={cn(isError("type") && "text-red-9")}>
-              User Type
-            </Label>
+          <div className="space-y-3">
+            <Label isError={isError("type")}>User Type</Label>
             <Controller
               name="type"
               {...{ control }}
@@ -132,10 +130,8 @@ const EditUser = ({ user, onClose }: Props) => {
               </p>
             )}
           </div>
-          <div className="space-y-1.5">
-            <Label className={cn(isError("username") && "text-red-9")}>
-              Username
-            </Label>
+          <div className="space-y-3">
+            <Label isError={isError("username")}>Username</Label>
             <Input {...register("username")} />
             {isError("username") && (
               <p className="text-red-9 text-sm font-light">
@@ -144,10 +140,8 @@ const EditUser = ({ user, onClose }: Props) => {
             )}
           </div>
           {isCredential && (
-            <div className="space-y-1.5">
-              <Label className={cn(isError("password") && "text-red-9")}>
-                New Password
-              </Label>
+            <div className="space-y-3">
+              <Label isError={isError("password")}>New Password</Label>
               <Input type="password" {...register("password")} />
               <p
                 className={cn(
@@ -159,10 +153,8 @@ const EditUser = ({ user, onClose }: Props) => {
               </p>
             </div>
           )}
-          <div className="space-y-1.5">
-            <Label className={cn(isError("display_name") && "text-red-9")}>
-              Display Name
-            </Label>
+          <div className="space-y-3">
+            <Label isError={isError("display_name")}>Display Name</Label>
             <Input {...register("display_name")} />
             {isError("display_name") && (
               <p className="text-red-9 text-sm font-light">
@@ -172,10 +164,8 @@ const EditUser = ({ user, onClose }: Props) => {
           </div>
 
           {isOauth && (
-            <div className="space-y-1.5">
-              <Label className={cn(isError("email") && "text-red-9")}>
-                Email
-              </Label>
+            <div className="space-y-3">
+              <Label isError={isError("email")}>Email</Label>
               <Input {...register("email")} />
               {isError("email") && (
                 <p className="text-red-9 text-sm font-light">
@@ -184,10 +174,8 @@ const EditUser = ({ user, onClose }: Props) => {
               )}
             </div>
           )}
-          <div className="space-y-1.5">
-            <Label className={cn(isError("roles") && "text-red-9")}>
-              Roles
-            </Label>
+          <div className="space-y-3">
+            <Label isError={isError("roles")}>Roles</Label>
             <Controller
               name="roles"
               {...{ control }}

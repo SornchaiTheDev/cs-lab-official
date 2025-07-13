@@ -8,8 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/commons/Dialog";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
+import Input from "~/components/commons/Input";
+import Label from "~/components/commons/Label";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -104,10 +104,8 @@ const AddUser = () => {
         </DialogHeader>
         <form onSubmit={handleSubmit(handleCreateUser)}>
           <div className="p-4 space-y-4">
-            <div className="space-y-1.5">
-              <Label className={cn(isError("type") && "text-red-9")}>
-                User Type
-              </Label>
+            <div className="space-y-3">
+              <Label isError={isError("type")}>User Type</Label>
               <Controller
                 name="type"
                 {...{ control }}
@@ -116,67 +114,57 @@ const AddUser = () => {
                 )}
               />
               {isError("type") && (
-                <p className="text-red-9 text-sm font-light">
+                <p className="text-(--red-9) text-sm font-light">
                   {errors.type?.message}
                 </p>
               )}
             </div>
-            <div className="space-y-1.5">
-              <Label className={cn(isError("username") && "text-red-9")}>
-                Username
-              </Label>
+            <div className="space-y-3">
+              <Label isError={isError("username")}>Username</Label>
               <Input {...register("username")} />
               {isError("username") && (
-                <p className="text-red-9 text-sm font-light">
+                <p className="text-(--red-9) text-sm font-light">
                   {errors.username?.message}
                 </p>
               )}
             </div>
             {isCredential && (
-              <div className="space-y-1.5">
-                <Label className={cn(isError("password") && "text-red-9")}>
-                  Password
-                </Label>
+              <div className="space-y-3">
+                <Label isError={isError("password")}>Password</Label>
                 <Input type="password" {...register("password")} />
                 <p
                   className={cn(
                     "text-sm font-light",
-                    isError("password") && "text-red-9",
+                    isError("password") && "text-(--red-9)",
                   )}
                 >
                   password must have at least 8 characters
                 </p>
               </div>
             )}
-            <div className="space-y-1.5">
-              <Label className={cn(isError("display_name") && "text-red-9")}>
-                Display Name
-              </Label>
+            <div className="space-y-3">
+              <Label isError={isError("display_name")}>Display Name</Label>
               <Input {...register("display_name")} />
               {isError("display_name") && (
-                <p className="text-red-9 text-sm font-light">
+                <p className="text-(--red-9) text-sm font-light">
                   {errors.display_name?.message}
                 </p>
               )}
             </div>
 
             {isOauth && (
-              <div className="space-y-1.5">
-                <Label className={cn(isError("email") && "text-red-9")}>
-                  Email
-                </Label>
+              <div className="space-y-3">
+                <Label isError={isError("email")}>Email</Label>
                 <Input {...register("email")} />
                 {isError("email") && (
-                  <p className="text-red-9 text-sm font-light">
+                  <p className="text-(--red-9) text-sm font-light">
                     {errors.email?.message}
                   </p>
                 )}
               </div>
             )}
-            <div className="space-y-1.5">
-              <Label className={cn(isError("roles") && "text-red-9")}>
-                Roles
-              </Label>
+            <div className="space-y-3">
+              <Label isError={isError("roles")}>Roles</Label>
               <Controller
                 name="roles"
                 {...{ control }}
@@ -185,7 +173,7 @@ const AddUser = () => {
                 )}
               />
               {isError("roles") && (
-                <p className="text-red-9 text-sm font-light">
+                <p className="text-(--red-9) text-sm font-light">
                   {errors.roles?.message}
                 </p>
               )}

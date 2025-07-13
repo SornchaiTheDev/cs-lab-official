@@ -21,21 +21,20 @@ export const Button = ({
   isActive,
   ...props
 }: Props) => {
-  let bgColor = "border-(--gray-6) bg-(--gray-2) hover:bg-(--gray-3)";
-  let textColor = "text-(--gray-11) hover:text-(--gray-12)";
-  let activeColor = "bg-(--gray-3) text-(--gray-12)";
+  let normalColor = "border-(--gray-6) bg-(--gray-2) hover:bg-(--gray-3) text-(--gray-11)";
+  let activeColor =
+    "bg-(--gray-12) hover:bg-(--gray-12) hover:text-(--gray-1) text-(--gray-1)";
 
   switch (variant) {
     case "danger":
-      bgColor = "border-(--red-6) bg-(--red-2) hover:bg-(--red-3)";
-      textColor = "text-(--red-11) hover:text-(--red-10)";
-      activeColor = "bg-(--red-3) text-(--red-12)";
+      normalColor =
+        "border-(--red-6) bg-(--red-2) hover:bg-(--red-3) text-(--red-11) hover:text-(--red-10)";
+      activeColor =
+        "bg-(--red-3) text-(--red-12) text-(--red-11) hover:text-(--red-10)";
       break;
     case "action":
-      bgColor =
-        "border-(--gray-6) bg-(--gray-12) hover:bg-(--gray-11) active:bg-(--gray-10)";
-      textColor = "text-(--gray-2) hover:text-(--gray-1)";
-      activeColor = "bg-(--gray-3) text-(--gray-12)";
+      normalColor =
+        "border-(--gray-6) bg-(--gray-12) hover:bg-(--gray-11) active:bg-(--gray-10) text-(--gray-2) hover:text-(--gray-1)";
       break;
   }
 
@@ -45,8 +44,7 @@ export const Button = ({
       {...{ onClick, ...props }}
       className={cn(
         "px-3 py-1.5 border text-sm rounded-md flex justify-center items-center gap-1.5",
-        bgColor,
-        textColor,
+        normalColor,
         isActive && activeColor,
         className,
       )}
