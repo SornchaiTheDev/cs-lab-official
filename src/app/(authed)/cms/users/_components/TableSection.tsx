@@ -63,7 +63,7 @@ function TableSection() {
     handleOnSearch(globalFilter);
   }, [globalFilter, handleOnSearch]);
 
-  const { data: userPagination, isPending } = useUserPagination({
+  const { data: userPagination, isFetching } = useUserPagination({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     search,
@@ -173,7 +173,7 @@ function TableSection() {
         <ImportUser />
       </div>
       <DataTable
-        {...{ table, isLoading: isPending, search }}
+        {...{ table, isLoading: isFetching, search }}
         totalData={userPagination.pagination.total_rows}
       />
     </>
