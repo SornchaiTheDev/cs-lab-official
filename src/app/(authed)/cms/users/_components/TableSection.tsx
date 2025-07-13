@@ -24,6 +24,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { userKeys } from "../_queries/key";
 import { userService } from "~/services/user.service";
 import SearchInput from "~/components/commons/SearchInput";
+import { useSession } from "~/providers/SessionProvider";
+import { toast } from "sonner";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -120,13 +122,21 @@ function TableSection() {
   const isRowSelected =
     table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
 
+  const {
+    user: { sub },
+  } = useSession();
   const queryClient = useQueryClient();
   const handleOnDeleteManyUsers = async () => {
-    await userService.deleteManyUsers(
-      userPagination.data
-        .filter((user) => Object.keys(rowSelection).includes(user.id))
-        .map((user) => user.id),
-    );
+    const userIds = userPagination.data
+      .filter((user) => Object.keys(rowSelection).includes(user.id))
+      .map((user) => user.id);
+
+    if (userIds.includes(sub)) {
+      toast.error("You cannot delete your own account.");
+      return;
+    }
+
+    await userService.deleteManyUsers(userIds);
     setRowSelection({});
     queryClient.refetchQueries({ queryKey: userKeys.all });
   };
