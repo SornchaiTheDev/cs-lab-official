@@ -141,7 +141,6 @@ function ImportEditor({ onImport }: Props) {
     <>
       <div className="h-[300px] border border-(--gray-4) rounded-lg overflow-hidden">
         <CodeMirror
-          lang="csv"
           className="h-full"
           onChange={handleOnChange}
           placeholder="type,username,display_name,email,password,roles"
