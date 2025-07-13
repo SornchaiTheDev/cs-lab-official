@@ -6,7 +6,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
+} from "~/components/commons/DropDownMenu";
 import type { Column } from "@tanstack/react-table";
 import type { User } from "~/types/user";
 
