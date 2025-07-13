@@ -97,7 +97,7 @@ function CMSCoursePage() {
           <NoDataAvailable />
         ) : (
           <>
-            <div className="mt-4 space-y-10 grid grid-cols-12 gap-4 @2xl:grid-cols-6 @5xl:grid-cols-4 @7xl:grid-cols-3">
+            <div className="mt-4 grid grid-cols-1 @xl:grid-cols-2 @3xl:grid-cols-3 gap-4 auto-rows-max">
               {coursePagination.pages.map((page) =>
                 page.data.map((course) => (
                   <CourseCard key={course.name} {...course} />
@@ -108,7 +108,7 @@ function CMSCoursePage() {
                 fallback={Array.from({ length: 12 }).map((_, index) => (
                   <Skeleton
                     key={index}
-                    className="col-span-12 @2xl:col-span-6 @5xl:col-span-4 @7xl:col-span-3 h-40"
+                    className="h-40"
                   />
                 ))}
               />
