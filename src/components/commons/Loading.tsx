@@ -1,7 +1,7 @@
 interface Props {
   isLoading: boolean;
   fallback?: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 function Loading({ isLoading, fallback, children }: Props) {

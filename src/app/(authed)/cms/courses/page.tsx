@@ -29,7 +29,7 @@ function CMSCoursePage() {
     fetchNextPage,
     hasNextPage,
   } = useCoursePagination({
-    pageSize: 20,
+    pageSize: 10,
     search: debouncedSearch,
     sortBy: "id",
     sortOrder: "asc",
@@ -70,7 +70,7 @@ function CMSCoursePage() {
   }, [isFetching, fetchNextPage, hasNextPage]);
 
   return (
-    <div className="@container w-full max-w-[1920px] mx-auto h-screen flex flex-col mb-20">
+    <div className="@container w-full max-w-[1920px] mx-auto flex flex-col">
       <h3 className="text-3xl font-medium">Courses</h3>
       <div className="flex justify-end items-center gap-2">
         <SearchInput
@@ -97,7 +97,12 @@ function CMSCoursePage() {
           <NoDataAvailable />
         ) : (
           <>
-            <div className="grid grid-cols-12 mt-4 gap-x-4 gap-y-10">
+            <div className="mt-4 space-y-10 grid grid-cols-12 gap-4 @2xl:grid-cols-6 @5xl:grid-cols-4 @7xl:grid-cols-3">
+              {coursePagination.pages.map((page) =>
+                page.data.map((course) => (
+                  <CourseCard key={course.name} {...course} />
+                )),
+              )}
               <Loading
                 isLoading={isFetching}
                 fallback={Array.from({ length: 12 }).map((_, index) => (
@@ -106,13 +111,7 @@ function CMSCoursePage() {
                     className="col-span-12 @2xl:col-span-6 @5xl:col-span-4 @7xl:col-span-3 h-40"
                   />
                 ))}
-              >
-                {coursePagination.pages.map((page) =>
-                  page.data.map((course) => (
-                    <CourseCard key={course.name} {...course} />
-                  )),
-                )}
-              </Loading>
+              />
             </div>
             <div ref={bottomDivRef} className="h-20" />
           </>

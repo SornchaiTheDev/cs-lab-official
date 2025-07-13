@@ -1,21 +1,27 @@
 import Image from "next/image";
+import { cn } from "~/lib/utils";
 
 interface Props {
   src?: string | null;
   username: string;
   size?: string;
   textSize?: string;
+  className?: string;
 }
 function UserProfileImage({
   src,
   username,
   size = "2.25rem",
   textSize = "0.875rem",
+  className = "",
 }: Props) {
   if (src === null || src === undefined) {
     return (
       <div
-        className="rounded-xl flex justify-center items-center bg-(--gray-3)"
+        className={cn(
+          "rounded-xl flex justify-center items-center bg-(--gray-3)",
+          className,
+        )}
         style={{ width: size, height: size }}
       >
         <p
@@ -31,7 +37,10 @@ function UserProfileImage({
 
   return (
     <div
-      className="relative rounded-xl shrink-0 h-fit overflow-hidden"
+      className={cn(
+        "relative rounded-xl shrink-0 h-fit overflow-hidden",
+        className,
+      )}
       style={{ width: size, height: size }}
     >
       <Image {...{ src }} fill alt={`${username}'s profile image`} />

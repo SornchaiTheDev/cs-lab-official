@@ -1,48 +1,50 @@
 import Link from "next/link";
-import { Fragment } from "react";
+import UserProfileImage from "~/components/Menus/UserProfileImage";
 import type { Course } from "~/types/cms-course";
 
 function CourseCard({ id, name, creators }: Course) {
   const renderCreators = () => {
-    const MAX_SHOW_CREATORS = 2;
+    const MAX_SHOW_CREATORS = 4;
 
     return (
-      <>
-        <div className="flex items-center gap-1">
-          {creators
-            .slice(0, MAX_SHOW_CREATORS)
-            .map(({ id, display_name }, index) => (
-              <Fragment key={id}>
-                <h4 className="text-lg font-medium">{display_name}</h4>
-                {creators.length > 1 && index < MAX_SHOW_CREATORS - 1 && (
-                  <h4 className="text-lg font-medium">&</h4>
-                )}
-              </Fragment>
-            ))}
-        </div>
-
+      <div className="flex items-center mt-2">
+        {creators
+          .slice(0, MAX_SHOW_CREATORS)
+          .map(({ id, display_name, profile_image }) => (
+            <UserProfileImage
+              className="-ml-1.5 first:ml-0"
+              key={id}
+              username={display_name}
+              src={profile_image}
+              textSize="12px"
+              size="1.75rem"
+            />
+          ))}
         {creators.length > MAX_SHOW_CREATORS && (
-          <h6 className="text-xs text-gray-500">
-            +{creators.length - MAX_SHOW_CREATORS} more
-          </h6>
+          <UserProfileImage
+            className="-ml-1.5"
+            username={`+${creators.length - MAX_SHOW_CREATORS}`}
+            textSize="12px"
+            size="1.75rem"
+          />
         )}
-      </>
+      </div>
     );
   };
 
   return (
     <Link
       href={`/courses/${id}`}
-      className="block rounded-xl overflow-hidden bg-white shadow-md col-span-12 @2xl:col-span-6 @5xl:col-span-4 @7xl:col-span-3"
+      className="block rounded-md overflow-hidden bg-white border"
     >
       <div className="bg-linear-to-t from-sky-500 to-indigo-500 h-5"></div>
       <div className="p-4 space-y-2 flex-1">
         <div>
           <h6 className="text-xs leading-tight">Name</h6>
-          <h3 className="text-xl font-medium line-clamp-2">{name}</h3>
+          <h3 className="text-xl font-medium line-clamp-2 mt-2">{name}</h3>
         </div>
         <div>
-          <h6 className="text-xs leading-tight">Creator</h6>
+          <h6 className="text-xs leading-tight">Creators</h6>
           {renderCreators()}
         </div>
       </div>
