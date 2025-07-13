@@ -51,12 +51,15 @@ function ImportUser() {
           Import
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[600px] max-w-fit">
+      <DialogContent className="min-w-[800px] sm:max-w-fit">
         <DialogHeader className="flex-row justify-between p-4 w-full">
           <div className="space-y-2 w-full">
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogDescription>{dialogDescription}</DialogDescription>
-            <a className="inline-flex items-center gap-1.5 hover:text-(--grass-9)" href="#">
+            <a
+              className="inline-flex items-center gap-1.5 hover:text-(--grass-9)"
+              href="#"
+            >
               <ExternalLink size="1rem" />
               Docs
             </a>
@@ -66,12 +69,12 @@ function ImportUser() {
           {step === "create" ? (
             <ImportMethod onImport={handleOnImport} />
           ) : (
-            <DataPreview
-              {...{ users }}
-              onDeleteUsers={handleDeleteUsers}
-              onClose={() => setIsOpen(false)}
-              onBack={() => setStep("create")}
-            />
+          <DataPreview
+            {...{ users }}
+            onDeleteUsers={handleDeleteUsers}
+            onClose={() => setIsOpen(false)}
+            onBack={() => setStep("create")}
+          />
           )}
         </div>
       </DialogContent>
