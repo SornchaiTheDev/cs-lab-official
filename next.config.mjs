@@ -11,6 +11,9 @@ const nextConfig = {
       {
         hostname: "lh3.googleusercontent.com",
       },
+      {
+        hostname: "yt3.ggpht.com",
+      },
     ],
   },
   // Optionally, add any other Next.js config below
