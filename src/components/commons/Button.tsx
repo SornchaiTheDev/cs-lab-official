@@ -43,7 +43,7 @@ export const Button = ({
       type="button"
       {...{ onClick, ...props }}
       className={cn(
-        "px-3 py-1.5 border text-sm rounded-md flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-(--gray-7) focus:ring-offset-2 transition-colors",
+        "px-3 py-1.5 border text-xs rounded-md flex justify-center items-center gap-1.5 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-(--gray-7) focus:ring-offset-2 transition-colors",
         normalColor,
         isActive && activeColor,
         className,

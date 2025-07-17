@@ -23,7 +23,7 @@ function SearchInput({ value, onChange, className, placeholder }: Props) {
       <input
         {...{ placeholder, value }}
         onChange={(e) => onChange(e.target.value)}
-        className="block text-sm w-full h-fit outline-hidden bg-transparent"
+        className="block text-xs w-full h-fit outline-hidden bg-transparent"
       />
     </div>
   );
