@@ -29,7 +29,7 @@ function CMSCoursePage() {
     fetchNextPage,
     hasNextPage,
   } = useCoursePagination({
-    pageSize: 10,
+    pageSize: 12,
     search: debouncedSearch,
     sortBy: "id",
     sortOrder: "asc",
@@ -55,7 +55,7 @@ function CMSCoursePage() {
         });
       },
       {
-        threshold: 1,
+        threshold: 0.3,
       },
     );
 
