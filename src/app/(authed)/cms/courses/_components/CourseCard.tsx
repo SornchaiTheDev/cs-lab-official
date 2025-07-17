@@ -41,7 +41,7 @@ function CourseCard({ id, name, creators }: Course) {
       <div className="p-4 space-y-2 flex-1">
         <div>
           <h6 className="text-xs leading-tight">Name</h6>
-          <h3 className="text-xl font-medium line-clamp-2 mt-2">{name}</h3>
+          <h3 className="text-lg font-medium line-clamp-2 mt-2">{name}</h3>
         </div>
         <div>
           <h6 className="text-xs leading-tight">Creators</h6>
