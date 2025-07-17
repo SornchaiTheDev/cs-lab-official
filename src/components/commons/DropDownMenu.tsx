@@ -14,7 +14,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuCheckboxItem,
+  DropdownMenuCheckboxItem as ShadcnDropdownMenuCheckboxItem,
 } from "~/components/ui/dropdown-menu";
 import { cn } from "~/lib/utils";
 
@@ -25,7 +25,19 @@ function DropdownMenuContent({
   return (
     <ShadcnDropdownMenuContent
       {...props}
-      className={cn(className, "bg-(--gray-2) text-(--gray-11) ")}
+      className={cn(className, "bg-(--gray-2) text-(--gray-11)")}
+    />
+  );
+}
+
+function DropdownMenuCheckboxItem({
+  className,
+  ...props
+}: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>) {
+  return (
+    <ShadcnDropdownMenuCheckboxItem
+      {...props}
+      className={cn(className, "text-xs")}
     />
   );
 }
