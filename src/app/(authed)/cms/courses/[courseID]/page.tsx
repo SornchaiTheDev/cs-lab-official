@@ -3,7 +3,7 @@ import SectionCard from "~/components/commons/SectionCard";
 
 function CourseMainPage() {
   return (
-    <div>
+    <div className="@container">
       <h3 className="text-xl">Fundamental Computing</h3>
       <div className="mt-4">
         <div className="flex gap-4">
@@ -16,11 +16,12 @@ function CourseMainPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 items-center gap-4 mt-4">
-        <SectionCard className="col-span-3" />
-        <SectionCard className="col-span-3" />
-        <SectionCard className="col-span-3" />
-        <SectionCard className="col-span-3" />
+      <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4 @6xl:grid-cols-5 gap-4 auto-rows-max mt-4">
+        <SectionCard />
+        <SectionCard />
+        <SectionCard />
+        <SectionCard />
+        <SectionCard />
       </div>
     </div>
   );
