@@ -34,8 +34,8 @@ function CourseCard({ id, name, creators }: Course) {
 
   return (
     <Link
-      href={`/courses/${id}`}
-      className="block rounded-md overflow-hidden bg-white border"
+      href={`/cms/courses/${id}`}
+      className="block rounded-md overflow-hidden bg-white border border-(--gray-4)"
     >
       <div className="bg-linear-to-t from-sky-500 to-indigo-500 h-5"></div>
       <div className="p-4 space-y-2 flex-1">
