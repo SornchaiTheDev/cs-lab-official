@@ -43,6 +43,11 @@ class CMSCourseService {
 
     return res.data;
   }
+
+  async getCourseById(courseId: string): Promise<Course> {
+    const res = await api.get<Course>(`${this.#baseURL}/${courseId}`);
+    return res.data;
+  }
 }
 
 export const cmsCourseService = new CMSCourseService();
