@@ -9,7 +9,7 @@ interface Args {
 function useGetCourse({ courseID }: Args) {
   return useQuery({
     queryKey: courseKeys.getById(courseID),
-    queryFn: () => cmsCourseService.getCourseById(courseID),
+    queryFn: () => cmsCourseService.getById(courseID),
   });
 }
 
