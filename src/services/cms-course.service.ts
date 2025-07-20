@@ -1,53 +1,31 @@
 import { api } from "~/lib/api";
 import type { Course, CreateCourse } from "~/types/cms-course";
-import type {
-  PaginationRequestParams,
-  PaginationResponse,
-} from "~/types/pagination";
+import type { PaginationRequestParams } from "~/types/pagination";
 import type { VisibilityKey } from "~/types/visibilities";
+import { PaginationMixin } from "./pagination.mixin";
 
 export type GetCoursePaginationParams = Partial<
   PaginationRequestParams<Course>
 > & { show: VisibilityKey };
 
 class CMSCourseService {
-  #baseURL = "/admin/courses";
+  _baseURL = "/admin/courses";
 
-  async createCourse({ name, creators }: CreateCourse): Promise<void> {
+  async create({ name, creators }: CreateCourse): Promise<void> {
     const creatorIds = creators.map((creator) => creator.id);
-    return api.post(this.#baseURL, {
+    return api.post(this._baseURL, {
       name,
       creators: creatorIds,
     });
   }
 
-  async getCoursePagination({
-    page,
-    pageSize,
-    search,
-    sortBy,
-    sortOrder,
-    show,
-  }: GetCoursePaginationParams): Promise<PaginationResponse<Course>> {
-    const searchParams = new URLSearchParams();
-    searchParams.append("page", page?.toString() ?? "1");
-    searchParams.append("page_size", pageSize?.toString() ?? "10");
-    searchParams.append("search", search ?? "");
-    searchParams.append("sort_by", sortBy ?? "created_at");
-    searchParams.append("sort_order", sortOrder ?? "desc");
-    searchParams.append("show", show ?? "all");
-
-    const res = await api.get<PaginationResponse<Course>>(
-      this.#baseURL + "?" + searchParams.toString(),
-    );
-
-    return res.data;
-  }
-
-  async getCourseById(courseId: string): Promise<Course> {
-    const res = await api.get<Course>(`${this.#baseURL}/${courseId}`);
+  async getById(courseId: string): Promise<Course> {
+    const res = await api.get<Course>(`${this._baseURL}/${courseId}`);
     return res.data;
   }
 }
 
-export const cmsCourseService = new CMSCourseService();
+export const cmsCourseService = new (PaginationMixin<
+  Course,
+  typeof CMSCourseService
+>(CMSCourseService))();
