@@ -24,7 +24,7 @@ export const PaginationMixin = <Item extends unknown, T extends Constructor>(
       searchParams.append("show", show ?? "all");
 
       const res = await api.get<PaginationResponse<Item>>(
-        super._baseURL + "?" + searchParams.toString(),
+        this._baseURL + "?" + searchParams.toString(),
       );
 
       return res.data;
