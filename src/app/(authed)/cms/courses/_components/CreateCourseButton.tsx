@@ -40,7 +40,7 @@ function CreateCourseButton() {
 
   const mutation = useMutation({
     mutationFn: async (course: CreateCourse) =>
-      await cmsCourseService.createCourse(course),
+      await cmsCourseService.create(course),
     onSuccess: () => {
       toast.success("Course created successfully!");
       setIsOpen(false);
@@ -171,13 +171,13 @@ function CreateCourseButton() {
           </div>
           <DialogFooter>
             <DialogClose asChild>
-              <Button className="px-6 h-10" variant="primary">
+              <Button className="px-6" variant="primary">
                 Close
               </Button>
             </DialogClose>
             <Button
               isLoading={mutation.isPending}
-              className="px-6 h-10"
+              className="px-6"
               variant="action"
               type="submit"
             >
