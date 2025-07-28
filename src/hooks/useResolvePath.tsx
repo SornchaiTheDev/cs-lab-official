@@ -1,7 +1,6 @@
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
-function useNavigation() {
-  const router = useRouter();
+function useResolvePath() {
   const params = useParams();
 
   if (Object.values(params).some((param) => typeof param === "object")) {
@@ -20,10 +19,8 @@ function useNavigation() {
       const path = (params[key] ? params[key] : match) as string;
       return path;
     };
-    const formattedPath = path.replace(/:\w+/g, replacer);
-
-    return router.push(formattedPath);
+    return path.replace(/:\w+/g, replacer);
   };
 }
 
-export default useNavigation;
+export default useResolvePath;
