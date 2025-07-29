@@ -33,29 +33,32 @@ function AutoComplete<T extends { id: string | number }>({
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const memoizedQueryFn = useMemo(() => queryFn, [queryFn]);
-
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
-    if (debouncedInput.length > 0) {
+    setInputValue("");
+  }, [value.length]);
+
+  useEffect(() => {
+    if (isFirstRender) {
       setIsFirstRender(false);
     }
 
     if (isFirstRender) return;
+    if (debouncedInput.length === 0) return;
 
     const query = async () => {
       try {
         setIsLoading(true);
         setIsOpen(true);
-        const res = await memoizedQueryFn(debouncedInput);
+        const res = await queryFn(debouncedInput);
         setOptions(res);
       } finally {
         setIsLoading(false);
       }
     };
     query();
-  }, [memoizedQueryFn, debouncedInput, isFirstRender]);
+  }, [queryFn, debouncedInput, isOpen, isFirstRender]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -92,7 +95,7 @@ function AutoComplete<T extends { id: string | number }>({
       <PopoverAnchor className="w-full">
         <div
           onClick={handleDivClick}
-          className="flex flex-wrap items-center border rounded-md p-2 min-h-10 gap-2"
+          className="flex flex-wrap items-center border rounded-md p-2 min-h-10 gap-2 bg-white"
         >
           {value.map((option) => renderSelected(option))}
           <Input
