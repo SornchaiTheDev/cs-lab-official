@@ -67,7 +67,7 @@ function SidebarMenus() {
               className={cn("flex items-center gap-1.5 text-(--gray-10) p-2 hover:bg-(--gray-4) rounded-lg hover:text-(--gray-11) w-full" , isActive && "bg-(--gray-4) text-(--gray-11)")}
             >
               <Icon key={`${label}-icon`} />
-              <p key={`${label}-label`} className="text-sm">
+              <p key={`${label}-label`} className="text-xs">
                 {label}
               </p>
             </Link>,
