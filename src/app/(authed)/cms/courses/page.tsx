@@ -70,7 +70,7 @@ function CMSCoursePage() {
   }, [isFetching, fetchNextPage, hasNextPage]);
 
   return (
-    <div className="@container w-full max-w-[1920px] mx-auto flex flex-col">
+    <div className="@container flex flex-col">
       <h3 className="text-3xl font-medium">Courses</h3>
       <div className="flex justify-end items-center gap-2">
         <SearchInput
