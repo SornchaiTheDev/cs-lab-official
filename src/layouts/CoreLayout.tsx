@@ -18,7 +18,7 @@ interface Props {
 
 function CoreLayout({ children, homePath = "/" }: Props) {
   return (
-    <div className="h-screen flex flex-col bg-(--gray-1)">
+    <div className="h-screen flex flex-col bg-white">
       <Navigation {...{ homePath }} />
       <div className="flex min-h-0 h-full">{children}</div>
     </div>
