@@ -23,6 +23,17 @@ class CMSCourseService {
     const res = await api.get<Course>(`${this._baseURL}/${courseId}`);
     return res.data;
   }
+
+  async updateByID(
+    courseId: string,
+    { name, creators }: CreateCourse,
+  ): Promise<void> {
+    const creatorIds = creators.map((creator) => creator.id);
+    return api.patch(`${this._baseURL}/${courseId}`, {
+      name,
+      creators: creatorIds,
+    });
+  }
 }
 
 export const cmsCourseService = new (PaginationMixin<

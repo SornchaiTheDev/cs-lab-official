@@ -12,5 +12,6 @@ export interface Course {
 interface Creator {
   id: string;
   display_name: string;
+  username: string;
   profile_image: string | null;
 }
