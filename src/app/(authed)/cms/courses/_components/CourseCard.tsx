@@ -1,32 +1,30 @@
 import Link from "next/link";
 import UserProfileImage from "~/components/Menus/UserProfileImage";
+import { Badge } from "~/components/ui/badge";
 import type { Course } from "~/types/cms-course";
 
 function CourseCard({ id, name, creators }: Course) {
   const renderCreators = () => {
-    const MAX_SHOW_CREATORS = 4;
+    const MAX_SHOW_CREATORS = 3;
 
     return (
-      <div className="flex items-center mt-2">
+      <div className="flex items-center gap-1 mt-4">
         {creators
           .slice(0, MAX_SHOW_CREATORS)
           .map(({ id, display_name, profile_image }) => (
             <UserProfileImage
-              className="-ml-1.5 first:ml-0"
+              className="ring-2 ring-white rounded"
               key={id}
               username={display_name}
               src={profile_image}
-              textSize="12px"
+              textSize="10px"
               size="1.75rem"
             />
           ))}
         {creators.length > MAX_SHOW_CREATORS && (
-          <UserProfileImage
-            className="-ml-1.5"
-            username={`+${creators.length - MAX_SHOW_CREATORS}`}
-            textSize="12px"
-            size="1.75rem"
-          />
+          <Badge variant="secondary" className="ml-1 text-xs">
+            +{creators.length - MAX_SHOW_CREATORS} more
+          </Badge>
         )}
       </div>
     );
