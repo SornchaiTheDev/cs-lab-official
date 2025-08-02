@@ -18,7 +18,7 @@ function CourseLayout({ children }: ChildrenProps) {
         <h3 className="text-xl font-medium">{course?.name}</h3>
       </Loading>
       <NavigationMenus
-        className="mt-4"
+        className="mt-4 mb-8"
         menus={[
           {
             name: "Sections",
