@@ -33,7 +33,7 @@ function BreadcrumbClient({ className }: ClassNameProps) {
         "/": "CMS",
         "/courses": {
           "/": "Courses",
-          "/create": "New Course",
+          "/new": "New Course",
           "/[courseId]": {
             "/": "Details",
             "/settings": "Settings",
