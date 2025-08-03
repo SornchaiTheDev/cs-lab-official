@@ -5,6 +5,7 @@ import Input from "./Input";
 import useInputDebounce from "~/hooks/useInputDebounce";
 import Loading from "./Loading";
 import { SearchX } from "lucide-react";
+import { cn } from "~/lib/utils";
 
 interface Props<T extends { id: string | number }> {
   isError?: boolean;
@@ -14,6 +15,8 @@ interface Props<T extends { id: string | number }> {
   renderSelected: (option: T) => React.ReactNode;
   children?: (options: T[]) => React.ReactNode;
   loadingFallback?: React.ReactNode;
+  className?: string;
+  queryOnRender?: boolean;
 }
 
 function AutoComplete<T extends { id: string | number }>({
@@ -24,6 +27,8 @@ function AutoComplete<T extends { id: string | number }>({
   children,
   renderSelected,
   loadingFallback,
+  className,
+  queryOnRender = false,
 }: Props<T>) {
   const [inputValue, setInputValue] = useState("");
 
@@ -40,12 +45,18 @@ function AutoComplete<T extends { id: string | number }>({
   }, [value.length]);
 
   useEffect(() => {
+    if (!isOpen && options.length > 0 && inputValue.length === 0) {
+      setOptions([]);
+    }
+  }, [isOpen, options.length, inputValue.length]);
+
+  useEffect(() => {
     if (isFirstRender) {
       setIsFirstRender(false);
     }
 
-    if (isFirstRender) return;
-    if (debouncedInput.length === 0) return;
+    if (isFirstRender && !queryOnRender) return;
+    if (debouncedInput.length === 0 && !queryOnRender) return;
 
     const query = async () => {
       try {
@@ -58,11 +69,12 @@ function AutoComplete<T extends { id: string | number }>({
       }
     };
     query();
-  }, [queryFn, debouncedInput, isOpen, isFirstRender]);
+  }, [queryFn, debouncedInput, isFirstRender, queryOnRender]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDivClick = () => {
+    setIsOpen(true);
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -95,7 +107,10 @@ function AutoComplete<T extends { id: string | number }>({
       <PopoverAnchor className="w-full">
         <div
           onClick={handleDivClick}
-          className="flex flex-wrap items-center border rounded-md p-2 min-h-10 gap-2 bg-white"
+          className={cn(
+            "flex flex-wrap items-center border rounded-md p-2 min-h-10 gap-2 bg-white",
+            className,
+          )}
         >
           {value.map((option) => renderSelected(option))}
           <Input
