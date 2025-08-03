@@ -21,7 +21,6 @@ function NewCoursePage() {
       name: "",
       creators: [],
       type: "public",
-      user_groups: [],
     },
   });
 
@@ -33,10 +32,6 @@ function NewCoursePage() {
       form.reset();
     },
   });
-
-  const isInternal = form.watch("type") === "internal";
-
-  console.log(form.getValues());
 
   return (
     <div>
@@ -112,33 +107,6 @@ function NewCoursePage() {
                       Everyone can see this course
                     </p>
                   </div>
-                </div>
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="internal" id="internal" />
-                    <div className="flex flex-col">
-                      <Label htmlFor="internal" className="font-medium">
-                        Internal
-                      </Label>
-                      <p className="text-xs text-(--gray-11)">
-                        Only selected groups would see this course
-                      </p>
-                    </div>
-                  </div>
-                  {isInternal && (
-                    <div className="ml-6 mt-2 space-y-2">
-                      <Controller
-                        control={form.control}
-                        name="user_groups"
-                        render={({ field }) => <UserGroups {...field} />}
-                      />
-                      <InlineError
-                        isError={!!form.formState.errors.user_groups}
-                      >
-                        user groups is required for internal course
-                      </InlineError>
-                    </div>
-                  )}
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem
