@@ -13,9 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
+import { queryKeys } from "~/queryKeys";
 import { userService } from "~/services/user.service";
 import type { User } from "~/types/user";
-import { userKeys } from "../_queries/key";
 
 interface Props {
   user: User;
@@ -31,7 +31,7 @@ function DeleteUserDialog({ user, onClose }: Props) {
     try {
       setIsLoading(true);
       userService.deleteUser(user.id);
-      await queryClient.refetchQueries({ queryKey: userKeys.all });
+      await queryClient.refetchQueries({ queryKey: queryKeys.user.all });
       toast.success("User deleted successfully");
       onClose();
     } catch (err) {

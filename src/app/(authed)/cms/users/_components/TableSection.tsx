@@ -21,11 +21,11 @@ import DeleteUserDialog from "./DeleteUserDialog";
 import ImportUser from "./import-users";
 import DataTable from "~/components/commons/DataTable";
 import { useQueryClient } from "@tanstack/react-query";
-import { userKeys } from "../_queries/key";
 import { userService } from "~/services/user.service";
 import SearchInput from "~/components/commons/SearchInput";
 import { useSession } from "~/providers/SessionProvider";
 import { toast } from "sonner";
+import { queryKeys } from "~/queryKeys";
 
 function TableSection() {
   const [rowSelection, setRowSelection] = useState({});
@@ -73,7 +73,7 @@ function TableSection() {
     sortOrder: sorting[0]?.desc ? "desc" : "asc",
   });
 
-  const userAmount = userPagination?.data.length ?? 0;
+  const userAmount = userPagination?.pagination.total_rows ?? 0;
 
   const memoizedColumns = useMemo(() => columns, []);
 
@@ -86,6 +86,7 @@ function TableSection() {
     getSortedRowModel: getSortedRowModel(),
     enableMultiSort: false,
     manualFiltering: true,
+    manualPagination: true,
     state: {
       columnVisibility,
       pagination,
@@ -138,7 +139,7 @@ function TableSection() {
 
     await userService.deleteManyUsers(userIds);
     setRowSelection({});
-    queryClient.refetchQueries({ queryKey: userKeys.all });
+    queryClient.refetchQueries({ queryKey: queryKeys.user.all });
   };
 
   return (

@@ -1,4 +1,11 @@
 export const queryKeys = {
+  user: {
+    all: ["users"],
+    allWithParams: (params: Record<string, any>) => [
+      ...queryKeys.user.all,
+      params,
+    ],
+  },
   course: {
     all: ["courses"],
     allWithParams: (params: Record<string, any>) => [

@@ -1,21 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { userService,
+import {
+  userService,
   type GetUserPaginationParams,
 } from "~/services/user.service";
-import { userKeys } from "../_queries/key";
+import usePagination from "~/hooks/usePagination";
+import { queryKeys } from "~/queryKeys";
 
 const useUserPagination = (args: GetUserPaginationParams) => {
-  return useQuery({
-    queryKey: userKeys.all.concat(args),
+  return usePagination({
+    queryKey: queryKeys.user.allWithParams(args),
     queryFn: () => userService.getUserPagination(args),
-    initialData: {
-      data: [],
-      pagination: {
-        page: args.page,
-        total_page: 0,
-        total_rows: 0,
-      },
-    },
   });
 };
 

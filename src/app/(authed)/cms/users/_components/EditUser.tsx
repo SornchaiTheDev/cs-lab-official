@@ -18,11 +18,11 @@ import { cn } from "~/lib/utils";
 import { userService } from "~/services/user.service";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { userKeys } from "../_queries/key";
 import { toast } from "sonner";
 import UserRole from "./UserRole";
 import UserType from "./UserType";
 import type { User } from "~/types/user";
+import { queryKeys } from "~/queryKeys";
 
 type EditUser = Pick<
   User,
@@ -89,7 +89,7 @@ const EditUser = ({ user, onClose }: Props) => {
           roles,
         );
       }
-      await queryClient.invalidateQueries({ queryKey: userKeys.all });
+      await queryClient.invalidateQueries({ queryKey: queryKeys.user.all });
       reset();
       setIsOpen(false);
       if (!!onClose) onClose();

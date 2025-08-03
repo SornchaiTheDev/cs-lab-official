@@ -12,10 +12,10 @@ import DeleteManyUserButton from "../DeleteManyUsersButton";
 import { Button } from "~/components/commons/Button";
 import { ArrowLeft, Import } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { userKeys } from "../../_queries/key";
 import { toast } from "sonner";
 import { userService } from "~/services/user.service";
 import SearchInput from "~/components/commons/SearchInput";
+import { queryKeys } from "~/queryKeys";
 
 interface Props {
   users: CreateUser[];
@@ -66,7 +66,7 @@ const DataPreview = ({ users, onDeleteUsers, onBack, onClose }: Props) => {
     try {
       setIsLoading(true);
       await userService.importUsers(users);
-      await queryClient.invalidateQueries({ queryKey: userKeys.all });
+      await queryClient.invalidateQueries({ queryKey: queryKeys.user.all });
       toast.success("Users imported successfully!");
       if (onClose) onClose();
     } catch (err) {

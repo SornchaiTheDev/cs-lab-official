@@ -1,7 +1,7 @@
 import {
   type QueryFunction,
   type QueryKey,
-  useInfiniteQuery,
+  useQuery,
 } from "@tanstack/react-query";
 import type { PaginationResponse } from "~/types/pagination";
 
@@ -11,20 +11,16 @@ interface Args<T> {
 }
 
 function usePagination<T>({ queryKey, queryFn }: Args<T>) {
-  return useInfiniteQuery({
+  return useQuery({
     queryKey,
     queryFn,
-    initialPageParam: 1,
-    getPreviousPageParam: (lastPage) => lastPage.pagination.page - 1,
-    getNextPageParam: (lastPage) => {
-      if (lastPage.pagination.page < lastPage.pagination.total_page) {
-        return lastPage.pagination.page + 1;
-      }
-      return null;
-    },
     initialData: {
-      pages: [],
-      pageParams: [],
+      data: [],
+      pagination: {
+        page: 1,
+        total_page: 0,
+        total_rows: 0,
+      },
     },
   });
 }

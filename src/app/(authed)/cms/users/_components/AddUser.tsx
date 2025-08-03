@@ -20,10 +20,10 @@ import { cn } from "~/lib/utils";
 import { userService } from "~/services/user.service";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { userKeys } from "../_queries/key";
 import { toast } from "sonner";
 import UserRole from "./UserRole";
 import UserType from "./UserType";
+import { queryKeys } from "~/queryKeys";
 
 const AddUser = () => {
   const {
@@ -79,7 +79,7 @@ const AddUser = () => {
           roles,
         );
       }
-      await queryClient.invalidateQueries({ queryKey: userKeys.all });
+      await queryClient.invalidateQueries({ queryKey: queryKeys.user.all });
       reset();
       setIsOpen(false);
       toast.success("User created successfully");
