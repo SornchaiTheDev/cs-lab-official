@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { courseKeys } from "~/queryKeys/course";
+import { queryKeys } from "~/queryKeys";
 import { cmsCourseService } from "~/services/cms-course.service";
 
 interface Args {
@@ -8,7 +8,7 @@ interface Args {
 
 function useGetCourse({ courseID }: Args) {
   return useQuery({
-    queryKey: courseKeys.getById(courseID),
+    queryKey: queryKeys.course.getById(courseID),
     queryFn: () => cmsCourseService.getById(courseID),
   });
 }

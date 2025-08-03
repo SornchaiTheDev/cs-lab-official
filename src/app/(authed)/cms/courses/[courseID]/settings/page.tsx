@@ -18,7 +18,7 @@ import UserProfileImage from "~/components/Menus/UserProfileImage";
 import { Skeleton } from "~/components/ui/skeleton";
 import useGetCourse from "../_hooks/useGetCourse";
 import { useParams } from "next/navigation";
-import { courseKeys } from "~/queryKeys/course";
+import { queryKeys } from "~/queryKeys";
 
 function SettingPage() {
   const { courseID } = useParams<{ courseID: string }>();
@@ -58,7 +58,7 @@ function SettingPage() {
     onSuccess: async () => {
       toast.success("Course updated successfully!");
       await ctx.invalidateQueries({
-        queryKey: courseKeys.getById(courseID),
+        queryKey: queryKeys.course.getById(courseID),
       });
     },
   });

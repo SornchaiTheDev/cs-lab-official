@@ -1,5 +1,5 @@
 import usePagination from "~/hooks/usePagination";
-import { courseKeys } from "~/queryKeys/course";
+import { queryKeys } from "~/queryKeys";
 import {
   cmsCourseService,
   type GetCoursePaginationParams,
@@ -8,7 +8,7 @@ import type { Course } from "~/types/cms-course";
 
 export default function useCoursePagination(args: GetCoursePaginationParams) {
   return usePagination<Course>({
-    queryKey: courseKeys.all.concat(args),
+    queryKey: queryKeys.course.allWithParams(args),
     queryFn: ({ pageParam }) =>
       cmsCourseService.getPagination({
         ...args,
