@@ -39,4 +39,4 @@ class CMSCourseService {
 export const cmsCourseService = new (PaginationMixin<
   Course,
   typeof CMSCourseService
->(CMSCourseService))();
+>(CMSCourseService, { show: "all" }))();

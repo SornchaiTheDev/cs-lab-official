@@ -7,7 +7,7 @@ export interface PaginationResponse<T> {
   data: T[];
 }
 
-export interface PaginationRequestParams<T> {
+export interface PaginationRequestParams<T extends Record<string, any>> {
   page: number;
   pageSize: number;
   search: string;
