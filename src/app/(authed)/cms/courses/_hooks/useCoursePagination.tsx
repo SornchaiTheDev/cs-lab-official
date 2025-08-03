@@ -12,7 +12,7 @@ export default function useCoursePagination(args: GetCoursePaginationParams) {
     queryFn: ({ pageParam }) =>
       cmsCourseService.getPagination({
         ...args,
-        page: pageParam as number,
+        page: pageParam,
       }),
   });
 }
