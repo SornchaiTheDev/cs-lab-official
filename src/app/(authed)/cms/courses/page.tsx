@@ -1,19 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import CreateCourseButton from "./_components/CreateCourseButton";
 import CourseCard from "~/app/(authed)/cms/courses/_components/CourseCard";
 import Loading from "~/components/commons/Loading";
 import { Skeleton } from "~/components/ui/skeleton";
 import Error from "~/components/commons/Error";
 import ErrorFallback from "~/components/commons/Error/ErrorFallback";
-import { ServerCrash } from "lucide-react";
+import { Plus, ServerCrash } from "lucide-react";
 import useCoursePagination from "./_hooks/useCoursePagination";
 import SearchInput from "~/components/commons/SearchInput";
 import useInputDebounce from "~/hooks/useInputDebounce";
 import NoDataAvailable from "~/components/commons/NoDataAvailable";
 import CourseVisibility from "./_components/CourseVisibility";
 import type { VisibilityKey } from "~/types/visibilities";
+import { Button } from "~/components/commons/Button";
+import { useRouter } from "next/navigation";
 
 function CMSCoursePage() {
   const [search, setSearch] = useState("");
@@ -69,6 +70,8 @@ function CMSCoursePage() {
     return () => observer.disconnect();
   }, [isFetching, fetchNextPage, hasNextPage]);
 
+  const router = useRouter();
+
   return (
     <div className="@container flex flex-col">
       <h3 className="text-3xl font-medium">Courses</h3>
@@ -80,7 +83,13 @@ function CMSCoursePage() {
           className=""
         />
         <CourseVisibility selected={visibility} onChange={setVisibility} />
-        <CreateCourseButton />
+        <Button
+          onClick={() => router.push("/cms/courses/new")}
+          className="my-4 shrink-0 px-3 py-1.5"
+        >
+          <Plus size="1rem" />
+          New course
+        </Button>
       </div>
       <Error
         isError={isError}
@@ -106,10 +115,7 @@ function CMSCoursePage() {
               <Loading
                 isLoading={isFetching}
                 fallback={Array.from({ length: 12 }).map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    className="h-40"
-                  />
+                  <Skeleton key={index} className="h-40" />
                 ))}
               />
             </div>
