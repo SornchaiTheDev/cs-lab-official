@@ -1,18 +1,17 @@
 import type { AxiosHeaderValue } from "axios";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import type { NextRequest } from "next/server";
 import { api } from "~/lib/api";
 import { verifyJWT } from "~/lib/verify-jwt";
 
 export const dynamic = "force-dynamic";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   const cookieJar = await cookies();
-  const headerList = await headers();
 
-  const redirectTo = headerList.get("referer") || "/";
+  const searchParams = req.nextUrl.searchParams;
 
-  const accessToken = cookieJar.get("access_token")?.value ?? "";
   const refreshToken = cookieJar.get("refresh_token")?.value;
 
   try {
@@ -27,7 +26,7 @@ export const GET = async () => {
   try {
     const res = await api.post("/auth/refresh-token", null, {
       headers: {
-        Cookie: `access_token=${accessToken}; refresh_token=${refreshToken}`,
+        Cookie: `refresh_token=${refreshToken}`,
       },
     });
 
@@ -61,5 +60,9 @@ export const GET = async () => {
     cookieJar.set(name, value, props);
   });
 
-  return redirect(redirectTo);
+  const redirectTo = searchParams.get("redirect_to") || "/";
+  if (redirectTo.startsWith("/")) {
+    return redirect(redirectTo);
+  }
+  return redirect("/");
 };

@@ -17,7 +17,10 @@ export async function middleware(req: NextRequest) {
         }
 
         if (err.message === "NO_TOKEN" || err.message === "TOKEN_EXPIRED") {
-          return NextResponse.redirect(new URL("/auth/refresh-token", req.url));
+          const redirectTo = req.nextUrl.pathname;
+          return NextResponse.redirect(
+            new URL("/auth/refresh-token?redirect_to=" + redirectTo, req.url),
+          );
         }
       }
       return NextResponse.redirect(new URL("/auth/sign-out", req.url));
