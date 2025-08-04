@@ -67,10 +67,10 @@ function TableSection() {
 
   const { data: userPagination, isFetching } = useUserPagination({
     page: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
+    page_size: pagination.pageSize,
     search,
-    sortBy: (sorting[0]?.id as keyof User) ?? "created_at",
-    sortOrder: sorting[0]?.desc ? "desc" : "asc",
+    sort_by: (sorting[0]?.id as keyof User) ?? "created_at",
+    sort_order: sorting[0]?.desc ? "desc" : "asc",
   });
 
   const userAmount = userPagination?.pagination.total_rows ?? 0;
