@@ -19,7 +19,7 @@ export const PaginationMixin = <
 ) => {
   let params = {
     page: 1,
-    pageSize: 10,
+    page_size: 10,
     search: "",
     ...extraParams,
   };

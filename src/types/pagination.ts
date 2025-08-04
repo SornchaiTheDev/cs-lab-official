@@ -9,8 +9,8 @@ export interface PaginationResponse<T> {
 
 export interface PaginationRequestParams<T extends Record<string, any>> {
   page: number;
-  pageSize: number;
+  page_size: number;
   search: string;
-  sortBy: keyof T | "";
-  sortOrder: string;
+  sort_by: keyof T | "";
+  sort_order: string;
 }
