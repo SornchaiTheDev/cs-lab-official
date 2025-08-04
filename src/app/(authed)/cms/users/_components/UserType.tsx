@@ -17,7 +17,7 @@ const UserType = ({ value, onSelect, disabled }: UserTypeProps) => {
         isActive={value === "credential"}
       >
         <Lock size="1rem" />
-        Credential
+        Credential (Non-KU Student)
       </Button>
       <Button
         disabled={disabled}
@@ -25,7 +25,7 @@ const UserType = ({ value, onSelect, disabled }: UserTypeProps) => {
         isActive={value === "oauth"}
       >
         <GoogleIcon className="w-4 h-4 mx-auto" />
-        OAuth
+        OAuth (KU Student)
       </Button>
     </div>
   );

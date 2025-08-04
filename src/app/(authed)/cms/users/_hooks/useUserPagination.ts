@@ -8,7 +8,7 @@ import { queryKeys } from "~/queryKeys";
 const useUserPagination = (args: GetUserPaginationParams) => {
   return usePagination({
     queryKey: queryKeys.user.allWithParams(args),
-    queryFn: () => userService.getUserPagination(args),
+    queryFn: () => userService.getPagination(args),
   });
 };
 

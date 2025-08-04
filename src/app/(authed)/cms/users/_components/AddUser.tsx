@@ -24,6 +24,8 @@ import { toast } from "sonner";
 import UserRole from "./UserRole";
 import UserType from "./UserType";
 import { queryKeys } from "~/queryKeys";
+import UserGroup from "./UserGroup";
+import { AxiosError } from "axios";
 
 const AddUser = () => {
   const {
@@ -39,6 +41,7 @@ const AddUser = () => {
       username: "",
       display_name: "",
       type: "credential",
+      group: { id: "", name: "" },
       roles: [],
     },
   });
@@ -59,6 +62,7 @@ const AddUser = () => {
     display_name,
     email,
     roles,
+    group,
   }) => {
     try {
       setIsPending(true);
@@ -68,6 +72,7 @@ const AddUser = () => {
           password,
           display_name,
           roles,
+          group.id,
         );
       }
 
@@ -84,7 +89,13 @@ const AddUser = () => {
       setIsOpen(false);
       toast.success("User created successfully");
     } catch (err) {
-      toast.error("Failed to create user");
+      if (err instanceof AxiosError) {
+        toast.error("Error", { description: err.response?.data?.error });
+        return;
+      }
+      toast.error("Error", {
+        description: "Something went wrong when trying to create user",
+      });
     } finally {
       setIsPending(false);
     }
@@ -119,6 +130,23 @@ const AddUser = () => {
                 </p>
               )}
             </div>
+            {isCredential && (
+              <div className="space-y-3">
+                <Label isError={isError("roles")}>Group</Label>
+                <Controller
+                  name="group"
+                  {...{ control }}
+                  render={({ field: { onChange, value } }) => (
+                    <UserGroup value={value} onChange={onChange} />
+                  )}
+                />
+                {isError("group") && (
+                  <p className="text-(--red-9) text-sm font-light">
+                    {errors.group?.message}
+                  </p>
+                )}
+              </div>
+            )}
             <div className="space-y-3">
               <Label isError={isError("username")}>Username</Label>
               <Input {...register("username")} />

@@ -1,44 +1,19 @@
 import { api } from "~/lib/api";
-import type {
-  PaginationRequestParams,
-  PaginationResponse,
-} from "~/types/pagination";
+import type { PaginationRequestParams } from "~/types/pagination";
 import type { CreateUser, User, UserRole } from "~/types/user";
+import { PaginationMixin } from "./pagination.mixin";
 
 export type GetUserPaginationParams = PaginationRequestParams<User>;
 
 class UserService {
-  #baseURL = "/admin/users";
-
-  async getUserPagination({
-    page,
-    pageSize,
-    search,
-    sortBy,
-    sortOrder,
-  }: Partial<PaginationRequestParams<User>>): Promise<
-    PaginationResponse<User>
-  > {
-    const searchParams = new URLSearchParams();
-    searchParams.append("page", page?.toString() ?? "1");
-    searchParams.append("page_size", pageSize?.toString() ?? "10");
-    searchParams.append("search", search ?? "");
-    searchParams.append("sort_by", sortBy ?? "created_at");
-    searchParams.append("sort_order", sortOrder ?? "desc");
-
-    const res = await api.get<PaginationResponse<User>>(
-      this.#baseURL + "?" + searchParams.toString(),
-    );
-
-    return res.data;
-  }
+  _baseURL = "/admin/users";
 
   async deleteUser(id: string) {
-    await api.delete(this.#baseURL + `/${id}`);
+    await api.delete(this._baseURL + `/${id}`);
   }
 
   async deleteManyUsers(IDs: string[]) {
-    await api.post(this.#baseURL + "/deleteMany", {
+    await api.post(this._baseURL + "/deleteMany", {
       ids: IDs,
     });
   }
@@ -48,15 +23,15 @@ class UserService {
     password: string,
     display_name: string,
     roles: UserRole[],
+    group_id: string,
   ) {
-    const res = await api.post(this.#baseURL + "/credential", {
+    return api.post(this._baseURL + "/credential", {
       username,
       display_name,
       password,
       roles,
+      group_id,
     });
-
-    return res.data;
   }
 
   async createOauthUser(
@@ -65,14 +40,12 @@ class UserService {
     email: string,
     roles: UserRole[],
   ) {
-    const res = await api.post(this.#baseURL + "/oauth", {
+    return api.post(this._baseURL + "/oauth", {
       username,
       display_name,
       email,
       roles,
     });
-
-    return res.data;
   }
 
   async editCredentialUser(
@@ -82,7 +55,7 @@ class UserService {
     display_name: string,
     roles: UserRole[],
   ) {
-    const res = await api.patch(this.#baseURL + `/${id}`, {
+    const res = await api.patch(this._baseURL + `/${id}`, {
       username,
       password,
       display_name,
@@ -99,7 +72,7 @@ class UserService {
     display_name: string,
     roles: UserRole[],
   ) {
-    const res = await api.patch(this.#baseURL + `/${id}`, {
+    const res = await api.patch(this._baseURL + `/${id}`, {
       username,
       email,
       display_name,
@@ -110,7 +83,7 @@ class UserService {
   }
 
   async importUsers(users: CreateUser[]) {
-    const res = await api.post(this.#baseURL + "/import", {
+    const res = await api.post(this._baseURL + "/import", {
       users,
     });
 
@@ -118,4 +91,6 @@ class UserService {
   }
 }
 
-export const userService = new UserService();
+export const userService = new (PaginationMixin<User, typeof UserService>(
+  UserService,
+))();

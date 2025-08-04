@@ -11,6 +11,7 @@ export const addUserSchema = z
     type: z.enum(["credential", "oauth"], {
       message: "user must has a type",
     }),
+    group: z.object({ id: z.string(), name: z.string() }),
     roles: z
       .array(z.enum(["admin", "instructor", "student"]))
       .min(1, { message: "user must has at least one role" }),
@@ -33,6 +34,18 @@ export const addUserSchema = z
     {
       path: ["password"],
       message: "password must has at least 8 characters",
+    },
+  )
+  .refine(
+    (data) => {
+      if (data.type === "credential" && data.group.id.length === 0) {
+        return false;
+      }
+      return true;
+    },
+    {
+      path: ["group"],
+      message: "group cannot be empty",
     },
   );
 
