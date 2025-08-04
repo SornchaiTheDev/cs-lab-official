@@ -50,7 +50,7 @@ export default function RootLayout({
       <body className={`${onest.className} ${anuphan.variable}`}>
         <Suspense>
           <AppLoading />
-          <Toaster />
+          <Toaster richColors />
         </Suspense>
         {children}
       </body>
