@@ -4,13 +4,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/commons/Popover";
-import Input from "./Input";
 import type { ClassNameProps } from "~/types/classname-props";
 import { cn } from "~/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader, Search } from "lucide-react";
 import Loading from "./Loading";
 import useInputDebounce from "~/hooks/useInputDebounce";
-import { Skeleton } from "../ui/skeleton";
 
 interface Props<T> extends ClassNameProps {
   value: T;
@@ -115,23 +113,26 @@ function SearchSelect<T extends { id: string; name: string }>({
           e.stopPropagation();
         }}
       >
-        <Input
-          value={search}
-          id="search-select-input"
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-(--gray-2) text-sm border-0 rounded-none focus-visible:border-0 px-2 py-1.5"
-          {...{ placeholder }}
-        />
+        <div className="relative bg-(--gray-2) px-2 py-1.5">
+          <Search
+            size="0.9rem"
+            className="absolute left-1.5 top-1/2 -translate-y-1/2"
+          />
+          <input
+            value={search}
+            id="search-select-input"
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-5 text-sm outline-none w-full"
+            {...{ placeholder }}
+          />
+        </div>
         {!isEmpty && (
           <div className="p-1 border-t border-(--gray-6) flex-1 overflow-y-auto">
             <Loading
               {...{ isLoading }}
               fallback={
-                <div className="space-y-2 mt-2">
-                  <Skeleton className="w-full h-4 bg-(--gray-5)" />
-                  <Skeleton className="w-full h-4 bg-(--gray-5)" />
-                  <Skeleton className="w-full h-4 bg-(--gray-5)" />
-                  <Skeleton className="w-full h-4 bg-(--gray-5)" />
+                <div className="space-y-2 mt-2 h-30 flex items-center justify-center">
+                  <Loader size="1rem" className="animate-spin" />
                 </div>
               }
             >
