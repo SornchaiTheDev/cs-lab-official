@@ -30,7 +30,7 @@ function DeleteUserDialog({ user, onClose }: Props) {
   const handleOnDelete = async () => {
     try {
       setIsLoading(true);
-      userService.deleteUser(user.id);
+      await userService.deleteUser(user.id);
       await queryClient.refetchQueries({ queryKey: queryKeys.user.all });
       toast.success("User deleted successfully");
       onClose();
