@@ -106,13 +106,21 @@ export const columns = [
       </>
     ),
   }),
-
   columnHelper.accessor("display_name", {
     id: "display_name",
     enableSorting: true,
     header: () => (
       <>
         <UserPen size="1rem" /> Display Name
+      </>
+    ),
+  }),
+  columnHelper.accessor("group", {
+    id: "group",
+    enableSorting: true,
+    header: () => (
+      <>
+        <UserPen size="1rem" /> Group 
       </>
     ),
   }),

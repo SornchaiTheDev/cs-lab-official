@@ -25,12 +25,13 @@ class UserService {
     roles: UserRole[],
     group_id: string,
   ) {
-    return api.post(this._baseURL + "/credential", {
+    return api.post(this._baseURL, {
       username,
       display_name,
       password,
       roles,
       group_id,
+      type: "credential",
     });
   }
 
@@ -45,6 +46,7 @@ class UserService {
       display_name,
       email,
       roles,
+      type: "oauth",
     });
   }
 

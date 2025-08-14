@@ -6,6 +6,7 @@ export interface User {
   profile_image: string | null;
   roles: UserRole[];
   type: UserType;
+  group: string;
   created_at?: Date;
   updated_at?: Date;
 }
